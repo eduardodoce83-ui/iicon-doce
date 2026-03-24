@@ -16,7 +16,6 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// PRECIO REAL ORO
 app.get('/price', async (req, res) => {
   try {
     const r = await fetch('https://api.twelvedata.com/price?symbol=XAU/USD&apikey=38f4424f90b04cf4a38c57a7c12fd03e
@@ -31,4 +30,6 @@ app.get('/price', async (req, res) => {
   }
 });
 
-app.listen(process.env.PORT || 3000);
+app.listen(process.env.PORT || 3000, () => {
+  console.log('Servidor OK');
+});
