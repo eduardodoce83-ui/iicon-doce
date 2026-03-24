@@ -12,12 +12,12 @@ app.use((req, res, next) => {
   next();
 });
 
-// 🔥 RUTA PARA EL HTML
+// 👉 CARGA TU HTML
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// 🔥 PRECIO REAL DEL ORO
+// 👉 PRECIO REAL DEL ORO (XAUUSD)
 app.get('/price', async (req, res) => {
   try {
     const r = await fetch('https://api.twelvedata.com/price?symbol=XAU/USD&apikey=TU_API_KEY');
@@ -32,7 +32,7 @@ app.get('/price', async (req, res) => {
   }
 });
 
-// 🔥 IA SIGNAL (LO QUE YA TENÍAS)
+// 👉 IA SIGNAL (OPCIONAL)
 app.post('/signal', async (req, res) => {
   try {
     const r = await fetch('https://api.anthropic.com/v1/messages', {
