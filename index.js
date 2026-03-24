@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
 // PRECIO REAL ORO
 app.get('/price', async (req, res) => {
   try {
-    const r = await fetch('https://api.twelvedata.com/price?symbol=XAU/USD&apikey=TU_API_KEY_AQUI');
+    const r = await fetch('https://api.twelvedata.com/price?symbol=XAU/USD&apikey=38f4424f90b04cf4a38c57a7c12fd03e
     const data = await r.json();
 
     res.json({
