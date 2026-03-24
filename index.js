@@ -12,50 +12,19 @@ app.use((req, res, next) => {
   next();
 });
 
-// 👉 CARGA TU HTML
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// 👉 PRECIO REAL DEL ORO (XAUUSD)
+// PRECIO REAL ORO
 app.get('/price', async (req, res) => {
   try {
-    const r = await fetch('https://api.twelvedata.com/price?symbol=XAU/USD&apikey=TU_API_KEY');
+    const r = await fetch('https://api.twelvedata.com/price?symbol=XAU/USD&apikey=TU_API_KEY_AQUI');
     const data = await r.json();
 
     res.json({
       price: parseFloat(data.price)
     });
-
-  } catch (e) {
-    res.status(500).json({ error: e.message });
-  }
-});
-
-// 👉 IA SIGNAL (OPCIONAL)
-app.post('/signal', async (req, res) => {
-  try {
-    const r = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-        'x-api-key': process.env.ANTHROPIC_KEY,
-        'anthropic-version': '2023-06-01'
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        messages: [
-          {
-            role: 'user',
-            content: req.body.prompt || "Give me trading signal JSON"
-          }
-        ]
-      })
-    });
-
-    const data = await r.json();
-    res.json(data);
 
   } catch (e) {
     res.status(500).json({ error: e.message });
