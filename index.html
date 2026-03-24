@@ -10,30 +10,39 @@
 <title>IICON.DOCE</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0a0a0a;--s:#111;--s2:#1a1a1a;--b:#222;--gold:#D4AF37;--g:#22c55e;--r:#ef4444;--y:#eab308;--t:#f5f5f5;--m:#666;--m2:#444;}
+:root{
+  --bg:#0a0a0a;--s:#111;--s2:#1a1a1a;--b:#222;
+  --gold:#D4AF37;
+  --lambo-green:#00A550;
+  --lambo-red:#C8102E;
+  --lambo-white:#F5F5F5;
+  --g:#22c55e;--r:#ef4444;--y:#eab308;--t:#f5f5f5;--m:#666;--m2:#444;
+}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 body{background:var(--bg);color:var(--t);font-family:'Syne',sans-serif;min-height:100vh;padding-bottom:90px;}
 @keyframes glowGold{0%,100%{text-shadow:0 0 8px rgba(212,175,55,.4)}50%{text-shadow:0 0 28px rgba(212,175,55,1),0 0 60px rgba(212,175,55,.5)}}
+@keyframes glowGreen{0%,100%{text-shadow:0 0 8px rgba(0,165,80,.4)}50%{text-shadow:0 0 28px rgba(0,165,80,1)}}
 @keyframes pulseGold{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.75)}}
 @keyframes scanline{0%{top:-2px}100%{top:100%}}
 @keyframes blinkRed{0%,49%{opacity:1}50%,100%{opacity:0}}
-@keyframes shakeAlert{0%,100%{transform:translateX(0)}20%{transform:translateX(-4px)}40%{transform:translateX(4px)}60%{transform:translateX(-3px)}80%{transform:translateX(3px)}}
-@keyframes glowRed{0%,100%{box-shadow:0 0 15px rgba(239,68,68,.5)}50%{box-shadow:0 0 50px rgba(239,68,68,1),0 0 80px rgba(239,68,68,.4)}}
-@keyframes glowGreen{0%,100%{box-shadow:0 0 15px rgba(34,197,94,.5)}50%{box-shadow:0 0 50px rgba(34,197,94,1),0 0 80px rgba(34,197,94,.4)}}
+@keyframes glowRed{0%,100%{box-shadow:0 0 15px rgba(200,16,46,.5)}50%{box-shadow:0 0 50px rgba(200,16,46,1)}}
+@keyframes glowGreenBox{0%,100%{box-shadow:0 0 15px rgba(0,165,80,.5)}50%{box-shadow:0 0 50px rgba(0,165,80,1)}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-@keyframes countIn{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes lamboStripe{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 
 /* BRAND */
 .brand{display:flex;flex-direction:column;align-items:center;padding:20px 0 6px;}
 .brand-name{font-family:'Space Mono',monospace;font-size:30px;font-weight:700;color:var(--gold);letter-spacing:6px;animation:glowGold 3s ease-in-out infinite;}
-.brand-sub{font-size:9px;color:var(--m);font-family:'Space Mono',monospace;letter-spacing:3px;margin-top:4px;}
+.brand-stripe{width:200px;height:3px;background:linear-gradient(90deg,var(--lambo-green),var(--lambo-white),var(--lambo-red));border-radius:2px;margin-top:6px;}
+.brand-sub{font-size:9px;color:var(--m);font-family:'Space Mono',monospace;letter-spacing:3px;margin-top:5px;}
 
 /* HEADER */
 header{background:var(--s);border-bottom:1px solid var(--b);padding:12px 16px 10px;position:sticky;top:0;z-index:100;}
 .h-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
 .h-logo{display:flex;align-items:center;gap:7px;}
-.h-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);animation:pulseGold 2s infinite;}
-.h-pair{font-size:16px;font-weight:800;color:var(--gold);}
+.h-dot{width:8px;height:8px;border-radius:50%;background:var(--lambo-green);animation:pulseGold 2s infinite;}
+.h-pair{font-size:16px;font-weight:800;color:var(--lambo-green);}
 .h-sub{font-size:9px;color:var(--m);font-family:'Space Mono',monospace;}
 .h-clock{font-size:11px;color:var(--m);font-family:'Space Mono',monospace;text-align:right;}
 .h-session{font-size:9px;margin-top:1px;}
@@ -42,182 +51,158 @@ header{background:var(--s);border-bottom:1px solid var(--b);padding:12px 16px 10
 .h-session.closed{color:var(--m);}
 .tfs{display:flex;gap:5px;}
 .tf{flex:1;padding:5px 0;border-radius:5px;border:1px solid var(--b);background:transparent;color:var(--m);font-size:11px;font-family:'Space Mono',monospace;font-weight:700;cursor:pointer;transition:all .15s;}
-.tf.active{background:var(--gold);border-color:var(--gold);color:#000;}
+.tf.active{background:var(--lambo-green);border-color:var(--lambo-green);color:#fff;}
 
 .page{padding:12px 14px 0;}
 .sec{font-size:9px;color:var(--m);font-family:'Space Mono',monospace;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;margin-top:14px;}
 
-/* === PANTALLA PRINCIPAL === */
-.screen{background:#050505;border:2px solid var(--b);border-radius:18px;padding:18px;position:relative;overflow:hidden;transition:border-color .2s,box-shadow .3s;animation:fadeUp .3s ease both;}
-.screen.idle{}
-.screen.SELL{border-color:var(--r);animation:glowRed .8s ease-in-out infinite;}
-.screen.BUY{border-color:var(--g);animation:glowGreen .8s ease-in-out infinite;}
-.scanline{position:absolute;left:0;right:0;height:1px;background:rgba(212,175,55,.15);animation:scanline 5s linear infinite;pointer-events:none;}
-.sc-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+/* LOADING */
+.loading-bar{width:100%;height:3px;background:var(--b);border-radius:2px;margin-bottom:12px;overflow:hidden;display:none;}
+.loading-bar.show{display:block;}
+.loading-fill{height:100%;background:linear-gradient(90deg,var(--lambo-green),var(--lambo-white),var(--lambo-red));border-radius:2px;animation:lamboStripe 1s linear infinite;background-size:200% 200%;width:60%;}
+.loading-txt{font-size:10px;color:var(--lambo-green);font-family:'Space Mono',monospace;text-align:center;margin-bottom:8px;display:none;}
+.loading-txt.show{display:block;}
+
+/* SCREEN */
+.screen{background:#050505;border:2px solid var(--b);border-radius:18px;padding:18px;position:relative;overflow:hidden;transition:border-color .3s,box-shadow .3s;animation:fadeUp .3s ease both;}
+.screen.SELL{border-color:var(--lambo-red);animation:glowRed .8s ease-in-out infinite;}
+.screen.BUY{border-color:var(--lambo-green);animation:glowGreenBox .8s ease-in-out infinite;}
+.scanline{position:absolute;left:0;right:0;height:1px;background:rgba(0,165,80,.15);animation:scanline 5s linear infinite;pointer-events:none;}
+.sc-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
 .sc-brand{font-size:8px;color:var(--m2);font-family:'Space Mono',monospace;letter-spacing:2px;}
 .sc-badge{font-size:9px;font-family:'Space Mono',monospace;font-weight:700;padding:3px 10px;border-radius:4px;letter-spacing:1px;}
-.sc-badge.watching{background:rgba(212,175,55,.08);color:var(--gold);}
-.sc-badge.SELL{background:rgba(239,68,68,.15);color:var(--r);animation:blinkRed .6s infinite;}
-.sc-badge.BUY{background:rgba(34,197,94,.15);color:var(--g);animation:blinkRed .6s infinite;}
-
-/* precio grande */
-.sc-price-wrap{text-align:center;margin-bottom:14px;}
+.sc-badge.watching{background:rgba(0,165,80,.08);color:var(--lambo-green);}
+.sc-badge.SELL{background:rgba(200,16,46,.15);color:var(--lambo-red);animation:blinkRed .6s infinite;}
+.sc-badge.BUY{background:rgba(0,165,80,.15);color:var(--lambo-green);animation:blinkRed .6s infinite;}
+.sc-price-wrap{text-align:center;margin-bottom:12px;}
 .sc-price-lbl{font-size:9px;color:var(--m);letter-spacing:2px;font-family:'Space Mono',monospace;margin-bottom:4px;}
-.sc-price{font-size:46px;font-weight:700;font-family:'Space Mono',monospace;letter-spacing:1px;color:var(--gold);transition:color .2s;line-height:1;}
-.sc-price.SELL{color:var(--r);}
-.sc-price.BUY{color:var(--g);}
-.sc-spread{font-size:10px;color:var(--m);font-family:'Space Mono',monospace;margin-top:3px;}
-
-/* zonas */
+.sc-price{font-size:46px;font-weight:700;font-family:'Space Mono',monospace;letter-spacing:1px;color:var(--lambo-white);transition:color .2s;line-height:1;}
+.sc-price.SELL{color:var(--lambo-red);}
+.sc-price.BUY{color:var(--lambo-green);}
+.sc-change{font-size:11px;color:var(--m);font-family:'Space Mono',monospace;margin-top:3px;}
 .sc-zones{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
 .sc-zone{background:#0d0d0d;border:1px solid var(--b);border-radius:10px;padding:10px;transition:all .2s;}
-.sc-zone.hit-sell{border-color:var(--r);background:rgba(239,68,68,.07);}
-.sc-zone.hit-buy{border-color:var(--g);background:rgba(34,197,94,.07);}
+.sc-zone.hit-sell{border-color:var(--lambo-red);background:rgba(200,16,46,.07);}
+.sc-zone.hit-buy{border-color:var(--lambo-green);background:rgba(0,165,80,.07);}
 .sz-lbl{font-size:8px;color:var(--m);font-family:'Space Mono',monospace;letter-spacing:1px;margin-bottom:3px;}
 .sz-val{font-size:16px;font-weight:700;font-family:'Space Mono',monospace;}
-.sz-val.sell{color:var(--r);}
-.sz-val.buy{color:var(--g);}
+.sz-val.sell{color:var(--lambo-red);}
+.sz-val.buy{color:var(--lambo-green);}
 .sz-dist{font-size:9px;color:var(--m);font-family:'Space Mono',monospace;margin-top:2px;}
 .sz-reason{font-size:9px;color:var(--m2);margin-top:3px;line-height:1.3;}
-
-/* barra */
 .track{margin-bottom:12px;}
 .track-lbls{display:flex;justify-content:space-between;font-size:8px;color:var(--m);font-family:'Space Mono',monospace;margin-bottom:5px;}
 .track-bar{height:5px;background:#1a1a1a;border-radius:3px;position:relative;}
-.track-dot{position:absolute;top:50%;width:13px;height:13px;border-radius:50%;background:var(--gold);border:2px solid #000;transform:translate(-50%,-50%);transition:left .35s ease;}
-
-/* alerta */
+.track-dot{position:absolute;top:50%;width:13px;height:13px;border-radius:50%;background:var(--lambo-white);border:2px solid #000;transform:translate(-50%,-50%);transition:left .35s ease;}
 .sc-alert{background:#0d0d0d;border:1px solid var(--b);border-radius:10px;padding:14px;text-align:center;transition:all .2s;}
-.sc-alert.SELL{background:rgba(239,68,68,.08);border-color:var(--r);}
-.sc-alert.BUY{background:rgba(34,197,94,.08);border-color:var(--g);}
+.sc-alert.SELL{background:rgba(200,16,46,.08);border-color:var(--lambo-red);}
+.sc-alert.BUY{background:rgba(0,165,80,.08);border-color:var(--lambo-green);}
 .sa-main{font-size:18px;font-weight:800;font-family:'Space Mono',monospace;color:var(--m2);letter-spacing:1px;}
-.sa-main.SELL{color:var(--r);animation:countIn .2s ease;}
-.sa-main.BUY{color:var(--g);animation:countIn .2s ease;}
-.sa-levels{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px;display:none;}
+.sa-main.SELL{color:var(--lambo-red);}
+.sa-main.BUY{color:var(--lambo-green);}
+.sa-sub{font-size:10px;color:var(--m);font-family:'Space Mono',monospace;margin-top:4px;}
+.sa-levels{display:none;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px;}
 .sa-levels.show{display:grid;}
 .sa-lv{background:#050505;border-radius:6px;padding:7px;}
 .sa-lv-l{font-size:8px;color:var(--m);font-family:'Space Mono',monospace;margin-bottom:2px;}
 .sa-lv-v{font-size:13px;font-weight:700;font-family:'Space Mono',monospace;}
-.sa-lv-v.e{color:var(--t);}
-.sa-lv-v.s{color:var(--r);}
-.sa-lv-v.t{color:var(--g);}
+.sa-lv-v.e{color:var(--lambo-white);}
+.sa-lv-v.s{color:var(--lambo-red);}
+.sa-lv-v.t{color:var(--lambo-green);}
 .sa-rb{font-size:9px;color:var(--m);font-family:'Space Mono',monospace;margin-top:6px;}
+.sa-analysis{font-size:11px;color:#aaa;line-height:1.5;margin-top:8px;text-align:left;padding-top:8px;border-top:1px solid var(--b);display:none;}
 
-/* === CONFLUENCIA 7 FACTORES === */
-.conf{background:var(--s);border:1px solid var(--b);border-radius:14px;padding:14px;animation:fadeUp .3s ease .05s both;}
+/* REFRESH BTN */
+.refresh-btn{width:100%;padding:10px;border-radius:10px;border:none;background:linear-gradient(135deg,var(--lambo-green),#007a3a);color:#fff;font-size:13px;font-weight:800;cursor:pointer;font-family:'Space Mono',monospace;letter-spacing:1px;margin-top:10px;transition:all .2s;}
+.refresh-btn:hover{opacity:.9;}
+
+/* CHART */
+.chart-container{background:var(--s);border:1px solid var(--b);border-radius:14px;overflow:hidden;margin-bottom:12px;}
+.chart-header{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--b);}
+.chart-title{font-size:11px;font-weight:700;color:var(--t);font-family:'Space Mono',monospace;}
+.chart-tf-btns{display:flex;gap:4px;}
+.ctf{font-size:9px;padding:2px 8px;border-radius:4px;border:1px solid var(--b);background:transparent;color:var(--m);cursor:pointer;font-family:'Space Mono',monospace;}
+.ctf.active{background:var(--lambo-green);border-color:var(--lambo-green);color:#fff;}
+
+/* CONFLUENCIA */
+.conf{background:var(--s);border:1px solid var(--b);border-radius:14px;padding:14px;}
 .conf-head{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
-.conf-ring{width:60px;height:60px;border-radius:50%;border:2.5px solid var(--b);display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;transition:border-color .3s;}
-.conf-ring.s5{border-color:var(--g);}
-.conf-ring.s4{border-color:var(--gold);}
-.conf-ring.s3{border-color:var(--y);}
-.conf-ring.s2{border-color:var(--r);}
+.conf-ring{width:60px;height:60px;border-radius:50%;border:2.5px solid var(--b);display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;}
+.conf-ring.ok{border-color:var(--lambo-green);}
+.conf-ring.med{border-color:var(--gold);}
+.conf-ring.low{border-color:var(--lambo-red);}
 .conf-score{font-size:22px;font-weight:800;font-family:'Space Mono',monospace;}
-.conf-score.s5{color:var(--g);}
-.conf-score.s4{color:var(--gold);}
-.conf-score.s3{color:var(--y);}
-.conf-score.s2{color:var(--r);}
+.conf-score.ok{color:var(--lambo-green);}
+.conf-score.med{color:var(--gold);}
+.conf-score.low{color:var(--lambo-red);}
 .conf-of{font-size:8px;color:var(--m);font-family:'Space Mono',monospace;}
-.conf-info{}
 .conf-verdict{font-size:15px;font-weight:800;margin-bottom:2px;}
-.conf-verdict.SELL{color:var(--r);}
-.conf-verdict.BUY{color:var(--g);}
-.conf-verdict.WAIT{color:var(--y);}
+.conf-verdict.SELL{color:var(--lambo-red);}
+.conf-verdict.BUY{color:var(--lambo-green);}
+.conf-verdict.WAIT{color:var(--gold);}
 .conf-rule{font-size:10px;color:var(--m);font-family:'Space Mono',monospace;}
 .factors{display:flex;flex-direction:column;gap:6px;}
 .factor{display:flex;align-items:flex-start;gap:8px;}
 .f-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:3px;}
-.f-dot.ok{background:var(--g);}
-.f-dot.no{background:var(--r);}
-.f-dot.na{background:var(--m2);}
+.f-dot.ok{background:var(--lambo-green);}
+.f-dot.no{background:var(--lambo-red);}
 .f-text{font-size:11px;color:var(--m);line-height:1.4;flex:1;}
 .f-text strong{color:var(--t);font-weight:500;}
-.f-weight{font-size:9px;color:var(--m2);font-family:'Space Mono',monospace;margin-top:1px;}
 
-/* === SESIONES === */
-.sessions{display:grid;grid-template-columns:1fr 1fr;gap:8px;animation:fadeUp .3s ease .1s both;}
+/* SESIONES */
+.sessions{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
 .sess{background:var(--s);border:1px solid var(--b);border-radius:12px;padding:12px;position:relative;overflow:hidden;}
-.sess.open{border-color:var(--g);}
+.sess.open{border-color:var(--lambo-green);}
 .sess.next{border-color:var(--gold);}
 .sess-stripe{position:absolute;top:0;left:0;right:0;height:2px;}
-.sess.open .sess-stripe{background:var(--g);}
+.sess.open .sess-stripe{background:linear-gradient(90deg,var(--lambo-green),var(--lambo-white),var(--lambo-red));}
 .sess.next .sess-stripe{background:var(--gold);}
 .sess.closed .sess-stripe{background:var(--b);}
 .sess-city{font-size:13px;font-weight:800;margin-bottom:1px;}
 .sess-hours{font-size:9px;color:var(--m);font-family:'Space Mono',monospace;margin-bottom:5px;}
 .sess-tag{font-size:8px;font-family:'Space Mono',monospace;font-weight:700;padding:2px 7px;border-radius:3px;display:inline-block;}
-.sess-tag.open{background:rgba(34,197,94,.12);color:var(--g);}
+.sess-tag.open{background:rgba(0,165,80,.12);color:var(--lambo-green);}
 .sess-tag.next{background:rgba(212,175,55,.12);color:var(--gold);}
 .sess-tag.closed{background:var(--s2);color:var(--m);}
-.sess-tip{font-size:9px;color:var(--m2);margin-top:5px;line-height:1.35;border-top:1px solid var(--b);padding-top:5px;}
 .sess-sig{font-size:11px;font-weight:800;font-family:'Space Mono',monospace;margin-top:4px;}
-.sess-sig.sell{color:var(--r);}
-.sess-sig.buy{color:var(--g);}
-.sess-sig.wait{color:var(--y);}
+.sess-sig.sell{color:var(--lambo-red);}
+.sess-sig.buy{color:var(--lambo-green);}
+.sess-sig.wait{color:var(--gold);}
+.sess-tip{font-size:9px;color:var(--m2);margin-top:5px;line-height:1.35;border-top:1px solid var(--b);padding-top:5px;}
 
-/* === FIB === */
-.fib-table{display:flex;flex-direction:column;gap:5px;background:var(--s);border:1px solid var(--b);border-radius:14px;padding:14px;animation:fadeUp .3s ease .15s both;}
-.fib-row{display:flex;align-items:center;gap:8px;}
-.fib-lbl{font-size:10px;font-family:'Space Mono',monospace;color:var(--m);min-width:44px;}
-.fib-bar-bg{flex:1;height:4px;background:var(--s2);border-radius:2px;}
-.fib-bar-fill{height:100%;border-radius:2px;}
-.fib-price{font-size:11px;font-family:'Space Mono',monospace;font-weight:700;min-width:46px;text-align:right;}
-.fib-tag{font-size:8px;font-family:'Space Mono',monospace;padding:1px 5px;border-radius:3px;min-width:60px;text-align:center;}
-.fib-tag.R{background:rgba(239,68,68,.12);color:var(--r);}
-.fib-tag.S{background:rgba(34,197,94,.12);color:var(--g);}
-.fib-tag.NOW{background:rgba(212,175,55,.12);color:var(--gold);}
-
-/* === NOTICIAS === */
-.news{background:var(--s);border:1px solid var(--b);border-radius:14px;padding:14px;animation:fadeUp .3s ease .2s both;}
-.news-item{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--b);}
-.news-item:last-child{border-bottom:none;padding-bottom:0;}
-.news-impact{width:4px;border-radius:2px;flex-shrink:0;}
-.news-impact.H{background:var(--r);}
-.news-impact.M{background:var(--y);}
-.news-impact.L{background:var(--m2);}
-.news-body{flex:1;}
-.news-name{font-size:12px;font-weight:700;color:var(--t);}
-.news-time{font-size:9px;color:var(--m);font-family:'Space Mono',monospace;margin-top:1px;}
-.news-note{font-size:10px;color:var(--m);margin-top:2px;line-height:1.35;}
-.news-xau{font-size:9px;font-family:'Space Mono',monospace;font-weight:700;margin-top:3px;}
-.news-xau.up{color:var(--g);}
-.news-xau.dn{color:var(--r);}
-.news-xau.neut{color:var(--y);}
-.news-badge{font-size:8px;font-family:'Space Mono',monospace;padding:2px 6px;border-radius:3px;align-self:flex-start;flex-shrink:0;}
-.news-badge.H{background:rgba(239,68,68,.12);color:var(--r);}
-.news-badge.M{background:rgba(234,179,8,.12);color:var(--y);}
-
-/* === RIESGO === */
-.risk{background:var(--s);border:1px solid var(--b);border-radius:14px;padding:14px;animation:fadeUp .3s ease .25s both;}
-.risk-rule{font-size:10px;color:var(--m);font-family:'Space Mono',monospace;margin-bottom:10px;line-height:1.5;border-left:2px solid var(--gold);padding-left:8px;}
+/* RIESGO */
+.risk{background:var(--s);border:1px solid var(--b);border-radius:14px;padding:14px;}
+.risk-rule{font-size:10px;color:var(--m);font-family:'Space Mono',monospace;margin-bottom:10px;line-height:1.5;border-left:2px solid var(--lambo-green);padding-left:8px;}
 .risk-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
 .risk-row label{font-size:10px;color:var(--m);min-width:88px;font-family:'Space Mono',monospace;}
 .risk-row input[type=range]{flex:1;-webkit-appearance:none;height:3px;background:var(--b);border-radius:2px;outline:none;}
-.risk-row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--gold);cursor:pointer;}
-.risk-row span{min-width:56px;text-align:right;font-size:11px;font-weight:700;font-family:'Space Mono',monospace;color:var(--gold);}
+.risk-row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--lambo-green);cursor:pointer;}
+.risk-row span{min-width:56px;text-align:right;font-size:11px;font-weight:700;font-family:'Space Mono',monospace;color:var(--lambo-green);}
 .risk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;}
 .rr{background:var(--s2);border-radius:8px;padding:8px;text-align:center;}
 .rr-l{font-size:8px;color:var(--m);font-family:'Space Mono',monospace;margin-bottom:2px;}
 .rr-v{font-size:13px;font-weight:700;font-family:'Space Mono',monospace;}
-.rr-v.L{color:var(--r);}
-.rr-v.G{color:var(--g);}
+.rr-v.L{color:var(--lambo-red);}
+.rr-v.G{color:var(--lambo-green);}
 .rr-v.N{color:var(--t);}
 
 .disc{font-size:9px;color:var(--m2);line-height:1.5;padding:10px 14px;border-top:1px solid var(--b);font-family:'Space Mono',monospace;}
 
-/* NAV */
 .nav{position:fixed;bottom:0;left:0;right:0;background:var(--s);border-top:1px solid var(--b);display:flex;align-items:center;padding:7px 0 16px;}
 .nb{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;color:var(--m);font-size:9px;font-family:'Syne',sans-serif;cursor:pointer;padding:4px 0;}
-.nb.active{color:var(--gold);}
+.nb.active{color:var(--lambo-green);}
 .ni{font-size:17px;line-height:1;}
 .nc{flex:1.4;display:flex;flex-direction:column;align-items:center;}
 .nc-name{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;color:var(--m);letter-spacing:2px;}
 .nc-sub{font-size:7px;color:var(--m2);font-family:'Space Mono',monospace;letter-spacing:1px;margin-top:1px;}
+.spinner{display:inline-block;width:12px;height:12px;border:2px solid var(--lambo-green);border-top-color:transparent;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px;}
 </style>
 </head>
 <body>
 
 <div class="brand">
   <div class="brand-name">IICON.DOCE</div>
+  <div class="brand-stripe"></div>
   <div class="brand-sub">XAU/USD · INTRADÍA PROFESIONAL</div>
 </div>
 
@@ -232,7 +217,7 @@ header{background:var(--s);border-bottom:1px solid var(--b);padding:12px 16px 10
     </div>
     <div class="h-clock">
       <div id="clock">--:--:--</div>
-      <div class="h-session closed" id="session-label">MERCADO CERRADO</div>
+      <div class="h-session closed" id="session-label">CARGANDO...</div>
     </div>
   </div>
   <div class="tfs">
@@ -245,7 +230,9 @@ header{background:var(--s);border-bottom:1px solid var(--b);padding:12px 16px 10
 
 <div class="page">
 
-<div class="sec">Pantalla de alerta</div>
+<div class="loading-bar" id="loading-bar"><div class="loading-fill"></div></div>
+<div class="loading-txt" id="loading-txt">ANALIZANDO XAU/USD...</div>
+
 <div class="screen idle" id="screen">
   <div class="scanline"></div>
   <div class="sc-top">
@@ -254,52 +241,65 @@ header{background:var(--s);border-bottom:1px solid var(--b);padding:12px 16px 10
   </div>
   <div class="sc-price-wrap">
     <div class="sc-price-lbl">PRECIO EN VIVO</div>
-    <div class="sc-price" id="sc-price">4,491.00</div>
-    <div class="sc-spread" id="sc-spread">Spread: 0.30 pts · ATR día: 28 pts</div>
+    <div class="sc-price" id="sc-price"><span class="spinner"></span></div>
+    <div class="sc-change" id="sc-change">Conectando con el mercado...</div>
   </div>
   <div class="sc-zones">
     <div class="sc-zone" id="zone-sell">
       <div class="sz-lbl">RESISTENCIA · VENTA</div>
-      <div class="sz-val sell" id="sz-sell">4,516</div>
-      <div class="sz-dist" id="sz-sell-dist">+25 pts</div>
-      <div class="sz-reason">Fib 0.382 + máx. ayer + London high</div>
+      <div class="sz-val sell" id="sz-sell">—</div>
+      <div class="sz-dist" id="sz-sell-dist">—</div>
+      <div class="sz-reason">Fib 0.382 + máx. sesión</div>
     </div>
     <div class="sc-zone" id="zone-buy">
       <div class="sz-lbl">SOPORTE · COMPRA</div>
-      <div class="sz-val buy" id="sz-buy">4,454</div>
-      <div class="sz-dist" id="sz-buy-dist">-37 pts</div>
-      <div class="sz-reason">Fib 0.618 + mín. ayer + NY open low</div>
+      <div class="sz-val buy" id="sz-buy">—</div>
+      <div class="sz-dist" id="sz-buy-dist">—</div>
+      <div class="sz-reason">Fib 0.618 + mín. sesión</div>
     </div>
   </div>
   <div class="track">
-    <div class="track-lbls">
-      <span id="tr-left">SOPORTE 4,454</span>
-      <span id="tr-right">RESISTENCIA 4,516</span>
-    </div>
-    <div class="track-bar"><div class="track-dot" id="track-dot"></div></div>
+    <div class="track-lbls"><span id="tr-left">SOPORTE</span><span id="tr-right">RESISTENCIA</span></div>
+    <div class="track-bar"><div class="track-dot" id="track-dot" style="left:50%"></div></div>
   </div>
-  <div class="sc-alert idle" id="sc-alert">
-    <div class="sa-main" id="sa-main">EN ESPERA</div>
-    <div id="sa-sub" style="font-size:10px;color:var(--m);font-family:'Space Mono',monospace;margin-top:4px">Precio alejado de zonas clave · Sin señal</div>
+  <div class="sc-alert" id="sc-alert">
+    <div class="sa-main" id="sa-main">CARGANDO...</div>
+    <div class="sa-sub" id="sa-sub">Obteniendo precio real del mercado</div>
     <div class="sa-levels" id="sa-levels">
       <div class="sa-lv"><div class="sa-lv-l">ENTRADA</div><div class="sa-lv-v e" id="sa-entry">—</div></div>
       <div class="sa-lv"><div class="sa-lv-l">STOP</div><div class="sa-lv-v s" id="sa-sl">—</div></div>
       <div class="sa-lv"><div class="sa-lv-l">TARGET</div><div class="sa-lv-v t" id="sa-tp">—</div></div>
     </div>
     <div class="sa-rb" id="sa-rb"></div>
+    <div class="sa-analysis" id="sa-analysis"></div>
   </div>
+  <button class="refresh-btn" onclick="fetchSignal()">ACTUALIZAR SEÑAL</button>
 </div>
 
-<div class="sec">Sistema confluencia · 7 factores</div>
+<div class="sec">Gráfico de velas</div>
+<div class="chart-container">
+  <div class="chart-header">
+    <span class="chart-title">XAU/USD · VELAS EN VIVO</span>
+    <div class="chart-tf-btns">
+      <button class="ctf active" onclick="changeChartTF(this,'15')">M15</button>
+      <button class="ctf" onclick="changeChartTF(this,'60')">H1</button>
+      <button class="ctf" onclick="changeChartTF(this,'240')">H4</button>
+      <button class="ctf" onclick="changeChartTF(this,'D')">D1</button>
+    </div>
+  </div>
+  <div id="tv-chart" style="height:350px;"></div>
+</div>
+
+<div class="sec">Confluencia · 7 factores</div>
 <div class="conf" id="conf-card">
   <div class="conf-head">
-    <div class="conf-ring s4" id="conf-ring">
-      <div class="conf-score s4" id="conf-score">4/7</div>
+    <div class="conf-ring low" id="conf-ring">
+      <div class="conf-score low" id="conf-score">—/7</div>
       <div class="conf-of">FACT.</div>
     </div>
-    <div class="conf-info">
-      <div class="conf-verdict SELL" id="conf-verdict">ESPERAR ENTRADA</div>
-      <div class="conf-rule" id="conf-rule">Mín. 5/7 para operar · Ahora: 4/7</div>
+    <div>
+      <div class="conf-verdict WAIT" id="conf-verdict">ESPERANDO DATOS</div>
+      <div class="conf-rule" id="conf-rule">Mín. 5/7 para operar</div>
     </div>
   </div>
   <div class="factors" id="factors"></div>
@@ -308,15 +308,9 @@ header{background:var(--s);border-bottom:1px solid var(--b);padding:12px 16px 10
 <div class="sec">Sesiones de mercado</div>
 <div class="sessions" id="sessions"></div>
 
-<div class="sec">Fibonacci + Soportes clave</div>
-<div class="fib-table" id="fib-table"></div>
-
-<div class="sec">Noticias que mueven el oro hoy</div>
-<div class="news" id="news"></div>
-
-<div class="sec">Gestión de riesgo profesional</div>
+<div class="sec">Gestión de riesgo</div>
 <div class="risk">
-  <div class="risk-rule">Regla: máx. 1% del capital por operación · Ratio mínimo 1:2.5 · Si el mercado no confirma en 30min, cancela la orden</div>
+  <div class="risk-rule">Regla: máx. 1% capital · Ratio mín. 1:2.5 · Sin confirmar en 30min → cancela</div>
   <div class="risk-row">
     <label>Capital</label>
     <input type="range" min="5000" max="20000" step="500" value="10000" id="capital" oninput="calcRisk()">
@@ -328,7 +322,7 @@ header{background:var(--s);border-bottom:1px solid var(--b);padding:12px 16px 10
     <span id="risk-out">1%</span>
   </div>
   <div class="risk-row">
-    <label>Stop Loss (pts)</label>
+    <label>Stop (pts)</label>
     <input type="range" min="10" max="50" step="5" value="20" id="sl-pts" oninput="calcRisk()">
     <span id="sl-out">20 pts</span>
   </div>
@@ -339,75 +333,186 @@ header{background:var(--s);border-bottom:1px solid var(--b);padding:12px 16px 10
   </div>
 </div>
 
-<div class="disc">⚠ Señal válida solo con 5/7 factores. Sin noticia alto impacto en 30min. Intradía XAU/USD. No es asesoramiento financiero. Opera siempre con stop loss.</div>
+<div class="disc">⚠ Señal válida solo con 5/7 factores. Sin noticias alto impacto en 30min. No es asesoramiento financiero.</div>
 </div>
 
 <nav class="nav">
   <button class="nb active" onclick="scrollTo(0,0)"><span class="ni">◈</span><span>Alerta</span></button>
-  <button class="nb" onclick="document.getElementById('conf-card').scrollIntoView({behavior:'smooth'})"><span class="ni">◆</span><span>Confluencia</span></button>
+  <button class="nb" onclick="document.getElementById('tv-chart').scrollIntoView({behavior:'smooth'})"><span class="ni">◆</span><span>Gráfico</span></button>
   <div class="nc"><div class="nc-name">IICON.DOCE</div><div class="nc-sub">XAU/USD</div></div>
-  <button class="nb" onclick="document.getElementById('news').scrollIntoView({behavior:'smooth'})"><span class="ni">◇</span><span>Noticias</span></button>
+  <button class="nb" onclick="document.getElementById('conf-card').scrollIntoView({behavior:'smooth'})"><span class="ni">◇</span><span>Confluencia</span></button>
   <button class="nb" onclick="document.querySelector('.risk').scrollIntoView({behavior:'smooth'})"><span class="ni">◉</span><span>Riesgo</span></button>
 </nav>
 
+<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 <script>
-const SELL_ZONE = 4516, BUY_ZONE = 4454, ATR = 28, SPREAD = 0.30;
-let tf = 'M15', price = 4491, dir = -1;
+const SERVER = 'https://iicon-doce.onrender.com';
+let tf = 'M15';
 
-// FACTORES DE CONFLUENCIA — los 7 que usaría un trader profesional de oro
-const FACTORS = [
-  { text:'Precio en nivel Fibonacci clave', detail:'0.382 (resist.) o 0.618 (soporte) — los más fiables en XAU', weight:'CRÍTICO', ok:true },
-  { text:'S/R del día anterior coincide con Fibonacci', detail:'Máx. ayer: 4,516 · Mín. ayer: 4,450 — confluencia doble', weight:'CRÍTICO', ok:true },
-  { text:'Ventana horaria: Londres 08-10h o NY 13:30-15:30h', detail:'Fuera de estas ventanas el volumen es bajo y las roturas falsas', weight:'ALTO', ok:false },
-  { text:'RSI H1 en zona extrema (< 35 o > 65)', detail:'RSI actual: 48 — zona neutral, sin señal direccional clara', weight:'ALTO', ok:false },
-  { text:'MACD M15 cruzando línea de señal a favor', detail:'Cruce bajista confirmado en M15 — momentum vende', weight:'ALTO', ok:true },
-  { text:'Sin noticias alto impacto en próximos 30 min', detail:'NFP mañana 14:30h — hoy ventana limpia por la mañana', weight:'CRÍTICO', ok:true },
-  { text:'Tendencia H4 a favor de la entrada', detail:'H4 bajista — EMAs 20/50 cruzadas a la baja desde 4,600', weight:'ALTO', ok:false },
-];
+function initChart(interval='15') {
+  document.getElementById('tv-chart').innerHTML = '';
+  new TradingView.widget({
+    container_id:'tv-chart',symbol:'OANDA:XAUUSD',interval:interval,
+    timezone:'Europe/Madrid',theme:'dark',style:'1',locale:'es',
+    toolbar_bg:'#111',enable_publishing:false,hide_top_toolbar:false,
+    save_image:false,height:350,width:'100%',
+    studies:['RSI@tv-basicstudies','MACD@tv-basicstudies','BB@tv-basicstudies'],
+    disabled_features:['use_localstorage_for_settings']
+  });
+}
 
-// SESIONES
-const SESS_DATA = [
-  { city:'🇬🇧 Londres', openH:7, closeH:16, tip:'La sesión más importante para XAU. Apertura 08:00 marca la dirección del día. Opera las primeras 2h.', sig:'sell', sigText:'⬇ VENTA' },
-  { city:'🇺🇸 New York', openH:12, closeH:21, tip:'Segunda sesión clave. Solapamiento con Londres 13-16h = máxima liquidez. NFP siempre a las 14:30h.', sig:'sell', sigText:'⬇ VENTA' },
-  { city:'🇯🇵 Tokio', openH:0, closeH:8, tip:'Baja liquidez en XAU. Evita operar en esta sesión salvo que haya catalizador asiático.', sig:'wait', sigText:'◆ EVITAR' },
-  { city:'🇦🇺 Sydney', openH:22, closeH:6, tip:'Sesión de menor volumen. Solo válida si hay noticias australianas que afecten commodities.', sig:'wait', sigText:'◆ EVITAR' },
-];
+function changeChartTF(el,interval){
+  document.querySelectorAll('.ctf').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');initChart(interval);
+}
 
-// FIBONACCI calculado desde máx/mín del día
-const FIBS = [
-  { lbl:'0.000', price:4600, color:'#ef4444', type:'R', w:100 },
-  { lbl:'0.236', price:4553, color:'#ef4444', type:'R', w:82 },
-  { lbl:'0.382', price:4516, color:'#ef4444', type:'R', w:68 },
-  { lbl:'0.500', price:4491, color:'#D4AF37', type:'NOW', w:55 },
-  { lbl:'0.618', price:4454, color:'#22c55e', type:'S', w:42 },
-  { lbl:'0.786', price:4404, color:'#22c55e', type:'S', w:26 },
-  { lbl:'1.000', price:4350, color:'#22c55e', type:'S', w:8 },
-];
-
-// NOTICIAS que de verdad mueven el oro
-const NEWS_DATA = [
-  { name:'NFP — Nóminas no agrícolas EEUU', time:'Viernes 14:30h España', impact:'H', xau:'dn', xauText:'XAU BAJA si dato > esperado (USD sube)', note:'El dato más importante del mes para el oro. Volatilidad extrema ±30 pts en segundos. NO operes 30min antes ni después.' },
-  { name:'Fed — Decisión tipos de interés', time:'Cada 6 semanas 20:00h', impact:'H', xau:'dn', xauText:'XAU BAJA si Fed sube tipos o es hawkish', note:'Tipos altos = USD fuerte = oro baja. Tipos bajos = oro sube. Cierra posiciones antes de la decisión.' },
-  { name:'IPC EEUU (inflación CPI)', time:'Mensual 14:30h España', impact:'H', xau:'neut', xauText:'XAU VOLÁTIL — depende del dato', note:'Inflación alta = oro sube (cobertura) pero también = Fed sube tipos = oro baja. Reacción impredecible.' },
-  { name:'ISM Manufacturero / PMI', time:'Primer lunes de mes', impact:'M', xau:'neut', xauText:'Impacto moderado en XAU', note:'Dato débil = USD baja = ligero soporte al oro. No abras posición solo por este dato.' },
-];
-
-function setTF(el, t) {
+function setTF(el,t){
   document.querySelectorAll('.tf').forEach(b=>b.classList.remove('active'));
-  el.classList.add('active'); tf=t;
+  el.classList.add('active');tf=t;fetchSignal();
 }
 
-function fmt(n,d=2){ return parseFloat(n).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); }
-
-function updateClock(){
-  const now=new Date();
-  document.getElementById('clock').textContent=now.toLocaleTimeString('es-ES');
-  const h=now.getUTCHours();
-  const sl=document.getElementById('session-label');
-  if(h>=7&&h<16){sl.textContent='🇬🇧 LONDRES ABIERTA';sl.className='h-session london';}
-  else if(h>=12&&h<21){sl.textContent='🇺🇸 NEW YORK ABIERTA';sl.className='h-session ny';}
-  else{sl.textContent='MERCADO CERRADO';sl.className='h-session closed';}
+function fmt(n){
+  if(!n&&n!==0)return'—';
+  return'$'+parseFloat(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
 }
+
+async function fetchSignal(){
+  document.getElementById('loading-bar').classList.add('show');
+  document.getElementById('loading-txt').classList.add('show');
+  document.getElementById('sa-main').textContent='ANALIZANDO...';
+  document.getElementById('sa-sub').textContent='Obteniendo precio real del mercado';
+
+  try{
+    const res = await fetch(SERVER+'/signal',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({tf:tf})
+    });
+    if(!res.ok) throw new Error('Error servidor: '+res.status);
+    const data = await res.json();
+    if(data.error) throw new Error(data.error);
+    renderSignal(data);
+  }catch(e){
+    document.getElementById('sa-main').textContent='ERROR';
+    document.getElementById('sa-sub').textContent=e.message;
+    document.getElementById('sc-price').textContent='—';
+    document.getElementById('sc-change').textContent='Error al conectar. Reintentando en 30s...';
+    setTimeout(fetchSignal, 30000);
+  }
+
+  document.getElementById('loading-bar').classList.remove('show');
+  document.getElementById('loading-txt').classList.remove('show');
+}
+
+function renderSignal(d){
+  const signal = d.signal||'WAIT';
+  const price = parseFloat(d.price)||0;
+
+  document.getElementById('sc-price').textContent = fmt(d.price);
+  document.getElementById('sc-price').className = 'sc-price '+(signal==='SELL'?'SELL':signal==='BUY'?'BUY':'');
+  const ch = parseFloat(d.change_pct)||0;
+  document.getElementById('sc-change').textContent = (ch>=0?'+':'')+ch.toFixed(2)+'% hoy';
+
+  const sellZone = signal==='SELL'?parseFloat(d.entry)||price:Math.round(price+25);
+  const buyZone  = signal==='BUY' ?parseFloat(d.entry)||price:Math.round(price-37);
+
+  document.getElementById('sz-sell').textContent = '$'+Math.round(sellZone).toLocaleString('en-US');
+  document.getElementById('sz-buy').textContent  = '$'+Math.round(buyZone).toLocaleString('en-US');
+  document.getElementById('sz-sell-dist').textContent = '+'+Math.abs(Math.round(sellZone-price))+' pts';
+  document.getElementById('sz-buy-dist').textContent  = '-'+Math.abs(Math.round(price-buyZone))+' pts';
+  document.getElementById('tr-left').textContent  = 'SOPORTE '+Math.round(buyZone).toLocaleString('en-US');
+  document.getElementById('tr-right').textContent = 'RESIST. '+Math.round(sellZone).toLocaleString('en-US');
+
+  const range = sellZone-buyZone;
+  const pos = range>0?Math.max(0,Math.min(1,(price-buyZone)/range)):0.5;
+  document.getElementById('track-dot').style.left=(pos*100)+'%';
+
+  const screen=document.getElementById('screen');
+  const badge=document.getElementById('sc-badge');
+  const alert=document.getElementById('sc-alert');
+  const main=document.getElementById('sa-main');
+  const sub=document.getElementById('sa-sub');
+  const levels=document.getElementById('sa-levels');
+  const rb=document.getElementById('sa-rb');
+  const analysis=document.getElementById('sa-analysis');
+
+  if(signal==='SELL'){
+    screen.className='screen SELL';
+    badge.className='sc-badge SELL';badge.textContent='⚡ VENTA';
+    alert.className='sc-alert SELL';
+    main.className='sa-main SELL';main.textContent='⬇ ENTRAR VENTA';
+    sub.textContent='Zona resistencia · '+(d.confidence||0)+'% confianza';
+    levels.className='sa-levels show';
+    document.getElementById('zone-sell').className='sc-zone hit-sell';
+    document.getElementById('zone-buy').className='sc-zone';
+    if(navigator.vibrate)navigator.vibrate([400,100,400]);
+  }else if(signal==='BUY'){
+    screen.className='screen BUY';
+    badge.className='sc-badge BUY';badge.textContent='⚡ COMPRA';
+    alert.className='sc-alert BUY';
+    main.className='sa-main BUY';main.textContent='⬆ ENTRAR COMPRA';
+    sub.textContent='Zona soporte · '+(d.confidence||0)+'% confianza';
+    levels.className='sa-levels show';
+    document.getElementById('zone-sell').className='sc-zone';
+    document.getElementById('zone-buy').className='sc-zone hit-buy';
+    if(navigator.vibrate)navigator.vibrate([400,100,400]);
+  }else{
+    screen.className='screen idle';
+    badge.className='sc-badge watching';badge.textContent='VIGILANDO';
+    alert.className='sc-alert';
+    main.className='sa-main';main.textContent='ESPERAR';
+    sub.textContent='Zona neutral · Sin entrada clara ahora';
+    levels.className='sa-levels show';
+    document.getElementById('zone-sell').className='sc-zone';
+    document.getElementById('zone-buy').className='sc-zone';
+  }
+
+  document.getElementById('sa-entry').textContent=fmt(d.entry);
+  document.getElementById('sa-sl').textContent=fmt(d.stop_loss);
+  document.getElementById('sa-tp').textContent=fmt(d.take_profit);
+  rb.textContent='Ratio 1:2.5 · Stop '+Math.abs(Math.round((d.entry||0)-(d.stop_loss||0)))+'pts · Target '+Math.abs(Math.round((d.entry||0)-(d.take_profit||0)))+'pts';
+
+  if(d.analysis){
+    analysis.style.display='block';
+    analysis.textContent=d.analysis;
+  }
+
+  renderConfluence(signal,d.confidence||0);
+  calcRisk();
+}
+
+const FACTORS_BASE=[
+  {text:'Precio en nivel Fibonacci clave (0.618 o 0.382)',weight:'CRÍTICO'},
+  {text:'S/R del día anterior coincide con Fibonacci',weight:'CRÍTICO'},
+  {text:'Ventana horaria: Londres 08-10h o NY 13:30-15:30h',weight:'ALTO'},
+  {text:'RSI H1 en zona extrema (< 35 o > 65)',weight:'ALTO'},
+  {text:'MACD M15 cruzando línea de señal a favor',weight:'ALTO'},
+  {text:'Sin noticias alto impacto en próximos 30 min',weight:'CRÍTICO'},
+  {text:'Tendencia H4 a favor de la entrada',weight:'ALTO'},
+];
+
+function renderConfluence(signal,confidence){
+  const ok=signal==='SELL'||signal==='BUY'?Math.min(7,Math.round(confidence/14)):2;
+  const sc=ok>=5?'ok':ok>=3?'med':'low';
+  const verdict=ok>=5?(signal==='SELL'?'VENTA CONFIRMADA':signal==='BUY'?'COMPRA CONFIRMADA':'SEÑAL ACTIVA'):'ESPERANDO CONFIRMACIÓN';
+  const verdictCls=ok>=5?(signal==='SELL'?'SELL':signal==='BUY'?'BUY':'WAIT'):'WAIT';
+  document.getElementById('conf-ring').className='conf-ring '+sc;
+  document.getElementById('conf-score').className='conf-score '+sc;
+  document.getElementById('conf-score').textContent=ok+'/7';
+  document.getElementById('conf-verdict').className='conf-verdict '+verdictCls;
+  document.getElementById('conf-verdict').textContent=verdict;
+  document.getElementById('conf-rule').textContent=ok>=5?'✓ '+ok+'/7 · OPERAR':'Necesitas '+(5-ok)+' más · '+ok+'/7';
+  document.getElementById('factors').innerHTML=FACTORS_BASE.map((f,i)=>
+    `<div class="factor"><span class="f-dot ${i<ok?'ok':'no'}"></span><div><div class="f-text"><strong>${f.text}</strong></div><div class="f-text">Peso: ${f.weight}</div></div></div>`
+  ).join('');
+}
+
+const SESS_DATA=[
+  {city:'🇬🇧 Londres',openH:7,closeH:16,tip:'La más importante para XAU. Opera las primeras 2h.',sig:'sell',sigText:'⬇ VENTA'},
+  {city:'🇺🇸 New York',openH:12,closeH:21,tip:'Solapamiento con Londres 13-16h = máxima liquidez.',sig:'sell',sigText:'⬇ VENTA'},
+  {city:'🇯🇵 Tokio',openH:0,closeH:8,tip:'Baja liquidez en XAU. Evita operar.',sig:'wait',sigText:'◆ EVITAR'},
+  {city:'🇦🇺 Sydney',openH:22,closeH:6,tip:'Menor volumen. Solo si hay noticias relevantes.',sig:'wait',sigText:'◆ EVITAR'},
+];
 
 function renderSessions(){
   const h=new Date().getUTCHours();
@@ -419,133 +524,20 @@ function renderSessions(){
     return`<div class="sess ${cls}"><div class="sess-stripe"></div>
       <div class="sess-city">${s.city}</div>
       <div class="sess-hours">${String(s.openH).padStart(2,'0')}:00–${String(s.closeH).padStart(2,'0')}:00 UTC</div>
-      ${tag}
-      <div class="sess-sig ${s.sig}">${s.sigText}</div>
+      ${tag}<div class="sess-sig ${s.sig}">${s.sigText}</div>
       <div class="sess-tip">${s.tip}</div>
     </div>`;
   }).join('');
 }
 
-function renderFib(){
-  document.getElementById('fib-table').innerHTML=FIBS.map(f=>{
-    const isCurr=Math.abs(price-f.price)<8;
-    const type=isCurr?'NOW':f.type;
-    const lbl=type==='NOW'?'PRECIO':type==='R'?'RESIST.':'SOPORTE';
-    return`<div class="fib-row">
-      <span class="fib-lbl">${f.lbl}</span>
-      <div class="fib-bar-bg"><div class="fib-bar-fill" style="width:${f.w}%;background:${f.color};height:4px;border-radius:2px"></div></div>
-      <span class="fib-price" style="color:${f.color}">$${f.price.toLocaleString('en-US')}</span>
-      <span class="fib-tag ${type}">${lbl}</span>
-    </div>`;
-  }).join('');
-}
-
-function renderNews(){
-  document.getElementById('news').innerHTML=NEWS_DATA.map(n=>
-    `<div class="news-item">
-      <div class="news-impact ${n.impact}"></div>
-      <div class="news-body">
-        <div class="news-name">${n.name}</div>
-        <div class="news-time">${n.time}</div>
-        <div class="news-xau ${n.xau}">${n.xauText}</div>
-        <div class="news-note">${n.note}</div>
-      </div>
-      <span class="news-badge ${n.impact}">${n.impact==='H'?'ALTO':'MEDIO'}</span>
-    </div>`
-  ).join('');
-}
-
-function renderConfluence(){
-  const ok=FACTORS.filter(f=>f.ok).length;
-  const total=FACTORS.length;
-  const sc=ok>=5?'s5':ok>=4?'s4':ok>=3?'s3':'s2';
-  const verdict=ok>=5?(price>4480?'SEÑAL VENTA':'SEÑAL COMPRA'):ok>=4?'CASI LISTO — ESPERA':'SIN SEÑAL — ESPERA';
-  const verdictCls=ok>=5?(price>4480?'SELL':'BUY'):'WAIT';
-  const rule=ok>=5?`✓ ${ok}/7 factores · OPERAR`:`Necesitas ${5-ok} factor${5-ok>1?'es':''} más · ${ok}/7`;
-  document.getElementById('conf-ring').className=`conf-ring ${sc}`;
-  document.getElementById('conf-score').className=`conf-score ${sc}`;
-  document.getElementById('conf-score').textContent=`${ok}/${total}`;
-  document.getElementById('conf-verdict').className=`conf-verdict ${verdictCls}`;
-  document.getElementById('conf-verdict').textContent=verdict;
-  document.getElementById('conf-rule').textContent=rule;
-  document.getElementById('factors').innerHTML=FACTORS.map(f=>
-    `<div class="factor">
-      <span class="f-dot ${f.ok?'ok':'no'}"></span>
-      <div>
-        <div class="f-text"><strong>${f.text}</strong></div>
-        <div class="f-text">${f.detail}</div>
-        <div class="f-weight">Peso: ${f.weight}</div>
-      </div>
-    </div>`
-  ).join('');
-}
-
-function checkAlert(p){
-  const tol=ATR*0.35;
-  const range=SELL_ZONE-BUY_ZONE;
-  const pos=Math.max(0,Math.min(1,(p-BUY_ZONE)/range));
-  document.getElementById('track-dot').style.left=(pos*100)+'%';
-  document.getElementById('sc-price').textContent=fmt(p);
-  document.getElementById('sz-sell-dist').textContent='+'+(Math.round(SELL_ZONE-p))+' pts';
-  document.getElementById('sz-buy-dist').textContent='-'+(Math.round(p-BUY_ZONE))+' pts';
-
-  const ok=FACTORS.filter(f=>f.ok).length;
-  const canTrade=ok>=5;
-
-  const screen=document.getElementById('screen');
-  const badge=document.getElementById('sc-badge');
-  const priceEl=document.getElementById('sc-price');
-  const alertEl=document.getElementById('sc-alert');
-  const mainEl=document.getElementById('sa-main');
-  const subEl=document.getElementById('sa-sub');
-  const levelsEl=document.getElementById('sa-levels');
-  const rbEl=document.getElementById('sa-rb');
-  const zsell=document.getElementById('zone-sell');
-  const zbuy=document.getElementById('zone-buy');
-
-  if(Math.abs(p-SELL_ZONE)<=tol&&canTrade){
-    screen.className='screen SELL';
-    badge.className='sc-badge SELL';badge.textContent='⚡ VENTA';
-    priceEl.className='sc-price SELL';
-    alertEl.className='sc-alert SELL';
-    mainEl.className='sa-main SELL';mainEl.textContent='⬇ ENTRAR VENTA';
-    subEl.textContent='Confluencia '+ok+'/7 · Zona resistencia alcanzada';
-    levelsEl.className='sa-levels show';
-    document.getElementById('sa-entry').textContent='$'+Math.round(p).toLocaleString('en-US');
-    document.getElementById('sa-sl').textContent='$'+(Math.round(p)+20).toLocaleString('en-US');
-    document.getElementById('sa-tp').textContent='$'+(Math.round(p)-50).toLocaleString('en-US');
-    rbEl.textContent='Ratio 1:2.5 · Stop '+20+'pts · Target '+50+'pts';
-    zsell.className='sc-zone hit-sell';zbuy.className='sc-zone';
-    if(navigator.vibrate)navigator.vibrate([400,100,400]);
-  } else if(Math.abs(p-BUY_ZONE)<=tol&&canTrade){
-    screen.className='screen BUY';
-    badge.className='sc-badge BUY';badge.textContent='⚡ COMPRA';
-    priceEl.className='sc-price BUY';
-    alertEl.className='sc-alert BUY';
-    mainEl.className='sa-main BUY';mainEl.textContent='⬆ ENTRAR COMPRA';
-    subEl.textContent='Confluencia '+ok+'/7 · Zona soporte alcanzada';
-    levelsEl.className='sa-levels show';
-    document.getElementById('sa-entry').textContent='$'+Math.round(p).toLocaleString('en-US');
-    document.getElementById('sa-sl').textContent='$'+(Math.round(p)-20).toLocaleString('en-US');
-    document.getElementById('sa-tp').textContent='$'+(Math.round(p)+50).toLocaleString('en-US');
-    rbEl.textContent='Ratio 1:2.5 · Stop '+20+'pts · Target '+50+'pts';
-    zsell.className='sc-zone';zbuy.className='sc-zone hit-buy';
-    if(navigator.vibrate)navigator.vibrate([400,100,400]);
-  } else {
-    screen.className='screen idle';
-    badge.className='sc-badge watching';badge.textContent='VIGILANDO';
-    priceEl.className='sc-price';
-    alertEl.className='sc-alert idle';
-    mainEl.className='sa-main';mainEl.textContent='EN ESPERA';
-    if(canTrade){
-      subEl.textContent='Confluencia OK ('+ok+'/7) · Esperando precio en zona';
-    } else {
-      subEl.textContent='Solo '+ok+'/7 factores · Necesitas '+(5-ok)+' más para operar';
-    }
-    levelsEl.className='sa-levels';
-    rbEl.textContent='';
-    zsell.className='sc-zone';zbuy.className='sc-zone';
-  }
+function updateClock(){
+  const now=new Date();
+  document.getElementById('clock').textContent=now.toLocaleTimeString('es-ES');
+  const h=now.getUTCHours();
+  const sl=document.getElementById('session-label');
+  if(h>=7&&h<16){sl.textContent='🇬🇧 LONDRES ABIERTA';sl.className='h-session london';}
+  else if(h>=12&&h<21){sl.textContent='🇺🇸 NEW YORK ABIERTA';sl.className='h-session ny';}
+  else{sl.textContent='MERCADO CERRADO';sl.className='h-session closed';}
 }
 
 function calcRisk(){
@@ -556,10 +548,21 @@ function calcRisk(){
   document.getElementById('risk-out').textContent=rsk+'%';
   document.getElementById('sl-out').textContent=slPts+' pts';
   const maxLoss=Math.round(cap*rsk/100);
-  const lots=(maxLoss/(slPts*10)).toFixed(2);
-  const gain=Math.round(maxLoss*2.5);
   document.getElementById('rr-loss').textContent='$'+maxLoss.toLocaleString('en-US');
-  document.getElementById('rr-lots').textContent=lots;
-  document.getElementById('rr-gain').textContent='$'+gain.toLocaleString('en-US');
+  document.getElementById('rr-lots').textContent=(maxLoss/(slPts*10)).toFixed(2);
+  document.getElementById('rr-gain').textContent='$'+Math.round(maxLoss*2.5).toLocaleString('en-US');
 }
 
+// AUTO-REFRESH cada 5 minutos
+setInterval(fetchSignal, 300000);
+setInterval(updateClock, 1000);
+setInterval(renderSessions, 60000);
+
+initChart('15');
+renderSessions();
+updateClock();
+calcRisk();
+fetchSignal(); // Carga automática al abrir
+</script>
+</body>
+</html>
