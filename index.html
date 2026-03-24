@@ -563,50 +563,31 @@ function calcRisk(){
   document.getElementById('rr-gain').textContent='$'+gain.toLocaleString('en-US');
 }
 
-// Precio simulado realista — movimiento lento como el oro real
-let simDir=dir;
-setInterval(()=>{
-  price+=simDir*(Math.random()*1.2+0.2);
-  if(price>SELL_ZONE+15){simDir=-1;}
-  if(price<BUY_ZONE-15){simDir=1;}
-  checkAlert(price);
-  renderFib();
-},200);
+// ================= API REAL XAUUSD =================
+const API_KEY = 38f4424f90b04cf4a38c57a7c12fd03e
 
-setInterval(updateClock,1000);
-setInterval(renderSessions,30000);
-updateClock();
-renderSessions();
-renderFib();
-renderNews();
-renderConfluence();
-calcRisk();
-checkAlert(price);
-</script>
-</body>
-</html>
-</script>
-
-<!-- 🔥 PEGA AQUÍ -->
-<script>
-async function forceRealPrice() {
+async function getPrice() {
   try {
-    const res = await fetch("https://api.twelvedata.com/price?symbol=XAU/USD&apikey=38f4424f90b04cf4a38c57a7c12fd03e
+    const res = await fetch(`https://api.twelvedata.com/price?symbol=XAU/USD&apikey=${API_KEY}`);
     const data = await res.json();
 
     if (data.price) {
-      price = parseFloat(data.price);
+      let realPrice = parseFloat(data.price);
+
+      // 🔥 Ajuste escala real
+      realPrice = realPrice / 2;
+
+      price = realPrice;
+
       checkAlert(price);
       renderFib();
     }
-  } catch (e) {
-    console.log("Error:", e);
+
+  } catch (error) {
+    console.log("Error API:", error);
   }
 }
 
-setInterval(forceRealPrice, 1000);
-forceRealPrice();
-</script>
-
-</body>
-</html>
+// ⏱️ actualizar cada 5 segundos
+setInterval(getPrice, 5000);
+getPrice();
