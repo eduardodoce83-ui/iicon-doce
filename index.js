@@ -1,7 +1,13 @@
 const express = require('express');
 const fetch = require('node-fetch');
+const path = require('path');
+
 const app = express();
+
 app.use(express.json());
+app.use(express.static(__dirname));
+
+// CORS
 app.use((req,res,next)=>{
   res.header('Access-Control-Allow-Origin','*');
   res.header('Access-Control-Allow-Headers','*');
@@ -10,15 +16,22 @@ app.use((req,res,next)=>{
   next();
 });
 
+// ✅ ESTO ARREGLA "Cannot GET /"
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// 👉 SEÑAL
 app.post('/signal', async (req,res)=>{
   try {
-    // 1. Precio real de XAU/USD via Twelve Data
+
+    // PRECIO REAL
     const priceRes = await fetch(`https://api.twelvedata.com/price?symbol=XAU/USD&apikey=${process.env.TWELVEDATA_KEY}`);
     const priceData = await priceRes.json();
     const currentPrice = parseFloat(priceData.price) || 0;
 
-    // 2. Señal via Claude con precio real
-    const prompt = `You are a professional XAU/USD intraday trader. Current XAU/USD price right now: $${currentPrice}. Today: ${new Date().toUTCString()}. Analyze this price with technical analysis and give a precise trading signal. Respond ONLY in JSON: {"signal":"BUY or SELL or WAIT","price":${currentPrice},"change_pct":number,"entry":number,"stop_loss":number,"take_profit":number,"confidence":number 0-100,"analysis":"3 sentences in Spanish explaining the signal"}`;
+    // PROMPT IA
+    const prompt = `You are a professional XAU/USD intraday trader. Current XAU/USD price: $${currentPrice}. Respond ONLY JSON: {"signal":"BUY or SELL or WAIT","price":${currentPrice},"change_pct":number,"entry":number,"stop_loss":number,"take_profit":number,"confidence":number,"analysis":"3 sentences in Spanish"}`;
 
     const claudeRes = await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
@@ -29,8 +42,7 @@ app.post('/signal', async (req,res)=>{
       },
       body:JSON.stringify({
         model:'claude-sonnet-4-20250514',
-        max_tokens:1000,
-        tools:[{type:'web_search_20250305',name:'web_search'}],
+        max_tokens:500,
         messages:[{role:'user',content:prompt}]
       })
     });
@@ -38,8 +50,14 @@ app.post('/signal', async (req,res)=>{
     const claudeData = await claudeRes.json();
     const textBlock = claudeData.content?.find(b=>b.type==='text');
     const match = textBlock?.text?.match(/\{[\s\S]*\}/);
-    const signal = JSON.parse(match ? match[0] : '{}');
-    signal.price = signal.price || currentPrice;
+
+    let signal = {};
+    if(match){
+      signal = JSON.parse(match[0]);
+    }
+
+    signal.price = currentPrice;
+
     res.json(signal);
 
   } catch(e){
@@ -47,12 +65,17 @@ app.post('/signal', async (req,res)=>{
   }
 });
 
+// 👉 SOLO PRECIO
 app.get('/price', async (req,res)=>{
   try {
     const r = await fetch(`https://api.twelvedata.com/price?symbol=XAU/USD&apikey=${process.env.TWELVEDATA_KEY}`);
     const d = await r.json();
     res.json(d);
-  } catch(e){ res.status(500).json({error:e.message}); }
+  } catch(e){
+    res.status(500).json({error:e.message});
+  }
 });
 
-app.listen(process.env.PORT||3000, ()=>console.log('IICON.DOCE servidor activo'));
+app.listen(process.env.PORT||3000, ()=>{
+  console.log('🔥 IICON.DOCE RUNNING');
+});
