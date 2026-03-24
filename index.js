@@ -12,10 +12,27 @@ app.use((req, res, next) => {
   next();
 });
 
+// 🔥 RUTA PARA EL HTML
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+// 🔥 PRECIO REAL DEL ORO
+app.get('/price', async (req, res) => {
+  try {
+    const r = await fetch('https://api.twelvedata.com/price?symbol=XAU/USD&apikey=TU_API_KEY');
+    const data = await r.json();
+
+    res.json({
+      price: parseFloat(data.price)
+    });
+
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// 🔥 IA SIGNAL (LO QUE YA TENÍAS)
 app.post('/signal', async (req, res) => {
   try {
     const r = await fetch('https://api.anthropic.com/v1/messages', {
@@ -37,11 +54,8 @@ app.post('/signal', async (req, res) => {
       })
     });
 
-    const d = await r.json();
-    const t = d.content?.find(b => b.type === 'text');
-    const m = t?.text?.match(/\{[\s\S]*\}/);
-
-    res.json(JSON.parse(m ? m[0] : '{}'));
+    const data = await r.json();
+    res.json(data);
 
   } catch (e) {
     res.status(500).json({ error: e.message });
