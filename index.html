@@ -585,3 +585,28 @@ checkAlert(price);
 </script>
 </body>
 </html>
+</script>
+
+<!-- 🔥 PEGA AQUÍ -->
+<script>
+async function forceRealPrice() {
+  try {
+    const res = await fetch("https://api.twelvedata.com/price?symbol=XAU/USD&apikey=38f4424f90b04cf4a38c57a7c12fd03e
+    const data = await res.json();
+
+    if (data.price) {
+      price = parseFloat(data.price);
+      checkAlert(price);
+      renderFib();
+    }
+  } catch (e) {
+    console.log("Error:", e);
+  }
+}
+
+setInterval(forceRealPrice, 1000);
+forceRealPrice();
+</script>
+
+</body>
+</html>
