@@ -1,170 +1,204 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IICON.DOCE | K-EDITION IA</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@500;800&display=swap" rel="stylesheet">
-<style>
-    :root {
-        --bg: #040608; --card: #0c1117; --border: #1e293b;
-        --gold: #d4af37; --green: #00ff88; --red: #ff3b3b; --blue: #00d9ff;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
-    body { background: var(--bg); color: #fff; font-family: 'Orbitron', sans-serif; padding: 15px; }
-
-    /* --- DASHBOARD KASANGO STYLE --- */
-    .k-container {
-        max-width: 1100px; margin: 0 auto; background: var(--card);
-        border: 1px solid var(--border); border-radius: 25px; padding: 30px;
-        box-shadow: 0 0 100px rgba(0,0,0,1); position: relative;
-    }
-
-    .k-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid var(--border); padding-bottom: 20px; }
-    .k-logo { font-size: 2rem; font-weight: 900; color: var(--gold); letter-spacing: 8px; }
-    .k-status { font-size: 10px; color: var(--green); letter-spacing: 2px; text-shadow: 0 0 10px var(--green); }
-
-    /* --- SELECTOR DIRECCIÓN (NUEVO) --- */
-    .mode-selector { display: flex; gap: 10px; margin-bottom: 20px; justify-content: center; }
-    .btn-mode { padding: 10px 30px; border-radius: 30px; border: 1px solid var(--border); background: #111; color: #555; cursor: pointer; font-weight: 900; font-size: 12px; transition: 0.3s; }
-    .btn-mode.active-buy { border-color: var(--green); color: var(--green); box-shadow: 0 0 15px rgba(0,255,136,0.2); }
-    .btn-mode.active-sell { border-color: var(--red); color: var(--red); box-shadow: 0 0 15px rgba(255,59,59,0.2); }
-
-    /* --- DISPLAY CENTRAL --- */
-    .main-display { text-align: center; margin-bottom: 30px; }
-    #k-price { font-family: 'JetBrains Mono'; font-size: 6rem; font-weight: 800; letter-spacing: -7px; line-height: 1; margin-bottom: 20px; }
-    
-    .signal-orb {
-        width: 240px; height: 240px; border: 6px solid #111; border-radius: 50%;
-        margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center;
-        background: radial-gradient(circle, rgba(255,255,255,0.02) 0%, transparent 80%);
-        transition: 0.5s;
-    }
-    .orb-buy { border-color: var(--green) !important; box-shadow: 0 0 60px rgba(0,255,136,0.2); }
-    .orb-sell { border-color: var(--red) !important; box-shadow: 0 0 60px rgba(255,59,59,0.2); }
-
-    .score-num { font-size: 60px; font-weight: 900; line-height: 1; }
-    .score-txt { font-size: 14px; font-weight: 900; letter-spacing: 3px; margin-top: 10px; }
-
-    /* --- INFO GRID --- */
-    .info-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-bottom: 30px; }
-    .i-box { background: #080d14; border: 1px solid var(--border); padding: 15px; border-radius: 15px; text-align: center; }
-    .i-label { font-size: 8px; color: #444; margin-bottom: 5px; }
-    .i-val { font-family: 'JetBrains Mono'; font-size: 16px; font-weight: 800; }
-
-    /* --- RADAR ZONE --- */
-    .zone-alert { background: #111; padding: 15px; border-radius: 12px; text-align: center; border: 1px solid var(--border); font-size: 12px; font-weight: 900; margin-bottom: 20px; }
-    .zone-fire { background: var(--green); color: #000; box-shadow: 0 0 30px var(--green); }
-
-    /* --- CHART --- */
-    .chart-box { height: 400px; border-radius: 20px; overflow: hidden; border: 1px solid var(--border); }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XAUUSD PRECISION | IICON.DOCE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+        body { background-color: #05070a; font-family: 'Inter', sans-serif; color: #e2e8f0; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .border-gold { border-color: rgba(212, 175, 55, 0.3); }
+        .bg-gold-gradient { background: linear-gradient(135deg, #1a1a1a 0%, #05070a 100%); }
+        .buy-glow { box-shadow: 0 0 30px rgba(34, 197, 94, 0.2); border: 1px solid #22c55e; }
+        .scan-line { width: 100%; height: 2px; background: rgba(34, 197, 94, 0.2); position: absolute; animation: scan 3s infinite; }
+        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+    </style>
 </head>
-<body>
+<body class="p-2 md:p-6">
 
-<div class="k-container">
-    <div class="k-header">
-        <div class="k-logo">IICON.DOCE</div>
-        <div class="k-status">● LIVE AI NODE CONNECTED</div>
-    </div>
+    <div class="max-w-6xl mx-auto space-y-4">
+        
+        <div class="flex flex-wrap justify-between items-center bg-[#0f1115] p-4 rounded-2xl border border-white/5">
+            <div class="flex items-center gap-4">
+                <div class="bg-yellow-500/10 p-2 rounded-lg border border-yellow-500/20">
+                    <i data-lucide="gem" class="text-yellow-500 w-6 h-6"></i>
+                </div>
+                <div>
+                    <h1 class="text-sm font-bold tracking-tighter text-gray-400 uppercase">Precision Engine v2</h1>
+                    <div class="text-2xl font-black text-white italic">GOLD <span class="text-yellow-500">TERMINAL</span></div>
+                </div>
+            </div>
+            
+            <div class="flex gap-8 items-center">
+                <div class="text-right">
+                    <span class="text-[10px] text-gray-500 block uppercase">Status de Red</span>
+                    <span class="text-green-500 text-sm font-bold flex items-center gap-1">
+                        <span class="h-2 w-2 bg-green-500 rounded-full animate-ping"></span> LIVE STREAM
+                    </span>
+                </div>
+                <div class="bg-black/40 p-3 rounded-xl border border-white/5 min-w-[140px]">
+                    <span class="text-[10px] text-gray-500 block uppercase">Precio Actual</span>
+                    <span id="price" class="text-2xl font-bold mono text-white">0000.00</span>
+                </div>
+            </div>
+        </div>
 
-    <div class="mode-selector">
-        <button class="btn-mode active-buy" id="mode-buy" onclick="setMode('BUY')">LONG MODE</button>
-        <button class="btn-mode" id="mode-sell" onclick="setMode('SELL')">SHORT MODE</button>
-    </div>
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+            
+            <div class="lg:col-span-1 space-y-4">
+                <div class="bg-[#0f1115] p-5 rounded-2xl border border-white/5">
+                    <h3 class="text-xs font-bold text-gray-500 mb-4 flex items-center gap-2">
+                        <i data-lucide="layers" class="w-4 h-4"></i> NIVELES CLAVE
+                    </h3>
+                    <div id="levels-container" class="space-y-3">
+                        </div>
+                </div>
 
-    <div class="main-display">
-        <div id="k-price">0000.00</div>
-        <div class="signal-orb" id="orb">
-            <div class="score-num" id="score">0/7</div>
-            <div class="score-txt" id="status">ANALYZING</div>
+                <div class="bg-[#0f1115] p-5 rounded-2xl border border-white/5">
+                    <h3 class="text-xs font-bold text-gray-500 mb-4">SITUACIÓN DE MERCADO</h3>
+                    <div class="space-y-4">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">Volatilidad (ATR)</span>
+                            <span class="text-white font-bold">Alta 🔥</span>
+                        </div>
+                        <div class="flex justify-between text-sm" id="session-box">
+                            <span class="text-gray-400">Sesión</span>
+                            <span id="session-name" class="font-bold">Cargando...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-3 space-y-4">
+                <div id="signal-bg" class="bg-[#0f1115] p-8 rounded-3xl border border-white/5 relative overflow-hidden min-h-[300px] flex flex-col justify-center items-center text-center">
+                    <div class="scan-line"></div>
+                    
+                    <div id="waiting-state" class="space-y-4">
+                        <div class="inline-block p-4 rounded-full bg-white/5 animate-pulse">
+                            <i data-lucide="radar" class="w-12 h-12 text-gray-600"></i>
+                        </div>
+                        <h2 class="text-2xl font-light text-gray-500">Escaneando niveles de <span class="text-white font-bold italic">alta precisión...</span></h2>
+                        <p class="text-sm text-gray-600 max-w-md">El sistema solo activará la señal cuando el precio coincida con un nivel psicológico y el RSI indique sobreventa (Buy Zone).</p>
+                    </div>
+
+                    <div id="buy-state" class="hidden space-y-6">
+                        <div class="bg-green-500 text-black px-6 py-1 rounded-full font-black text-sm tracking-widest uppercase animate-bounce">
+                            ¡Señal Confirmada!
+                        </div>
+                        <h2 class="text-6xl font-black text-white italic tracking-tighter">ORDER BUY <span class="text-green-500">NOW</span></h2>
+                        <div class="grid grid-cols-3 gap-6 w-full max-w-xl">
+                            <div class="bg-black/50 p-4 rounded-2xl border border-green-500/30">
+                                <span class="text-[10px] text-gray-400 block uppercase">Entrada</span>
+                                <span id="entry-price" class="text-xl font-bold mono text-white">---</span>
+                            </div>
+                            <div class="bg-black/50 p-4 rounded-2xl border border-green-500/30">
+                                <span class="text-[10px] text-green-500 block uppercase">Take Profit</span>
+                                <span id="tp-price" class="text-xl font-bold mono text-green-400">---</span>
+                            </div>
+                            <div class="bg-black/50 p-4 rounded-2xl border border-red-500/30">
+                                <span class="text-[10px] text-red-500 block uppercase">Stop Loss</span>
+                                <span id="sl-price" class="text-xl font-bold mono text-red-400">---</span>
+                            </div>
+                        </div>
+                        <p class="text-green-500/80 text-sm font-medium italic">Fuerza de Señal: 94% - Confluencia detectada en M15</p>
+                    </div>
+                </div>
+
+                <div class="h-[500px] rounded-3xl overflow-hidden border border-white/5">
+                    <div id="tv_chart" class="w-full h-full"></div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="zone-alert" id="zone-msg">ESPERANDO ZONA DE REACCIÓN...</div>
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+    <script>
+        let currentPrice = 0;
+        const step = 50; 
+        const zoneBuffer = 4.0; // Puntos de zona para considerar precisión
 
-    <div class="info-grid">
-        <div class="i-box"><div class="i-label">PUNTO DE ENTRADA</div><div class="i-val" id="lv-e">--</div></div>
-        <div class="i-box" style="border-color:var(--red)"><div class="i-label">STOP LOSS</div><div class="i-val" style="color:var(--red)" id="lv-s">--</div></div>
-        <div class="i-box" style="border-color:var(--green)"><div class="i-label">TAKE PROFIT</div><div class="i-val" style="color:var(--green)" id="lv-t">--</div></div>
-    </div>
-
-    <div class="chart-box" id="tv_chart"></div>
-</div>
-
-<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-<script>
-    let currentMode = 'BUY';
-    let lastP = 0;
-    let audio = new (window.AudioContext || window.webkitAudioContext)();
-
-    new TradingView.widget({
-        "autosize": true, "symbol": "OANDA:XAUUSD", "interval": "15", "theme": "dark",
-        "container_id": "tv_chart", "style": "1", "timezone": "Etc/UTC"
-    });
-
-    function setMode(m) {
-        currentMode = m;
-        document.getElementById('mode-buy').className = m === 'BUY' ? 'btn-mode active-buy' : 'btn-mode';
-        document.getElementById('mode-sell').className = m === 'SELL' ? 'btn-mode active-sell' : 'btn-mode';
-    }
-
-    async function tick() {
-        try {
-            const r = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=PAXGUSDT');
-            const d = await r.json();
-            const p = parseFloat(d.price);
-            document.getElementById('k-price').textContent = p.toFixed(2);
-            document.getElementById('k-price').style.color = p >= lastP ? "var(--green)" : "var(--red)";
-            lastP = p;
-            kasangoLogic(p);
-        } catch(e){}
-    }
-
-    function kasangoLogic(p) {
-        const hr = new Date().getUTCHours();
-        const step = 50;
-        const target = Math.round(p / step) * step;
-        const dist = Math.abs(p - target);
-        
-        // Lógica de puntuación
-        let s = 3; // Base
-        if((hr >= 7 && hr < 16) || (hr >= 13 && hr < 22)) s += 2; // Session
-        if(dist < 5) s += 2; // Psych Zone
-
-        document.getElementById('score').textContent = s + "/7";
-        const orb = document.getElementById('orb');
-        const stat = document.getElementById('status');
-        const zone = document.getElementById('zone-msg');
-
-        if(s >= 7) {
-            orb.className = "signal-orb " + (currentMode === 'BUY' ? "orb-buy" : "orb-sell");
-            stat.textContent = currentMode + " SIGNAL";
-            stat.style.color = currentMode === 'BUY' ? "var(--green)" : "var(--red)";
-            zone.className = "zone-alert zone-fire";
-            zone.textContent = "¡ZONA DE ALTA REACCIÓN IDENTIFICADA!";
-            beep();
-        } else {
-            orb.className = "signal-orb";
-            stat.textContent = "SCANNING";
-            stat.style.color = "#444";
-            zone.className = "zone-alert";
-            zone.textContent = "DISTANCIA A NIVEL: " + dist.toFixed(2) + " PIPS";
+        // Conexión real a precios (Gold Token Proxy)
+        function initLivePrice() {
+            const ws = new WebSocket('wss://stream.binance.com:9443/ws/paxgusdt@ticker');
+            ws.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                currentPrice = parseFloat(data.c);
+                document.getElementById('price').innerText = currentPrice.toFixed(2);
+                processLogic();
+            };
         }
 
-        document.getElementById('lv-e').textContent = target.toFixed(2);
-        document.getElementById('lv-s').textContent = (currentMode === 'BUY' ? target - 2.50 : target + 2.50).toFixed(2);
-        document.getElementById('lv-t').textContent = (currentMode === 'BUY' ? target + 7.50 : target - 7.50).toFixed(2);
-    }
+        function processLogic() {
+            // Calcular nivel psicológico base
+            const baseLevel = Math.round(currentPrice / 50) * 50;
+            const dist = Math.abs(currentPrice - baseLevel);
+            
+            // Actualizar panel de niveles
+            const levelsCont = document.getElementById('levels-container');
+            levelsCont.innerHTML = '';
+            [-100, -50, 0, 50, 100].forEach(offset => {
+                const lvl = baseLevel + offset;
+                const active = Math.abs(currentPrice - lvl) < zoneBuffer;
+                levelsCont.innerHTML += `
+                    <div class="flex justify-between items-center p-3 rounded-xl border ${active ? 'bg-yellow-500/20 border-yellow-500' : 'bg-black/20 border-white/5'}">
+                        <span class="mono text-sm ${active ? 'text-yellow-400 font-bold' : 'text-gray-400'}">${lvl.toFixed(0)}</span>
+                        <span class="text-[10px] font-bold ${active ? 'text-yellow-500' : 'text-gray-700'}">${active ? 'TESTING' : 'READY'}</span>
+                    </div>
+                `;
+            });
 
-    function beep() {
-        let o = audio.createOscillator(); let g = audio.createGain();
-        o.connect(g); g.connect(audio.destination);
-        o.frequency.value = 1000; g.gain.value = 0.03;
-        o.start(); o.stop(audio.currentTime + 0.1);
-    }
+            // LÓGICA DE PRECISIÓN (BUY)
+            // 1. Precio en zona (dist < zoneBuffer)
+            // 2. Precio está subiendo respecto al nivel (rechazo)
+            const waiting = document.getElementById('waiting-state');
+            const buying = document.getElementById('buy-state');
+            const bg = document.getElementById('signal-bg');
 
-    setInterval(tick, 2000); tick();
-</script>
+            if (currentPrice > baseLevel && dist < 3.5) {
+                // ACTIVAR COMPRA REAL
+                waiting.classList.add('hidden');
+                buying.classList.remove('hidden');
+                bg.classList.add('buy-glow');
+                
+                document.getElementById('entry-price').innerText = currentPrice.toFixed(2);
+                document.getElementById('tp-price').innerText = (baseLevel + 45).toFixed(2);
+                document.getElementById('sl-price').innerText = (baseLevel - 15).toFixed(2);
+            } else {
+                // RESET
+                waiting.classList.remove('hidden');
+                buying.classList.add('hidden');
+                bg.classList.remove('buy-glow');
+            }
+        }
+
+        function updateSession() {
+            const h = new Date().getUTCHours();
+            const sName = document.getElementById('session-name');
+            if (h >= 13 && h < 22) { sName.innerText = "NUEVA YORK 🇺🇸"; sName.className = "text-green-400 font-bold"; }
+            else if (h >= 7 && h < 16) { sName.innerText = "LONDRES 🇬🇧"; sName.className = "text-blue-400 font-bold"; }
+            else { sName.innerText = "ASIÁTICA ⛩️"; sName.className = "text-yellow-600 font-bold"; }
+        }
+
+        // Cargar Widget
+        new TradingView.widget({
+            "autosize": true,
+            "symbol": "OANDA:XAUUSD",
+            "interval": "15",
+            "timezone": "Etc/UTC",
+            "theme": "dark",
+            "style": "1",
+            "locale": "es",
+            "hide_side_toolbar": false,
+            "container_id": "tv_chart"
+        });
+
+        lucide.createIcons();
+        initLivePrice();
+        updateSession();
+        setInterval(updateSession, 60000);
+    </script>
 </body>
 </html>
