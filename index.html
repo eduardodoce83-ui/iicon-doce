@@ -3,198 +3,99 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>IICON.DOCE | ELITE TERMINAL</title>
+<title>IICON.DOCE | PRECISION TERMINAL</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono:wght@500;800&display=swap" rel="stylesheet">
 <style>
-    :root {
-        --bg: #050505;
-        --card: #0d0d0d;
-        --border: #1a1a1a;
-        --gold: #d4af37;
-        --green: #00ff88;
-        --red: #ff3b3b;
-        --text: #e0e0e0;
-        --muted: #666;
-    }
-
+    :root { --bg:#050505; --card:#0d0d0d; --border:#1a1a1a; --gold:#d4af37; --green:#00ff88; --red:#ff3b3b; --text:#e0e0e0; --muted:#666; }
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-    body { 
-        background: var(--bg); 
-        color: var(--text); 
-        font-family: 'Inter', sans-serif; 
-        min-height: 100vh;
-        overflow-x: hidden;
-        padding-bottom: 80px;
-    }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; padding-bottom: 80px; }
 
-    /* Header Premium */
-    header {
-        padding: 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 1px solid var(--border);
-        background: rgba(5,5,5,0.8);
-        backdrop-filter: blur(10px);
-        sticky: top;
-        z-index: 100;
-    }
-    .brand-logo { font-family: 'JetBrains Mono', monospace; font-weight: 800; letter-spacing: -1px; font-size: 1.2rem; color: var(--gold); }
-    .status-pill { background: rgba(0,255,136,0.1); color: var(--green); padding: 4px 12px; border-radius: 20px; font-size: 10px; font-weight: 700; border: 1px solid rgba(0,255,136,0.2); }
+    header { padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); background: rgba(5,5,5,0.9); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100; }
+    .brand-logo { font-family: 'JetBrains Mono', monospace; font-weight: 800; font-size: 1.1rem; color: var(--gold); }
+    .session-badge { padding: 4px 10px; border-radius: 6px; font-size: 10px; font-weight: 700; border: 1px solid var(--border); }
+    .open { background: rgba(0,255,136,0.1); color: var(--green); border-color: var(--green); }
 
-    /* Price Section */
-    .hero-price { text-align: center; padding: 40px 20px; }
-    .price-label { font-size: 10px; text-transform: uppercase; letter-spacing: 3px; color: var(--muted); margin-bottom: 10px; }
-    .main-price { font-family: 'JetBrains Mono', monospace; font-size: 3.5rem; font-weight: 800; letter-spacing: -2px; transition: color 0.3s; }
+    .hero-price { text-align: center; padding: 30px 20px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+    .main-price { font-family: 'JetBrains Mono', monospace; font-size: 3.2rem; font-weight: 800; letter-spacing: -2px; }
 
-    /* Signal Card */
-    .signal-card {
-        margin: 0 20px 20px;
-        padding: 20px;
-        background: var(--card);
-        border: 1px solid var(--border);
-        border-radius: 16px;
-        position: relative;
-        overflow: hidden;
-    }
-    .signal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-    .signal-title { font-weight: 700; font-size: 14px; }
+    .signal-container { margin: 0 20px 20px; padding: 25px; background: var(--card); border: 2px solid var(--border); border-radius: 20px; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    .sig-status { font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 15px; display: block; text-align: center; }
     
-    .grid-levels { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
-    .level-item { background: #141414; padding: 12px; border-radius: 12px; border: 1px solid var(--border); }
-    .level-label { font-size: 9px; color: var(--muted); margin-bottom: 4px; text-transform: uppercase; }
-    .level-value { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; }
+    .grid-levels { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 20px; }
+    .level-card { background: #161616; padding: 15px 10px; border-radius: 12px; text-align: center; border: 1px solid var(--border); }
+    .l-val { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 800; display: block; margin-top: 5px; }
 
-    /* Strategy Selector */
-    .strategy-toggle {
-        display: flex;
-        background: #141414;
-        margin: 0 20px 20px;
-        padding: 4px;
-        border-radius: 12px;
-        border: 1px solid var(--border);
-    }
-    .st-btn {
-        flex: 1;
-        padding: 10px;
-        border: none;
-        background: none;
-        color: var(--muted);
-        font-size: 11px;
-        font-weight: 700;
-        cursor: pointer;
-        border-radius: 8px;
-        transition: 0.3s;
-    }
-    .st-btn.active { background: var(--border); color: var(--gold); }
+    .chart-box { margin: 0 20px; border-radius: 16px; border: 1px solid var(--border); overflow: hidden; height: 380px; background: #000; }
 
-    /* Chart Area */
-    .chart-container { margin: 0 20px; border-radius: 16px; border: 1px solid var(--border); overflow: hidden; height: 400px; }
+    .risk-panel { margin: 20px; padding: 20px; background: var(--card); border-radius: 16px; border: 1px solid var(--border); }
+    .slider { width: 100%; margin: 15px 0; accent-color: var(--gold); }
 
-    /* Risk Glass Card */
-    .risk-card { margin: 20px; padding: 20px; background: linear-gradient(180deg, #0d0d0d 0%, #050505 100%); border: 1px solid var(--border); border-radius: 16px; }
-    .slider { width: 100%; height: 4px; background: var(--border); -webkit-appearance: none; border-radius: 2px; margin: 15px 0; }
-    .slider::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; background: var(--gold); border-radius: 50%; cursor: pointer; }
-
-    /* Nav */
-    nav { position: fixed; bottom: 0; width: 100%; background: rgba(5,5,5,0.9); backdrop-filter: blur(15px); border-top: 1px solid var(--border); display: flex; padding: 15px; z-index: 1000; }
-    .nav-btn { flex: 1; text-align: center; color: var(--muted); font-size: 10px; font-weight: 700; text-transform: uppercase; }
-    .nav-btn.active { color: var(--gold); }
-
-    /* Animations */
-    .up { color: var(--green); }
-    .dn { color: var(--red); }
-    .pulse-glow { animation: glow 2s infinite; }
-    @keyframes glow { 0% { box-shadow: 0 0 5px rgba(212,175,55,0.2); } 50% { box-shadow: 0 0 20px rgba(212,175,55,0.4); } 100% { box-shadow: 0 0 5px rgba(212,175,55,0.2); } }
+    .up { color: var(--green); text-shadow: 0 0 15px rgba(0,255,136,0.3); }
+    .dn { color: var(--red); text-shadow: 0 0 15px rgba(255,59,59,0.3); }
+    .buy-signal { border-color: var(--green) !important; box-shadow: 0 0 30px rgba(0,255,136,0.1); }
+    .sell-signal { border-color: var(--red) !important; box-shadow: 0 0 30px rgba(255,59,59,0.1); }
 </style>
 </head>
 <body>
 
 <header>
-    <div class="brand-logo">IICON.DOCE<span style="color:var(--text)">.</span></div>
-    <div class="status-pill">LIVE FEED</div>
+    <div class="brand-logo">IICON.DOCE PRO</div>
+    <div id="session-tag" class="session-badge">UTC SYNCING...</div>
 </header>
 
 <div class="hero-price">
-    <div class="price-label">XAUUSD Spot Gold</div>
+    <div style="font-size:10px; color:var(--muted); letter-spacing:3px; margin-bottom:5px;">XAUUSD TICKER</div>
     <div class="main-price" id="price">0000.00</div>
 </div>
 
-<div class="strategy-toggle">
-    <button class="st-btn active" onclick="setMode('cons', this)">CONSERVADOR</button>
-    <button class="st-btn" onclick="setMode('aggr', this)">AGRESIVO</button>
-</div>
-
-<div class="signal-card" id="card-bg">
-    <div class="signal-header">
-        <div class="signal-title" id="sig-text">ANALIZANDO FLUJO...</div>
-        <div id="clock" style="font-size:10px; font-family:'JetBrains Mono'; color:var(--muted)">00:00</div>
-    </div>
+<div class="signal-container" id="sig-card">
+    <span class="sig-status" id="sig-msg">ESCANER DE PRECISIÓN ACTIVO</span>
+    <div id="main-action" style="font-size: 24px; font-weight: 800; text-align: center; margin-bottom: 20px;">ESPERANDO ZONA</div>
+    
     <div class="grid-levels">
-        <div class="level-item">
-            <div class="level-label">Entrada</div>
-            <div class="level-value" id="lv-e">--</div>
+        <div class="level-card">
+            <span style="font-size:9px; color:var(--muted)">ENTRADA</span>
+            <span class="l-val" id="lv-e">--</span>
         </div>
-        <div class="level-item">
-            <div class="level-label">Stop Loss</div>
-            <div class="level-value" style="color:var(--red)" id="lv-s">--</div>
+        <div class="level-card">
+            <span style="font-size:9px; color:var(--muted)">STOP LOSS</span>
+            <span class="l-val" style="color:var(--red)" id="lv-s">--</span>
         </div>
-        <div class="level-item">
-            <div class="level-label">Target</div>
-            <div class="level-value" style="color:var(--green)" id="lv-t">--</div>
+        <div class="level-card">
+            <span style="font-size:9px; color:var(--muted)">TARGET (1:2.5)</span>
+            <span class="l-val" style="color:var(--green)" id="lv-t">--</span>
         </div>
     </div>
 </div>
 
-<div class="chart-container" id="tv-chart"></div>
+<div class="chart-box" id="tv-chart"></div>
 
-<div class="risk-card">
-    <div style="display:flex; justify-content:space-between; font-size:11px;">
-        <span style="color:var(--muted)">GESTIÓN DE CAPITAL</span>
-        <span id="risk-val" style="color:var(--gold)">$10,000 (1%)</span>
+<div class="risk-panel">
+    <div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:10px;">
+        <span style="color:var(--muted)">GESTIÓN DE RIESGO PROFESIONAL</span>
+        <span id="risk-info" style="color:var(--gold)">$10,000 / 1%</span>
     </div>
-    <input type="range" min="1000" max="50000" value="10000" class="slider" id="cap-slider" oninput="updateRisk()">
-    <div style="display:flex; justify-content:space-between; font-family:'JetBrains Mono'; font-size:12px; font-weight:800;">
-        <span id="loss-val" style="color:var(--red)">-$100</span>
-        <span id="lots-val" style="color:var(--green)">0.05 LOTS</span>
+    <input type="range" min="1000" max="100000" step="1000" value="10000" class="slider" id="cap-input" oninput="updateRisk()">
+    <div style="display:flex; justify-content:space-between; font-family:'JetBrains Mono'; font-weight:800;">
+        <span id="loss-amt" style="color:var(--red)">-$100</span>
+        <span id="lot-amt" style="color:var(--green)">0.03 LOTS</span>
     </div>
 </div>
-
-<nav>
-    <div class="nav-btn active">Terminal</div>
-    <div class="nav-btn">Análisis</div>
-    <div class="nav-btn">Ajustes</div>
-</nav>
 
 <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 <script>
     let lastP = 0;
-    let mode = 'cons'; // cons o aggr
+    let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-    // 1. Inicializar Gráfico
+    // 1. Gráfico Profesional
     new TradingView.widget({
-        "autosize": true,
-        "symbol": "OANDA:XAUUSD",
-        "interval": "15",
-        "timezone": "Etc/UTC",
-        "theme": "dark",
-        "style": "1",
-        "locale": "es",
-        "container_id": "tv-chart",
-        "hide_top_toolbar": true,
-        "save_image": false
+        "autosize": true, "symbol": "OANDA:XAUUSD", "interval": "15", "timezone": "Etc/UTC",
+        "theme": "dark", "style": "1", "locale": "es", "container_id": "tv-chart",
+        "hide_top_toolbar": true, "withdateranges": false, "save_image": false
     });
 
-    // 2. Lógica de Modos
-    function setMode(m, btn) {
-        mode = m;
-        document.querySelectorAll('.st-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        updateRisk();
-    }
-
-    // 3. Feed de Precio y Señal
-    async function syncMarket() {
+    // 2. Lógica de Precisión
+    async function getPrecisionData() {
         try {
             const r = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=PAXGUSDT');
             const d = await r.json();
@@ -205,37 +106,46 @@
             else if(p < lastP) pEl.className = 'main-price dn';
             
             pEl.textContent = p.toFixed(2);
+            checkStrategy(p, lastP);
             lastP = p;
-            
-            generateEliteSignal(p);
+            updateSession();
         } catch(e) {}
     }
 
-    function generateEliteSignal(p) {
-        const dec = p % 1;
-        const sigText = document.getElementById('sig-text');
-        const card = document.getElementById('card-bg');
+    function checkStrategy(p, prev) {
+        const sigCard = document.getElementById('sig-card');
+        const mainAct = document.getElementById('main-action');
+        const sigMsg = document.getElementById('sig-msg');
         
-        // Parámetros según modo
-        let sl_pips = mode === 'cons' ? 3.80 : 2.20;
-        let ratio = mode === 'cons' ? 2.5 : 3.5; // Más ratio en agresivo pero stop más corto
+        // FILTRO DE REACCIÓN: Solo entra si el precio termina en .00-.15 (Soporte) o .85-.99 (Resistencia)
+        const decimals = p % 1;
+        const stopSize = 3.00; // 30 Pips de Oro
+        const tpSize = 7.50;   // 75 Pips (Ratio 1:2.5)
 
-        if (dec > 0.80) { // VENTA
-            sigText.textContent = "⬇ SELL CONFIRMED";
-            sigText.style.color = "var(--red)";
-            card.style.borderColor = "rgba(255,59,59,0.3)";
-            setLv(p, p + sl_pips, p - (sl_pips * ratio));
+        if (decimals >= 0.88) {
+            // SEÑAL VENTA
+            if(mainAct.textContent !== "ENTRAR VENTA") beep(400); 
+            sigCard.className = "signal-container sell-signal";
+            mainAct.textContent = "ENTRAR VENTA";
+            mainAct.style.color = "var(--red)";
+            sigMsg.textContent = "PRECISIÓN: ZONA DE REVERSIÓN BAJISTA";
+            setLv(p, p + stopSize, p - tpSize);
         } 
-        else if (dec < 0.20) { // COMPRA
-            sigText.textContent = "⬆ BUY CONFIRMED";
-            sigText.style.color = "var(--green)";
-            card.style.borderColor = "rgba(0,255,136,0.3)";
-            setLv(p, p - sl_pips, p + (sl_pips * ratio));
+        else if (decimals <= 0.12 && decimals > 0) {
+            // SEÑAL COMPRA
+            if(mainAct.textContent !== "ENTRAR COMPRA") beep(600);
+            sigCard.className = "signal-container buy-signal";
+            mainAct.textContent = "ENTRAR COMPRA";
+            mainAct.style.color = "var(--green)";
+            sigMsg.textContent = "PRECISIÓN: ZONA DE REVERSIÓN ALCISTA";
+            setLv(p, p - stopSize, p + tpSize);
         }
         else {
-            sigText.textContent = "◆ WAITING FOR VOLATILITY";
-            sigText.style.color = "var(--muted)";
-            card.style.borderColor = "var(--border)";
+            // ESPERA
+            sigCard.className = "signal-container";
+            mainAct.textContent = "ESPERANDO ZONA";
+            mainAct.style.color = "var(--muted)";
+            sigMsg.textContent = "FILTRANDO RUIDO DE MERCADO...";
         }
     }
 
@@ -245,27 +155,36 @@
         document.getElementById('lv-t').textContent = t.toFixed(2);
     }
 
-    function updateRisk() {
-        const cap = document.getElementById('cap-slider').value;
-        const riskPct = mode === 'cons' ? 0.01 : 0.02; // 1% conservador, 2% agresivo
-        
-        document.getElementById('risk-val').textContent = `$${parseInt(cap).toLocaleString()} (${(riskPct*100)}%)`;
-        
-        const loss = cap * riskPct;
-        const lots = mode === 'cons' ? (loss / 250) : (loss / 150);
-        
-        document.getElementById('loss-val').textContent = `-$${loss.toFixed(0)}`;
-        document.getElementById('lots-val').textContent = `${lots.toFixed(2)} LOTS`;
+    function updateSession() {
+        const hour = new Date().getUTCHours();
+        const tag = document.getElementById('session-tag');
+        if (hour >= 8 && hour < 16) { tag.textContent = "LONDRES ABIERTO"; tag.className = "session-badge open"; }
+        else if (hour >= 13 && hour < 21) { tag.textContent = "NEW YORK ABIERTO"; tag.className = "session-badge open"; }
+        else { tag.textContent = "SESIÓN ASIÁTICA (BAJO VOLUMEN)"; tag.className = "session-badge"; }
     }
 
-    setInterval(syncMarket, 2000);
-    setInterval(() => {
-        const n = new Date();
-        document.getElementById('clock').textContent = n.getHours() + ":" + String(n.getMinutes()).padStart(2,'0');
-    }, 1000);
+    function updateRisk() {
+        const cap = document.getElementById('cap-input').value;
+        const loss = cap * 0.01;
+        // En oro, 1 lote estándar son $10 por pip. 30 pips de stop = $300 por lote.
+        // Lotes = Riesgo / (Stop en pips * 10)
+        const lots = loss / (3.00 * 100); 
+        document.getElementById('risk-info').textContent = `$${parseInt(cap).toLocaleString()} / 1% RISK`;
+        document.getElementById('loss-amt').textContent = `-$${loss.toFixed(0)}`;
+        document.getElementById('lot-amt').textContent = `${lots.toFixed(2)} LOTS`;
+    }
 
-    syncMarket();
+    function beep(freq) {
+        let osc = audioCtx.createOscillator();
+        let gain = audioCtx.createGain();
+        osc.connect(gain); gain.connect(audioCtx.destination);
+        osc.frequency.value = freq; gain.gain.value = 0.1;
+        osc.start(); setTimeout(() => osc.stop(), 200);
+    }
+
+    setInterval(getPrecisionData, 2000);
     updateRisk();
+    getPrecisionData();
 </script>
 </body>
 </html>
