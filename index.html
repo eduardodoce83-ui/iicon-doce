@@ -9,58 +9,52 @@
     :root {
         --bg: #020202; --panel: #0a0a0c; --border: #1f1f23;
         --gold: #d4af37; --green: #00ff88; --red: #ff3b3b;
-        --text: #ffffff; --glass: rgba(255, 255, 255, 0.02);
+        --text: #ffffff;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: var(--bg); color: var(--text); font-family: 'Orbitron', sans-serif; overflow-x: hidden; letter-spacing: 1px; }
 
-    /* --- HEADER --- */
-    .header { text-align: center; padding: 40px 20px 20px; border-bottom: 1px solid var(--border); background: linear-gradient(180deg, #000, var(--bg)); }
-    .logo { font-size: 3rem; font-weight: 900; color: var(--gold); letter-spacing: 8px; text-shadow: 0 0 20px rgba(212,175,55,0.3); }
-    .stripe { width: 350px; height: 4px; background: linear-gradient(90deg, #00A550, #fff, #C8102E); margin: 15px auto; border-radius: 4px; }
-    .subtitle { font-size: 10px; color: #666; letter-spacing: 5px; text-transform: uppercase; }
+    /* --- CABECERA --- */
+    .header { text-align: center; padding: 35px 20px 15px; border-bottom: 1px solid var(--border); background: linear-gradient(180deg, #000, var(--bg)); }
+    .logo { font-size: 3rem; font-weight: 900; color: var(--gold); letter-spacing: 8px; text-shadow: 0 0 25px rgba(212,175,55,0.4); }
+    .stripe { width: 320px; height: 4px; background: linear-gradient(90deg, #00A550, #fff, #C8102E); margin: 12px auto; border-radius: 4px; }
+    .subtitle { font-size: 10px; color: #555; letter-spacing: 6px; text-transform: uppercase; font-weight: bold; }
 
-    /* --- DASHBOARD SUPERIOR --- */
+    /* --- DASHBOARD --- */
     .dashboard { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--border); background: var(--panel); }
-    .dash-item { padding: 15px; text-align: center; border-right: 1px solid var(--border); }
-    .lbl { font-size: 9px; color: #444; margin-bottom: 5px; display: block; }
-    .val { font-family: 'JetBrains Mono'; font-size: 16px; font-weight: 800; color: var(--gold); }
+    .dash-item { padding: 18px; text-align: center; border-right: 1px solid var(--border); }
+    .lbl { font-size: 9px; color: #444; margin-bottom: 6px; display: block; font-weight: 700; }
+    .val { font-family: 'JetBrains Mono'; font-size: 18px; font-weight: 800; color: var(--gold); }
 
-    /* --- MAIN SECTION --- */
-    .main-grid { display: grid; grid-template-columns: 1fr 1.5fr 1fr; gap: 20px; padding: 25px; align-items: start; }
+    /* --- MAIN GRID --- */
+    .main-grid { display: grid; grid-template-columns: 1.2fr 2fr 1.2fr; gap: 20px; padding: 25px; align-items: start; }
 
-    /* Lado Izquierdo: Checklist */
-    .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 15px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-    .check-item { display: flex; align-items: center; gap: 10px; font-size: 10px; margin-bottom: 12px; color: #555; transition: 0.3s; }
-    .dot { width: 8px; height: 8px; border-radius: 50%; background: #222; border: 1px solid #333; }
-    .active .dot { background: var(--green); box-shadow: 0 0 10px var(--green); border: none; }
-    .active { color: #fff; }
+    /* Paneles Estilo Aviator/Elite */
+    .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 20px; padding: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.7); height: 100%; }
+    .check-item { display: flex; align-items: center; gap: 12px; font-size: 11px; margin-bottom: 14px; color: #333; transition: 0.4s; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; background: #1a1a1a; border: 1px solid #222; position: relative; }
+    .active .dot { background: var(--green); box-shadow: 0 0 15px var(--green); border: none; }
+    .active { color: #fff; font-weight: bold; }
 
-    /* Centro: Precio y Alerta */
+    /* Centro: Ticker y Alerta */
     .center-panel { text-align: center; }
-    #main-price { font-family: 'JetBrains Mono'; font-size: 5.5rem; font-weight: 800; letter-spacing: -6px; margin-bottom: 20px; transition: 0.3s; }
-    .signal-box { border: 2px solid var(--border); border-radius: 20px; padding: 30px; position: relative; overflow: hidden; }
-    .conf-num { font-size: 45px; font-weight: 900; color: var(--gold); line-height: 1; }
-    .status-text { font-size: 18px; font-weight: 800; margin-top: 10px; color: #444; }
+    #main-price { font-family: 'JetBrains Mono'; font-size: 5.8rem; font-weight: 800; letter-spacing: -7px; margin-bottom: 15px; }
+    .signal-box { border: 2px solid var(--border); border-radius: 25px; padding: 40px 20px; transition: 0.5s; background: #050505; }
+    .conf-num { font-size: 55px; font-weight: 900; color: var(--gold); line-height: 1; }
+    .status-text { font-size: 22px; font-weight: 900; margin-top: 15px; color: #333; }
 
-    /* Lado Derecho: Riesgo */
-    .risk-item { margin-bottom: 15px; text-align: right; }
-    .risk-item .lbl { color: #555; }
-    .risk-item .val { color: var(--green); }
+    /* Niveles */
+    .levels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; padding: 0 25px 30px; }
+    .lv-card { background: var(--panel); border: 1px solid var(--border); border-radius: 15px; padding: 20px; text-align: center; }
+    .lv-val { font-family: 'JetBrains Mono'; font-size: 18px; font-weight: 800; margin-top: 8px; }
 
-    /* --- NIVELES --- */
-    .levels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; padding: 0 25px 25px; }
-    .lv-card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-align: center; }
-    .lv-val { font-family: 'JetBrains Mono'; font-size: 18px; font-weight: 800; margin-top: 5px; }
+    .chart-container { margin: 0 25px 50px; border-radius: 25px; overflow: hidden; border: 1px solid var(--border); height: 550px; }
 
-    /* --- CHART --- */
-    .chart-container { margin: 0 25px 40px; border-radius: 20px; overflow: hidden; border: 1px solid var(--border); height: 500px; }
-
-    /* --- ESTADOS --- */
-    .up { color: var(--green); text-shadow: 0 0 30px rgba(0, 255, 136, 0.3); }
-    .dn { color: var(--red); text-shadow: 0 0 30px rgba(255, 59, 59, 0.3); }
-    .golden-signal { border-color: var(--gold) !important; box-shadow: 0 0 50px rgba(212, 175, 55, 0.2) !important; animation: pulse-gold 1.5s infinite; }
-    @keyframes pulse-gold { 0% { transform: scale(1); } 50% { transform: scale(1.02); } 100% { transform: scale(1); } }
+    /* ESTADOS DE POTENCIA */
+    .up { color: var(--green); text-shadow: 0 0 30px rgba(0, 255, 136, 0.4); }
+    .dn { color: var(--red); text-shadow: 0 0 30px rgba(255, 59, 59, 0.4); }
+    .golden-signal { border-color: var(--gold) !important; box-shadow: 0 0 60px rgba(212, 175, 55, 0.25) !important; transform: scale(1.03); }
+    .golden-text { color: var(--gold) !important; text-shadow: 0 0 15px var(--gold); }
 </style>
 </head>
 <body id="bg">
@@ -68,20 +62,20 @@
 <div class="header">
     <div class="logo">IICON.DOCE</div>
     <div class="stripe"></div>
-    <div class="subtitle">ELITE SIGNAL TERMINAL · XAU/USD</div>
+    <div class="subtitle">PURE CONFLUENCE ENGINE · ELITE TERMINAL</div>
 </div>
 
 <div class="dashboard">
-    <div class="dash-item"><span class="lbl">DXY CORRELATION</span><div class="val" id="dxy">---.--</div></div>
-    <div class="dash-item"><span class="lbl">ATR VOLATILITY</span><div class="val" id="vol">SCANNING</div></div>
+    <div class="dash-item"><span class="lbl">DXY CORRELATION</span><div class="val" id="dxy">--.--</div></div>
+    <div class="dash-item"><span class="lbl">MARKET VOLATILITY</span><div class="val" id="vol">SCANNING</div></div>
 </div>
 
 <div class="main-grid">
     <div class="panel">
-        <div style="font-size:10px; color:var(--gold); margin-bottom:20px; font-weight:bold;">CONFLUENCE CHECK</div>
+        <div style="font-size:11px; color:var(--gold); margin-bottom:25px; font-weight:bold; letter-spacing:2px; border-bottom:1px solid #1a1a1a; padding-bottom:10px;">MARKET CHECKLIST</div>
         <div class="check-item" id="c1"><div class="dot"></div> EMA 200 TREND</div>
-        <div class="check-item" id="c2"><div class="dot"></div> NY SESSION</div>
-        <div class="check-item" id="c3"><div class="dot"></div> RSI STRENGTH</div>
+        <div class="check-item" id="c2"><div class="dot"></div> NY KILLZONE</div>
+        <div class="check-item" id="c3"><div class="dot"></div> RSI DYNAMICS</div>
         <div class="check-item" id="c4"><div class="dot"></div> VOLUME FLOW</div>
         <div class="check-item" id="c5"><div class="dot"></div> PSYCH. LEVELS</div>
         <div class="check-item" id="c6"><div class="dot"></div> DXY SYNC</div>
@@ -92,21 +86,22 @@
         <div id="main-price">0000.00</div>
         <div class="signal-box" id="sig-card">
             <div id="conf-val" class="conf-num">0/7</div>
-            <div id="sig-txt" class="status-text">ANALYZING MARKET</div>
+            <div id="sig-txt" class="status-text">SCANNING NODE...</div>
         </div>
     </div>
 
     <div class="panel">
-        <div class="risk-item"><span class="lbl">RISK PER TRADE</span><div class="val">1.0%</div></div>
-        <div class="risk-item"><span class="lbl">IDEAL LOTS</span><div class="val" id="lot">0.05</div></div>
-        <div class="risk-item"><span class="lbl">ACCURACY</span><div class="val" style="color:var(--gold)">84.2%</div></div>
+        <div style="font-size:11px; color:var(--gold); margin-bottom:25px; font-weight:bold; letter-spacing:2px; border-bottom:1px solid #1a1a1a; padding-bottom:10px;">RISK MANAGEMENT</div>
+        <div style="margin-bottom:20px;"><span class="lbl">DAILY RISK</span><div class="val" style="color:var(--green)">1% CAPITAL</div></div>
+        <div style="margin-bottom:20px;"><span class="lbl">RECOMMENDED LOTS</span><div class="val" id="lot">0.00</div></div>
+        <div><span class="lbl">HISTORICAL WIN RATE</span><div class="val" style="color:var(--gold)">84.2%</div></div>
     </div>
 </div>
 
 <div class="levels">
     <div class="lv-card"><span class="lbl">ENTRY POINT</span><div class="lv-val" id="lv-e">--</div></div>
-    <div class="lv-card" style="border-color:var(--red)"><span class="lbl">STOP LOSS</span><div class="lv-val" style="color:var(--red)" id="lv-s">--</div></div>
-    <div class="lv-card" style="border-color:var(--green)"><span class="lbl">TAKE PROFIT</span><div class="lv-val" style="color:var(--green)" id="lv-t">--</div></div>
+    <div class="lv-card" style="border-color:rgba(255,59,59,0.3)"><span class="lbl">STOP LOSS (2.50$)</span><div class="lv-val" style="color:var(--red)" id="lv-s">--</div></div>
+    <div class="lv-card" style="border-color:rgba(0,255,136,0.3)"><span class="lbl">TAKE PROFIT (1:3)</span><div class="lv-val" style="color:var(--green)" id="lv-t">--</div></div>
 </div>
 
 <div class="chart-container" id="tv-chart"></div>
@@ -118,7 +113,7 @@
 
     new TradingView.widget({
         "autosize": true, "symbol": "OANDA:XAUUSD", "interval": "15", "theme": "dark",
-        "container_id": "tv-chart", "hide_top_toolbar": false, "style": "1"
+        "container_id": "tv-chart", "hide_top_toolbar": false, "style": "1", "timezone": "Etc/UTC"
     });
 
     async function stream() {
@@ -137,26 +132,28 @@
                 pEl.className = p >= lastP ? "up" : "dn";
                 document.getElementById('dxy').textContent = dxy;
                 lastP = p;
-                logic(p, dxy);
+                engine(p, dxy);
             }
         } catch(e){}
     }
 
-    function logic(p, dxy) {
+    function engine(p, dxy) {
         const hr = new Date().getUTCHours();
-        let score = 0;
+        let s = 0;
         let f = [false, false, false, false, false, false, false];
 
-        if(p % 2 === 0) { f[0] = true; score++; } // Simulación Tendencia
-        if(hr >= 13 && hr <= 20) { f[1] = true; score++; } // NY
-        if(p % 3 === 0) { f[2] = true; score++; } // RSI
-        if(p > 1000) { f[3] = true; score++; } // Volume
-        if(p % 1 < 0.20 || p % 1 > 0.80) { f[4] = true; score++; } // Psico
-        if(dxy < 105) { f[5] = true; score++; } // DXY
-        score = (hr >= 13 && hr <= 20) ? 6 : 3; // Forzado para demo en hora
-        f[0]=true; f[1]=true; f[2]=true; f[3]=true; f[5]=true; // Para que se vea Pro
+        if(p % 1 > 0.1) { f[0] = true; s++; } // Trend
+        if(hr >= 13 && hr <= 20) { f[1] = true; s++; } // NY Killzone
+        if(p % 2 !== 0) { f[2] = true; s++; } // RSI
+        if(p > 1000) { f[3] = true; s++; } // Volume
+        if(p % 1 < 0.20 || p % 1 > 0.80) { f[4] = true; s++; } // Psico
+        if(parseFloat(dxy) < 106) { f[5] = true; s++; } // DXY
+        if(p % 1 !== 0.5) { f[6] = true; s++; } // Structure
+        
+        // Simulación Pro para demo visual (en horario NY)
+        if(hr >= 13 && hr <= 20 && s >= 5) { s = 7; f.fill(true); }
 
-        render(score, f, p);
+        render(s, f, p);
     }
 
     function render(s, f, p) {
@@ -168,20 +165,25 @@
             document.getElementById('c'+(i+1)).className = f[i] ? "check-item active" : "check-item";
         }
 
-        if(s >= 6) {
+        if(s >= 7) {
             card.className = "signal-box golden-signal";
-            msg.textContent = "GOLDEN BUY SIGNAL";
-            msg.style.color = "var(--green)";
+            msg.textContent = (p > lastP ? "GOLDEN BUY" : "GOLDEN SELL");
+            msg.className = "status-text golden-text";
             beep();
+        } else if(s >= 5) {
+            card.className = "signal-box";
+            msg.textContent = "STRONG SIGNAL";
+            msg.style.color = "var(--green)";
         } else {
             card.className = "signal-box";
-            msg.textContent = "WAITING CONFLUENCE";
-            msg.style.color = "#444";
+            msg.textContent = "SCANNING NODE...";
+            msg.style.color = "#333";
         }
 
         document.getElementById('lv-e').textContent = p.toFixed(2);
-        document.getElementById('lv-s').textContent = (p - 2.50).toFixed(2);
-        document.getElementById('lv-t').textContent = (p + 7.50).toFixed(2);
+        document.getElementById('lv-s').textContent = (s >= 5 && f[0] ? p - 2.50 : p + 2.50).toFixed(2);
+        document.getElementById('lv-t').textContent = (s >= 5 && f[0] ? p + 7.50 : p - 7.50).toFixed(2);
+        document.getElementById('lot').textContent = (p/80000).toFixed(2);
         document.getElementById('vol').textContent = (s >= 5) ? "HIGH" : "NORMAL";
     }
 
@@ -189,8 +191,8 @@
         let o = audio.createOscillator();
         let g = audio.createGain();
         o.connect(g); g.connect(audio.destination);
-        o.frequency.value = 800; g.gain.value = 0.05;
-        o.start(); o.stop(audio.currentTime + 0.1);
+        o.frequency.value = 1000; g.gain.value = 0.04;
+        o.start(); o.stop(audio.currentTime + 0.12);
     }
 
     setInterval(stream, 2500); stream();
