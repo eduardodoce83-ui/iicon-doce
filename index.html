@@ -5,83 +5,71 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="IICON.DOCE">
-<meta name="theme-color" content="#060d1a">
-<title>IICON.DOCE · XAU/USD PRO</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;500;700;800&display=swap" rel="stylesheet">
+<title>IICON.DOCE · BLACK GOLD</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#060d1a;--s:#0a1628;--s2:#0d1e35;--b:#1a3a6e;--b2:#223;
-  --gold:#FFD700;--gold2:#D4AF37;
-  --green:#00E676;--green2:#00A550;
-  --red:#FF1744;--red2:#C8102E;
-  --orange:#FF9800;--white:#F5F5F5;
-  --muted:#555;--muted2:#334;
+:root {
+  --bg: #000000;         /* Negro Puro */
+  --s: #0a0a0a;          /* Negro suave para tarjetas */
+  --s2: #111111;         /* Negro para resaltados */
+  --b: #1a1a1a;          /* Bordes sutiles */
+  --gold: #FFD700;
+  --green: #00E676;
+  --red: #FF1744;
+  --white: #ffffff;
+  --muted: #444444;
 }
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-body{background:var(--bg);color:var(--white);font-family:'Space Mono',monospace;min-height:100vh;padding-bottom:90px;}
 
-@keyframes glowGold{0%,100%{text-shadow:0 0 10px rgba(255,215,0,.5),0 0 20px rgba(255,215,0,.3)}50%{text-shadow:0 0 20px rgba(255,215,0,1),0 0 40px rgba(255,215,0,.6),0 0 60px rgba(255,215,0,.3)}}
-@keyframes glowGreen{0%,100%{box-shadow:0 0 15px rgba(0,230,118,.3)}50%{box-shadow:0 0 40px rgba(0,230,118,.8),0 0 80px rgba(0,230,118,.4)}}
-@keyframes glowRed{0%,100%{box-shadow:0 0 15px rgba(255,23,68,.3)}50%{box-shadow:0 0 40px rgba(255,23,68,.8),0 0 80px rgba(255,23,68,.4)}}
-@keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
-@keyframes pulseGold{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
-@keyframes scan{0%{top:0}100%{top:100%}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-@keyframes flash{0%{opacity:1}30%{opacity:.1}100%{opacity:1}}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body { background: var(--bg); color: var(--white); font-family: 'Space Mono', monospace; min-height: 100vh; padding-bottom: 50px; }
 
-.brand{display:flex;flex-direction:column;align-items:center;padding:20px 0 6px;background:var(--bg);}
-.brand-name{font-family:'Syne',sans-serif;font-size:30px;font-weight:800;color:var(--gold);letter-spacing:6px;animation:glowGold 3s ease-in-out infinite;}
-.brand-stripe{width:200px;height:3px;background:linear-gradient(90deg,var(--green),var(--white),var(--red));border-radius:2px;margin-top:6px;}
-.brand-sub{font-size:9px;color:var(--muted);letter-spacing:3px;margin-top:5px;}
+/* ─── BRAND ─── */
+.brand { display: flex; flex-direction: column; align-items: center; padding: 30px 0 10px; background: var(--bg); }
+.brand-name { font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 800; color: var(--gold); letter-spacing: 8px; text-shadow: 0 0 20px rgba(255, 215, 0, 0.2); }
+.brand-stripe { width: 150px; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin-top: 8px; }
 
-header{background:var(--s);border-bottom:1px solid var(--b);padding:10px 14px 8px;position:sticky;top:0;z-index:100;}
-.h-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;}
-.h-logo{display:flex;align-items:center;gap:7px;}
-.h-dot{width:9px;height:9px;border-radius:50%;background:var(--green);animation:pulseGold 1.5s infinite;}
-.h-pair{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--gold);}
-.h-sub{font-size:9px;color:var(--muted);margin-top:1px;}
-.h-right{text-align:right;}
-.h-clock{font-size:11px;color:var(--muted);}
-.h-sess{font-size:9px;margin-top:1px;}
-.h-sess.london{color:#3b82f6;}.h-sess.ny{color:#f97316;}.h-sess.both{color:var(--green);}.h-sess.closed{color:var(--muted);}
-.tfs{display:flex;gap:4px;}
-.tf{flex:1;padding:5px 0;border-radius:5px;border:1px solid var(--b);background:transparent;color:var(--muted);font-size:11px;font-family:'Space Mono',monospace;font-weight:700;cursor:pointer;transition:all .15s;}
-.tf.active{background:var(--gold);border-color:var(--gold);color:#000;}
+/* ─── HEADER ─── */
+header { background: var(--bg); border-bottom: 1px solid var(--b); padding: 15px; position: sticky; top: 0; z-index: 100; }
+.h-top { display: flex; align-items: center; justify-content: space-between; }
+.h-pair { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; color: var(--gold); }
+.h-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 10px var(--green); margin-right: 8px; display: inline-block; }
+.h-clock { font-size: 12px; color: var(--muted); }
 
-.page{padding:10px 12px 0;}
-.sec{font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin:12px 0 7px;display:flex;align-items:center;gap:6px;}
-.sec::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--gold);display:inline-block;}
+/* ─── CARDS ─── */
+.page { padding: 15px; }
+.card { background: var(--s); border: 1px solid var(--b); border-radius: 12px; padding: 20px; margin-bottom: 15px; }
+.sec-title { font-size: 10px; color: var(--muted); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 10px; border-left: 2px solid var(--gold); padding-left: 8px; }
 
-.price-card{background:var(--s);border:1px solid var(--b);border-radius:14px;padding:14px;margin-bottom:10px;animation:fadeUp .3s ease both;position:relative;overflow:hidden;}
-.pc-row{display:flex;align-items:flex-start;justify-content:space-between;}
-.pc-left .pc-label{font-size:9px;color:var(--muted);letter-spacing:1px;margin-bottom:4px;}
-.pc-price{font-family:'Syne',sans-serif;font-size:42px;font-weight:800;color:var(--white);line-height:1;transition:color .2s;}
-.pc-price.up{color:var(--green);}.pc-price.dn{color:var(--red);}
-.pc-price.flash{animation:flash .25s ease;}
-.pc-change{font-size:11px;margin-top:3px;}
-.pc-change.up{color:var(--green);}.pc-change.dn{color:var(--red);}
-.pc-right{display:flex;flex-direction:column;align-items:flex-end;gap:6px;}
-.pc-signal{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;padding:6px 14px;border-radius:8px;letter-spacing:1px;}
-.pc-signal.BUY{background:rgba(0,230,118,.15);color:var(--green);border:1px solid rgba(0,230,118,.3);}
-.pc-signal.WAIT{background:rgba(255,215,0,.1);color:var(--gold);border:1px solid rgba(255,215,0,.2);}
-.score-panel{background:var(--s);border:1px solid var(--b);border-radius:14px;padding:14px;margin-bottom:10px;}
-.sp-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
-.sp-score{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;}
-.sp-bar-bg{height:8px;background:var(--s2);border-radius:4px;overflow:hidden;margin-bottom:12px;}
-.sp-bar-fill{height:100%;border-radius:4px;transition:width .8s ease;}
-.alert-screen{background:#030810;border:2px solid var(--b);border-radius:16px;padding:16px;position:relative;overflow:hidden;margin-bottom:10px;}
-.alert-screen.BUY{border-color:var(--green);animation:glowGreen .8s ease-in-out infinite;}
-.as-main{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;text-align:center;margin-bottom:4px;}
-.niveles-card{background:var(--s);border:1px solid var(--b);border-radius:14px;padding:14px;margin-bottom:10px;}
-.nivel-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
-.nivel-line{flex:1;height:3px;border-radius:2px;}
-.nivel-line.active{background:var(--red);box-shadow:0 0 6px rgba(255,23,68,.5);}
-.nivel-line.normal{background:rgba(255,23,68,.3);}
-.nivel-price{font-size:12px;font-weight:700;min-width:60px;text-align:right;}
+/* ─── PRECIO ─── */
+.price-display { font-family: 'Syne', sans-serif; font-size: 48px; font-weight: 800; line-height: 1; letter-spacing: -2px; transition: color 0.2s; margin-top: 5px; }
+.up { color: var(--green); }
+.dn { color: var(--red); }
+.flash { animation: flashEffect 0.3s ease; }
+@keyframes flashEffect { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
 
-/* Clases dinámicas */
-.ok{color:var(--green);} .no{color:var(--red);} .s80{color:var(--green); background:var(--green) !important;} .s60{color:var(--gold); background:var(--gold) !important;} .s40{color:var(--orange); background:var(--orange) !important;} .s0{color:var(--red); background:var(--red) !important;}
+.signal-badge { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 800; padding: 8px 16px; border-radius: 6px; border: 1px solid var(--b); display: inline-block; margin-top: 10px; }
+.sig-wait { color: var(--gold); background: rgba(255, 215, 0, 0.05); }
+.sig-buy { color: var(--green); background: rgba(0, 230, 118, 0.1); border-color: var(--green); box-shadow: 0 0 20px rgba(0, 230, 118, 0.1); }
+
+/* ─── NIVELES ─── */
+.nivel-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.nivel-line { flex: 1; height: 1px; background: var(--b); position: relative; }
+.nivel-line.active { background: var(--gold); box-shadow: 0 0 10px var(--gold); height: 2px; }
+.nivel-val { font-size: 13px; font-weight: 700; width: 70px; text-align: right; color: var(--muted); }
+.nivel-val.active { color: var(--gold); }
+
+/* ─── SCORE BAR ─── */
+.score-container { margin-top: 10px; }
+.score-val { font-family: 'Syne', sans-serif; font-size: 36px; font-weight: 800; color: var(--white); }
+.bar-bg { height: 4px; background: var(--b); border-radius: 2px; overflow: hidden; margin-top: 10px; }
+.bar-fill { height: 100%; width: 0%; background: var(--gold); transition: width 0.5s ease, background 0.5s; }
+
+/* ─── MONITOR ─── */
+.monitor { text-align: center; padding: 30px 10px; border: 1px dashed var(--b); border-radius: 20px; }
+.monitor.buy-active { border: 1px solid var(--green); background: rgba(0, 230, 118, 0.02); }
+.mon-main { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; color: var(--muted); }
+.mon-buy { color: var(--green); text-shadow: 0 0 30px rgba(0, 230, 118, 0.4); }
+
 </style>
 </head>
 <body>
@@ -89,159 +77,136 @@ header{background:var(--s);border-bottom:1px solid var(--b);padding:10px 14px 8p
 <div class="brand">
   <div class="brand-name">IICON.DOCE</div>
   <div class="brand-stripe"></div>
-  <div class="brand-sub">XAU/USD · NIVELES PSICOLÓGICOS REAL-TIME 💎</div>
 </div>
 
 <header>
   <div class="h-top">
-    <div class="h-logo">
+    <div>
       <div class="h-dot"></div>
-      <div><div class="h-pair">XAU/USD</div><div class="h-sub" id="pc-upd">CONECTANDO...</div></div>
+      <span class="h-pair">XAU/USD · LIVE</span>
     </div>
-    <div class="h-right">
-      <div class="h-clock" id="clock">--:--:--</div>
-      <div class="h-sess closed" id="sess-lbl">UTC</div>
-    </div>
+    <div class="h-clock" id="clock">00:00:00</div>
   </div>
 </header>
 
 <div class="page">
-    <div class="price-card">
-        <div class="pc-row">
-            <div class="pc-left">
-                <div class="pc-label">PRECIO SNIPER BINANCE</div>
-                <div class="pc-price" id="pc-price">0000.00</div>
-                <div class="pc-change" id="pc-change">0.00%</div>
-            </div>
-            <div class="pc-right">
-                <div class="pc-signal WAIT" id="pc-signal">ESPERAR</div>
-                <div class="pc-nivel" id="pc-nivel">Cargando...</div>
-            </div>
+    
+    <div class="card">
+        <div class="sec-title">GOLD PRICE SNIPER</div>
+        <div class="price-display" id="price">0000.00</div>
+        <div id="change" style="font-size:12px; margin-top:5px; color:var(--muted)">Sincronizando...</div>
+        <div class="signal-badge sig-wait" id="sig-badge">SCANNING...</div>
+    </div>
+
+    <div class="card">
+        <div class="sec-title">PROBABILIDAD DE COMPRA</div>
+        <div class="score-val" id="score-val">0%</div>
+        <div class="bar-bg"><div class="bar-fill" id="bar-fill"></div></div>
+    </div>
+
+    <div class="card monitor" id="monitor">
+        <div class="mon-main" id="mon-text">ESPERANDO POI</div>
+        <div id="mon-sub" style="font-size:10px; color:var(--muted); margin-top:10px;">Analizando niveles de 50 pts</div>
+        
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-top:20px; border-top:1px solid var(--b); padding-top:20px;">
+            <div><div style="font-size:8px; color:var(--muted)">ENTRADA</div><div id="val-e" style="font-weight:bold">--</div></div>
+            <div><div style="font-size:8px; color:var(--red)">STOP</div><div id="val-s" style="font-weight:bold; color:var(--red)">--</div></div>
+            <div><div style="font-size:8px; color:var(--green)">TARGET</div><div id="val-t" style="font-weight:bold; color:var(--green)">--</div></div>
         </div>
     </div>
 
-    <div class="sec">Score de entrada Sniper</div>
-    <div class="score-panel">
-        <div class="sp-header">
-            <div class="sp-score s0" id="sp-score">0%</div>
-        </div>
-        <div class="sp-bar-bg"><div class="sp-bar-fill s0" id="sp-bar" style="width:0%"></div></div>
-        <div id="sp-rows" style="font-size:10px; color:var(--muted)"></div>
+    <div class="card">
+        <div class="sec-title">NIVELES PSICOLÓGICOS</div>
+        <div id="niveles-box"></div>
     </div>
 
-    <div class="sec">Monitor de Alerta</div>
-    <div class="alert-screen" id="alert-screen">
-        <div class="as-main" id="as-main">ANALIZANDO...</div>
-        <div id="as-sub" style="text-align:center; font-size:10px; color:var(--muted)">Escaneando niveles psicológicos...</div>
-        <div id="levels-info" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-top:15px; text-align:center;">
-            <div><div style="font-size:8px; color:var(--muted)">ENTRY</div><div id="lv-e" style="font-weight:bold">--</div></div>
-            <div><div style="font-size:8px; color:var(--red)">STOP</div><div id="lv-s" style="font-weight:bold; color:var(--red)">--</div></div>
-            <div><div style="font-size:8px; color:var(--green)">TARGET</div><div id="lv-t" style="font-weight:bold; color:var(--green)">--</div></div>
-        </div>
-    </div>
-
-    <div class="sec">Niveles cada 50 pts</div>
-    <div class="niveles-card" id="niveles-card"></div>
 </div>
 
 <script>
-let price = 0, prevPrice = 0;
-let rsiVal = 45, macdHist = 0, atrVal = 15;
-const NIVEL_STEP = 50;
+let price = 0, lastPrice = 0;
+const STEP = 50;
 
-// 1. MOTOR REAL-TIME (WEBSOCKET)
-function initMarketData() {
+function init() {
+    // WebSocket de Binance (PAXGUSDT es el proxy más rápido para el Oro)
     const ws = new WebSocket('wss://stream.binance.com:9443/ws/paxgusdt@ticker');
     
-    ws.onmessage = (event) => {
-        const d = JSON.parse(event.data);
-        const p = parseFloat(d.c);
+    ws.onmessage = (e) => {
+        const d = JSON.parse(e.data);
+        price = parseFloat(d.c);
         const ch = parseFloat(d.P);
-
-        if (!p) return;
-        prevPrice = price;
-        price = p;
-
-        const el = document.getElementById('pc-price');
-        el.textContent = p.toFixed(2);
-        el.className = 'pc-price ' + (p > prevPrice ? 'up flash' : 'dn flash');
-        setTimeout(() => el.classList.remove('flash'), 200);
-
-        document.getElementById('pc-change').textContent = (ch >= 0 ? '+' : '') + ch.toFixed(2) + '%';
-        document.getElementById('pc-change').className = 'pc-change ' + (ch >= 0 ? 'up' : 'dn');
-        document.getElementById('pc-upd').textContent = 'LIVE SYNC';
-
-        updateAppLogic();
+        
+        // UI Precio
+        const pEl = document.getElementById('price');
+        pEl.textContent = price.toFixed(2);
+        pEl.className = 'price-display ' + (price > lastPrice ? 'up flash' : 'dn flash');
+        setTimeout(()=> pEl.classList.remove('flash'), 250);
+        
+        document.getElementById('change').textContent = (ch >= 0 ? '+' : '') + ch.toFixed(2) + '% HOY';
+        document.getElementById('change').style.color = ch >= 0 ? 'var(--green)' : 'var(--red)';
+        
+        updateLogic();
+        lastPrice = price;
     };
-
-    ws.onclose = () => setTimeout(initMarketData, 2000);
+    
+    ws.onclose = () => setTimeout(init, 2000);
 }
 
-// 2. LÓGICA DE SEÑALES
-function updateAppLogic() {
-    const baseLevel = Math.round(price / NIVEL_STEP) * NIVEL_STEP;
-    const dist = Math.abs(price - baseLevel);
+function updateLogic() {
+    const base = Math.round(price / STEP) * STEP;
+    const dist = Math.abs(price - base);
     const inZone = dist < 4.0;
-
-    // Simulación de confluencia técnica
-    let score = 0;
-    if (inZone) score += 40;
-    if (rsiVal < 35) score += 30;
-    if (new Date().getUTCHours() >= 13) score += 30; // Sesión NY bonus
-
-    // Actualizar Niveles UI
-    let nivHtml = '';
+    
+    // UI Niveles
+    let h = '';
     for(let i=2; i>=-2; i--) {
-        const l = baseLevel + (i*NIVEL_STEP);
-        const act = Math.abs(price - l) < 4.0;
-        nivHtml += `<div class="nivel-row">
-            <div class="nivel-line ${act?'active':'normal'}"></div>
-            <div class="nivel-price" style="color:${act?'var(--red)':'var(--muted)'}">$${l}</div>
+        const l = base + (i * STEP);
+        const active = Math.abs(price - l) < 4.0;
+        h += `<div class="nivel-row">
+            <div class="nivel-line ${active?'active':''}"></div>
+            <div class="nivel-val ${active?'active':''}">${l}</div>
         </div>`;
     }
-    document.getElementById('niveles-card').innerHTML = nivHtml;
+    document.getElementById('niveles-box').innerHTML = h;
 
-    // Actualizar Score UI
-    document.getElementById('sp-score').textContent = score + '%';
-    const bar = document.getElementById('sp-bar');
-    bar.style.width = score + '%';
-    bar.className = 'sp-bar-fill ' + (score >= 70 ? 's80' : score >= 40 ? 's60' : 's0');
+    // Lógica de Señal
+    let score = 0;
+    if (inZone) score += 40;
+    if (new Date().getUTCHours() >= 13) score += 30; // Sesión NY
+    if (price > base && inZone) score += 20; // Rebote alcista
 
-    // Señal de Compra
-    const screen = document.getElementById('alert-screen');
-    const signalBtn = document.getElementById('pc-signal');
-    
-    if (score >= 70 && price > baseLevel) {
-        screen.className = 'alert-screen BUY';
-        document.getElementById('as-main').textContent = 'BUY NOW';
-        document.getElementById('as-main').style.color = 'var(--green)';
-        signalBtn.className = 'pc-signal BUY';
-        signalBtn.textContent = 'COMPRA';
+    document.getElementById('score-val').textContent = score + '%';
+    document.getElementById('bar-fill').style.width = score + '%';
+    document.getElementById('bar-fill').style.background = score >= 70 ? 'var(--green)' : 'var(--gold)';
+
+    const mon = document.getElementById('monitor');
+    const badge = document.getElementById('sig-badge');
+
+    if (score >= 70) {
+        mon.className = 'card monitor buy-active';
+        document.getElementById('mon-text').textContent = 'ORDER BUY NOW';
+        document.getElementById('mon-text').className = 'mon-main mon-buy';
+        badge.className = 'signal-badge sig-buy';
+        badge.textContent = 'CONFIRMED BUY';
         
-        document.getElementById('lv-e').textContent = price.toFixed(1);
-        document.getElementById('lv-s').textContent = (baseLevel - 12).toFixed(1);
-        document.getElementById('lv-t').textContent = (baseLevel + 50).toFixed(1);
+        document.getElementById('val-e').textContent = price.toFixed(1);
+        document.getElementById('val-s').textContent = (base - 15).toFixed(1);
+        document.getElementById('val-t').textContent = (base + 50).toFixed(1);
     } else {
-        screen.className = 'alert-screen';
-        document.getElementById('as-main').textContent = 'ESPERANDO...';
-        document.getElementById('as-main').style.color = 'var(--muted)';
-        signalBtn.className = 'pc-signal WAIT';
-        signalBtn.textContent = 'ESPERAR';
+        mon.className = 'card monitor';
+        document.getElementById('mon-text').textContent = 'BUSCANDO POI';
+        document.getElementById('mon-text').className = 'mon-main';
+        badge.className = 'signal-badge sig-wait';
+        badge.textContent = 'SCANNING...';
     }
 }
 
-function updateClock() {
-    const now = new Date();
-    document.getElementById('clock').textContent = now.toLocaleTimeString('es-ES');
-    const h = now.getUTCHours();
-    const lbl = document.getElementById('sess-lbl');
-    if (h >= 13 && h < 22) { lbl.textContent = "NEW YORK 🇺🇸"; lbl.className="h-sess ny"; }
-    else if (h >= 7 && h < 16) { lbl.textContent = "LONDON 🇬🇧"; lbl.className="h-sess london"; }
-    else { lbl.textContent = "ASIÁTICA ⛩️"; lbl.className="h-sess closed"; }
+function clock() {
+    document.getElementById('clock').textContent = new Date().toLocaleTimeString('es-ES');
 }
 
-setInterval(updateClock, 1000);
-initMarketData();
+setInterval(clock, 1000);
+init();
 </script>
+
 </body>
 </html>
