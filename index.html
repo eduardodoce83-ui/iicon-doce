@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>IICON.DOCE | GOLDEN TERMINAL</title>
+<title>IICON.DOCE | TERMINAL PROFESIONAL</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono:wght@500;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
     :root {
@@ -12,41 +12,45 @@
         --text: #e0e0e0; --muted: #666;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; padding-bottom: 60px; transition: background 0.5s; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; padding-bottom: 20px; transition: background 0.3s; }
 
-    /* --- CABECERA IICON.DOCE (Tu Diseño) --- */
-    .brand-header { text-align: center; padding: 25px 20px 15px; background: rgba(5,5,5,0.95); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border); }
-    .brand-name { font-family: 'JetBrains Mono', monospace; font-weight: 800; font-size: 2.2rem; color: var(--gold); letter-spacing: 2px; line-height: 1; }
+    /* --- CABECERA IICON.DOCE --- */
+    .brand-header { text-align: center; padding: 25px 20px 10px; background: rgba(5,5,5,0.95); position: sticky; top: 0; z-index: 100; }
+    .brand-name { font-family: 'JetBrains Mono', monospace; font-weight: 800; font-size: 2.2rem; color: var(--gold); letter-spacing: 2px; }
     .brand-stripe { width: 280px; height: 3px; background: linear-gradient(90deg, #00A550 0%, #F5F5F5 50%, #C8102E 100%); border-radius: 2px; margin: 8px auto; }
     .brand-subtitle { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 4px; }
 
-    /* Alerta Visual 7/7 */
-    @keyframes alert-glow { 0%, 100% { background: #050505; } 50% { background: #1a1600; } }
-    .golden-alert { animation: alert-glow 1s infinite; }
+    /* Selector de Temporalidad */
+    .tf-selector { display: flex; gap: 5px; margin: 15px 20px; background: #111; padding: 4px; border-radius: 8px; border: 1px solid var(--border); }
+    .tf-btn { flex: 1; padding: 10px; border: none; background: none; color: var(--muted); font-family: 'Space Mono'; font-size: 11px; font-weight: 700; cursor: pointer; border-radius: 6px; transition: 0.3s; }
+    .tf-btn.active { background: #00ff88; color: #000; }
 
     /* Price Section */
-    .hero-price { text-align: center; padding: 30px 0; }
-    .price-main { font-family: 'JetBrains Mono', monospace; font-size: 3.8rem; font-weight: 800; letter-spacing: -3px; }
+    .price-section { text-align: center; padding: 20px 0; }
+    .price-main { font-family: 'JetBrains Mono', monospace; font-size: 3.8rem; font-weight: 800; letter-spacing: -3px; line-height: 1; }
+    .price-dir { font-size: 2rem; vertical-align: middle; margin-left: 10px; }
 
-    /* CONFLUENCIA 7 FACTORES */
-    .conf-card { margin: 0 20px 20px; padding: 25px; background: var(--card); border: 2px solid var(--border); border-radius: 20px; transition: 0.5s; text-align: center; }
+    /* Confluencia System */
+    .conf-card { margin: 0 20px 20px; padding: 25px; background: var(--card); border: 2px solid var(--border); border-radius: 20px; text-align: center; transition: 0.5s; }
     .conf-circle { width: 85px; height: 85px; border: 4px solid var(--border); border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto 15px; transition: 0.5s; }
     .conf-num { font-size: 26px; font-weight: 800; font-family: 'JetBrains Mono'; }
     
+    .conf-status { font-size: 22px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; }
     .conf-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; text-align: left; margin-top: 15px; }
-    .f-item { font-size: 10px; color: var(--muted); display: flex; align-items: center; gap: 6px; opacity: 0.4; transition: 0.3s; }
+    .f-item { font-size: 10px; color: var(--muted); display: flex; align-items: center; gap: 6px; opacity: 0.4; }
     .f-ok { color: var(--green); opacity: 1; font-weight: bold; }
     .f-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
 
     .grid-lv { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 0 20px 20px; }
     .lv-box { background: var(--card); border: 1px solid var(--border); padding: 15px; border-radius: 12px; text-align: center; }
+    .l-val { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 800; display: block; margin-top: 5px; }
 
-    /* Chart */
-    .chart-box { margin: 0 20px 20px; border: 1px solid var(--border); border-radius: 20px; overflow: hidden; height: 480px; }
+    .chart-box { margin: 0 20px 20px; border: 1px solid var(--border); border-radius: 20px; overflow: hidden; height: 500px; }
 
-    /* Utility */
-    .up { color: var(--green); } .dn { color: var(--red); }
-    .power-high { border-color: var(--gold) !important; box-shadow: 0 0 30px rgba(212,175,55,0.2); }
+    /* Alerta Dorada */
+    @keyframes gold-bg { 0%, 100% { background: #050505; } 50% { background: #1a1600; } }
+    .golden-mode { animation: gold-bg 1s infinite; }
+    .power-up { border-color: var(--gold) !important; box-shadow: 0 0 30px rgba(212,175,55,0.2); }
 </style>
 </head>
 <body id="main-body">
@@ -57,9 +61,16 @@
     <div class="brand-subtitle">XAU/USD · INTRADÍA PROFESIONAL</div>
 </div>
 
-<div class="hero-price">
-    <div class="price-main" id="price">----.--</div>
-    <div id="clock" style="font-family:'JetBrains Mono'; font-size:12px; color:var(--muted)">00:00:00</div>
+<div class="tf-selector">
+    <button class="tf-btn active" onclick="changeTF(this, '15')">M15</button>
+    <button class="tf-btn" onclick="changeTF(this, '60')">H1</button>
+    <button class="tf-btn" onclick="changeTF(this, '240')">H4</button>
+    <button class="tf-btn" onclick="changeTF(this, 'D')">D1</button>
+</div>
+
+<div class="price-section">
+    <div class="price-main"><span id="price">----.--</span><span id="price-icon" class="price-dir"></span></div>
+    <div id="clock" style="font-family:'JetBrains Mono'; font-size:11px; color:var(--muted); margin-top:5px;">00:00:00</div>
 </div>
 
 <div class="conf-card" id="sig-card">
@@ -67,7 +78,7 @@
         <span class="conf-num" id="conf-count">0/7</span>
         <span style="font-size:8px; color:var(--muted)">FACTORES</span>
     </div>
-    <div id="sig-msg" style="font-weight:800; letter-spacing:2px; text-transform:uppercase; font-size:18px;">ANALIZANDO...</div>
+    <div id="sig-msg" class="conf-status">ANALIZANDO...</div>
     
     <div class="conf-list">
         <div class="f-item" id="f1"><div class="f-dot"></div> TENDENCIA EMA</div>
@@ -81,9 +92,9 @@
 </div>
 
 <div class="grid-lv">
-    <div class="lv-box"><div style="font-size:8px;color:var(--muted)">ENTRY</div><div id="lv-e" style="font-weight:bold">--</div></div>
-    <div class="lv-box"><div style="font-size:8px;color:var(--muted)">STOP</div><div id="lv-s" style="color:var(--red);font-weight:bold">--</div></div>
-    <div class="lv-box"><div style="font-size:8px;color:var(--muted)">TARGET</div><div id="lv-t" style="color:var(--green);font-weight:bold">--</div></div>
+    <div class="lv-box"><div>ENTRY</div><span class="l-val" id="lv-e">--</span></div>
+    <div class="lv-box"><div>STOP</div><span class="l-val" style="color:var(--red)" id="lv-s">--</span></div>
+    <div class="lv-box"><div>TARGET</div><span class="l-val" style="color:var(--green)" id="lv-t">--</span></div>
 </div>
 
 <div class="chart-box" id="tv-chart"></div>
@@ -91,14 +102,24 @@
 <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 <script>
     let lastP = 0;
+    let currentTF = '15';
+    let tvWidget = null;
     let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-    // Gráfico con herramientas e indicadores desbloqueados
-    new TradingView.widget({
-        "autosize": true, "symbol": "OANDA:XAUUSD", "interval": "15", "theme": "dark",
-        "style": "1", "locale": "es", "container_id": "tv-chart", "hide_top_toolbar": false,
-        "studies": ["MASimple@tv-basicstudies", "RSI@tv-basicstudies"]
-    });
+    function initTV(interval) {
+        tvWidget = new TradingView.widget({
+            "autosize": true, "symbol": "OANDA:XAUUSD", "interval": interval,
+            "theme": "dark", "style": "1", "locale": "es", "container_id": "tv-chart",
+            "hide_top_toolbar": false, "studies": ["MASimple@tv-basicstudies", "RSI@tv-basicstudies"]
+        });
+    }
+
+    function changeTF(btn, tf) {
+        document.querySelectorAll('.tf-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentTF = tf;
+        initTV(tf);
+    }
 
     async function tick() {
         try {
@@ -108,10 +129,13 @@
             const open = parseFloat(d.openPrice);
 
             const pEl = document.getElementById('price');
+            const iconEl = document.getElementById('price-icon');
+            
             pEl.textContent = p.toFixed(2);
-            pEl.className = 'price-main ' + (p > lastP ? 'up' : 'dn');
+            if(p > lastP) { pEl.style.color = "var(--green)"; iconEl.textContent = "↑"; iconEl.style.color = "var(--green)"; }
+            else { pEl.style.color = "var(--red)"; iconEl.textContent = "↓"; iconEl.style.color = "var(--red)"; }
+            
             lastP = p;
-
             updateLogic(p, open, d);
         } catch(e) {}
     }
@@ -121,50 +145,45 @@
         let f = [false, false, false, false, false, false, false];
         const hr = new Date().getUTCHours();
 
-        if (p > open) { f[0] = true; score++; } // Tendencia
+        if (p > open) { f[0] = true; score++; }
         const rsiSim = (p - d.lowPrice) / (d.highPrice - d.lowPrice);
-        if (rsiSim < 0.2 || rsiSim > 0.8) { f[1] = true; score++; } // RSI
-        if (hr >= 13 && hr <= 21) { f[2] = true; score++; } // NY Killzone
-        if (parseFloat(d.quoteVolume) > 1000000) { f[3] = true; score++; } // Vol
+        if (rsiSim < 0.25 || rsiSim > 0.75) { f[1] = true; score++; }
+        if (hr >= 13 && hr <= 21) { f[2] = true; score++; }
+        if (parseFloat(d.quoteVolume) > 1000000) { f[3] = true; score++; }
         const dec = p % 1;
-        if (dec < 0.15 || dec > 0.85) { f[4] = true; score++; } // Psico
-        if (Math.abs(parseFloat(d.priceChangePercent)) > 0.4) { f[5] = true; score++; } // Accion
-        if (d.highPrice - d.lowPrice > 12) { f[6] = true; score++; } // Estructura
+        if (dec < 0.15 || dec > 0.85) { f[4] = true; score++; }
+        if (Math.abs(parseFloat(d.priceChangePercent)) > 0.4) { f[5] = true; score++; }
+        if (d.highPrice - d.lowPrice > 10) { f[6] = true; score++; }
 
         render(score, f, p);
     }
 
     function render(s, f, p) {
         document.getElementById('conf-count').textContent = s + "/7";
-        const body = document.getElementById('main-body');
-        const card = document.getElementById('sig-card');
         const msg = document.getElementById('sig-msg');
+        const card = document.getElementById('sig-card');
+        const body = document.getElementById('main-body');
+        
+        let dir = f[0] ? "COMPRA" : "VENTA";
+        let col = f[0] ? "var(--green)" : "var(--red)";
 
-        for(let i=0; i<7; i++) {
-            document.getElementById('f'+(i+1)).className = f[i] ? 'f-item f-ok' : 'f-item';
-        }
+        for(let i=0; i<7; i++) document.getElementById('f'+(i+1)).className = f[i] ? 'f-item f-ok' : 'f-item';
 
         if (s >= 7) {
-            body.className = "golden-alert";
-            card.className = "conf-card power-high";
-            msg.textContent = "¡SEÑAL PERFECTA!";
-            msg.style.color = "var(--gold)";
+            body.className = "golden-mode"; card.className = "conf-card power-up";
+            msg.textContent = dir + " PERFECTA"; msg.style.color = "var(--gold)";
             beep();
         } else if (s >= 5) {
-            body.className = "";
-            card.className = "conf-card power-high";
-            msg.textContent = "SEÑAL POTENTE";
-            msg.style.color = "var(--green)";
+            body.className = ""; card.className = "conf-card power-up";
+            msg.textContent = dir + " POTENTE"; msg.style.color = col;
         } else {
-            body.className = "";
-            card.className = "conf-card";
-            msg.textContent = "BUSCANDO CONFLUENCIA";
-            msg.style.color = "var(--muted)";
+            body.className = ""; card.className = "conf-card";
+            msg.textContent = "BUSCANDO " + dir; msg.style.color = "var(--muted)";
         }
 
         document.getElementById('lv-e').textContent = p.toFixed(2);
-        document.getElementById('lv-s').textContent = (p > lastP ? p - 3 : p + 3).toFixed(2);
-        document.getElementById('lv-t').textContent = (p > lastP ? p + 9 : p - 9).toFixed(2);
+        document.getElementById('lv-s').textContent = (f[0] ? p - 3 : p + 3).toFixed(2);
+        document.getElementById('lv-t').textContent = (f[0] ? p + 9 : p - 9).toFixed(2);
     }
 
     function beep() {
@@ -175,6 +194,7 @@
         o.start(); o.stop(audioCtx.currentTime + 0.2);
     }
 
+    initTV('15');
     setInterval(tick, 2500); tick();
     setInterval(() => { document.getElementById('clock').textContent = new Date().toLocaleTimeString(); }, 1000);
 </script>
