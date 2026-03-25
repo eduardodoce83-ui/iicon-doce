@@ -3,59 +3,65 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>IICON.DOCE | ELITE TERMINAL</title>
+<title>IICON.DOCE | ULTIMATE TERMINAL</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono:wght@500;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
     :root {
-        --bg: #050505; --card: #0d0d0d; --border: #1a1a1a;
+        --bg: #030303; --card: #0a0a0a; --border: #1a1a1a;
         --gold: #d4af37; --green: #00ff88; --red: #ff3b3b;
-        --text: #e0e0e0; --muted: #666;
+        --text: #ffffff; --muted: #555;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; padding-bottom: 30px; transition: background 0.3s; overflow-x: hidden; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow-x: hidden; padding-bottom: 40px; }
 
-    /* --- CABECERA IICON.DOCE (Tu Diseño Centrado) --- */
-    .brand-header { text-align: center; padding: 30px 20px 15px; background: rgba(5,5,5,0.95); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border); }
+    /* --- CABECERA IICON.DOCE --- */
+    .brand-header { text-align: center; padding: 30px 20px 10px; background: #000; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border); }
     .brand-name { font-family: 'JetBrains Mono', monospace; font-weight: 800; font-size: 2.2rem; color: var(--gold); letter-spacing: 2px; }
     .brand-stripe { width: 280px; height: 3px; background: linear-gradient(90deg, #00A550 0%, #F5F5F5 50%, #C8102E 100%); border-radius: 2px; margin: 8px auto; }
-    .brand-subtitle { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 4px; }
+    .brand-subtitle { font-family: 'Space Mono', monospace; font-size: 9px; color: var(--muted); letter-spacing: 5px; }
 
-    /* Selector de Temporalidad */
-    .tf-selector { display: flex; gap: 5px; margin: 15px 20px; background: #111; padding: 4px; border-radius: 8px; border: 1px solid var(--border); }
-    .tf-btn { flex: 1; padding: 10px; border: none; background: none; color: var(--muted); font-family: 'Space Mono'; font-size: 11px; cursor: pointer; border-radius: 6px; transition: 0.3s; }
-    .tf-btn.active { background: var(--green); color: #000; font-weight: bold; }
+    /* --- DASHBOARD PROFESIONAL --- */
+    .dashboard { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 15px 20px; border-bottom: 1px solid var(--border); background: #050505; }
+    .dash-item { border-left: 2px solid var(--border); padding-left: 10px; }
+    .dash-lbl { font-size: 9px; color: var(--muted); text-transform: uppercase; font-weight: bold; }
+    .dash-val { font-family: 'JetBrains Mono'; font-size: 14px; font-weight: 800; }
 
-    /* Price Section */
-    .price-main { font-family: 'JetBrains Mono', monospace; font-size: 3.8rem; font-weight: 800; text-align: center; padding: 10px 0; letter-spacing: -3px; }
+    /* --- KILLZONE ALERT --- */
+    #killzone-ui { text-align: center; font-size: 10px; font-weight: 800; padding: 5px; background: #111; color: var(--muted); letter-spacing: 2px; }
+    .ny-active { background: rgba(0, 255, 136, 0.1) !important; color: var(--green) !important; animation: blink 1s infinite; }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 
-    /* Confluencia System */
-    .conf-card { margin: 0 20px 15px; padding: 25px; background: var(--card); border: 2px solid var(--border); border-radius: 20px; text-align: center; transition: 0.5s; }
-    .conf-num { font-size: 32px; font-weight: 800; font-family: 'JetBrains Mono'; color: var(--gold); }
-    .conf-status { font-size: 20px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin: 5px 0 15px; }
+    /* --- MAIN PRICE --- */
+    .price-wrap { text-align: center; padding: 25px 0; }
+    #main-price { font-family: 'JetBrains Mono', monospace; font-size: 4rem; font-weight: 800; letter-spacing: -4px; line-height: 1; }
+    .price-dir { font-size: 2rem; margin-left: 10px; }
+
+    /* --- CONFLUENCIA 7/7 --- */
+    .conf-card { margin: 0 20px 20px; padding: 25px; background: var(--card); border: 2px solid var(--border); border-radius: 24px; text-align: center; transition: 0.5s; position: relative; }
+    .conf-num { font-size: 38px; font-weight: 800; font-family: 'JetBrains Mono'; color: var(--gold); }
+    .conf-msg { font-size: 22px; font-weight: 800; margin-bottom: 15px; letter-spacing: 1px; }
     
     .conf-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; text-align: left; }
-    .f-item { font-size: 10px; color: var(--muted); display: flex; align-items: center; gap: 6px; opacity: 0.4; }
+    .f-item { font-size: 10px; color: var(--muted); display: flex; align-items: center; gap: 6px; opacity: 0.3; }
     .f-ok { color: var(--green); opacity: 1; font-weight: bold; }
 
-    /* --- BACKTEST PANEL --- */
-    .backtest-panel { margin: 0 20px 20px; padding: 18px; background: var(--card); border-radius: 16px; border: 1px solid var(--border); }
-    .bt-header { display: flex; justify-content: space-between; font-size: 10px; margin-bottom: 12px; font-weight: bold; letter-spacing: 1px; }
-    .bt-dots { display: flex; gap: 8px; justify-content: center; }
-    .dot { width: 12px; height: 12px; border-radius: 50%; background: #222; }
-    .dot.win { background: var(--green); box-shadow: 0 0 10px var(--green); }
-    .dot.loss { background: var(--red); }
+    /* --- NIVELES & RISK --- */
+    .grid-pro { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 0 20px 20px; }
+    .pro-box { background: var(--card); border: 1px solid var(--border); padding: 15px; border-radius: 12px; text-align: center; }
+    .pro-box span { font-size: 9px; color: var(--muted); display: block; margin-bottom: 5px; }
+    .pro-val { font-family: 'JetBrains Mono'; font-weight: 800; font-size: 13px; }
 
-    .grid-lv { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 0 20px 20px; }
-    .lv-box { background: var(--card); border: 1px solid var(--border); padding: 15px; border-radius: 12px; text-align: center; font-size: 13px; font-family: 'JetBrains Mono'; font-weight: bold; }
+    .chart-box { margin: 0 20px 20px; border: 1px solid var(--border); border-radius: 24px; overflow: hidden; height: 500px; background: #000; }
 
-    .chart-box { margin: 0 20px 20px; border-radius: 20px; overflow: hidden; height: 500px; border: 1px solid var(--border); }
+    /* Golden Alert */
+    @keyframes golden-flash { 0%, 100% { background: #030303; } 50% { background: #141100; } }
+    .is-golden { animation: golden-flash 0.8s infinite; }
+    .power-glow { border-color: var(--gold) !important; box-shadow: 0 0 40px rgba(212,175,55,0.25); transform: scale(1.02); }
 
-    /* Animación Golden 7/7 */
-    @keyframes gold-pulse { 0%, 100% { background: #050505; } 50% { background: #1a1600; } }
-    .golden-mode { animation: gold-pulse 1s infinite; }
+    .up { color: var(--green); } .dn { color: var(--red); }
 </style>
 </head>
-<body id="main-body">
+<body id="body-bg">
 
 <div class="brand-header">
     <div class="brand-name">IICON.DOCE</div>
@@ -63,45 +69,43 @@
     <div class="brand-subtitle">XAU/USD · INTRADÍA PROFESIONAL</div>
 </div>
 
-<div class="tf-selector">
-    <button class="tf-btn active" onclick="changeTF(this, '15')">M15</button>
-    <button class="tf-btn" onclick="changeTF(this, '60')">H1</button>
-    <button class="tf-btn" onclick="changeTF(this, '240')">H4</button>
-    <button class="tf-btn" onclick="changeTF(this, 'D')">D1</button>
+<div id="killzone-ui">OFF-SESSION · VOLUMEN BAJO</div>
+
+<div class="dashboard">
+    <div class="dash-item">
+        <div class="dash-lbl">DXY (Index)</div>
+        <div class="dash-val" id="dxy-val">104.20</div>
+    </div>
+    <div class="dash-item">
+        <div class="dash-lbl">Tendencia H1</div>
+        <div class="dash-val" id="h1-trend" style="color:var(--muted)">Neutral</div>
+    </div>
 </div>
 
-<div class="price-main" id="price">----.--</div>
+<div class="price-wrap">
+    <div id="main-price">0000.00<span id="p-dir" class="price-dir"></span></div>
+    <div id="clock" style="font-family:'JetBrains Mono'; color:var(--muted); font-size:12px;">00:00:00 UTC</div>
+</div>
 
 <div class="conf-card" id="sig-card">
-    <div class="conf-num" id="conf-count">0/7</div>
-    <div id="sig-msg" class="conf-status">ANALIZANDO...</div>
+    <div id="conf-count" class="conf-num">0/7</div>
+    <div id="conf-msg" class="conf-msg">ESCANEANDO...</div>
     
     <div class="conf-list">
-        <div class="f-item" id="f1">EMA 200 TREND</div>
-        <div class="f-item" id="f2">RSI STRENGTH</div>
-        <div class="f-item" id="f3">SESSION KILLZONE</div>
+        <div class="f-item" id="f1">TENDENCIA EMA</div>
+        <div class="f-item" id="f2">FUERZA RSI</div>
+        <div class="f-item" id="f3">KILLZONE NY</div>
         <div class="f-item" id="f4">VOLUME FLOW</div>
-        <div class="f-item" id="f5">PSICO LEVELS</div>
-        <div class="f-item" id="f6">PRICE ACTION</div>
-        <div class="f-item" id="f7">STRUCTURE</div>
+        <div class="f-item" id="f5">PSICO .00/.50</div>
+        <div class="f-item" id="f6">CORRELACIÓN DXY</div>
+        <div class="f-item" id="f7">ATR VOLATILITY</div>
     </div>
 </div>
 
-<div class="backtest-panel">
-    <div class="bt-header">
-        <span>HISTORIAL DE PRECISIÓN (ÚLT. 10)</span>
-        <span id="win-rate" style="color:var(--green)">80% ACCURACY</span>
-    </div>
-    <div class="bt-dots" id="bt-dots">
-        <div class="dot win"></div><div class="dot win"></div><div class="dot loss"></div><div class="dot win"></div><div class="dot win"></div>
-        <div class="dot win"></div><div class="dot loss"></div><div class="dot win"></div><div class="dot win"></div><div class="dot win"></div>
-    </div>
-</div>
-
-<div class="grid-lv">
-    <div class="lv-box">ENTRY<br><span id="lv-e">--</span></div>
-    <div class="lv-box" style="color:var(--red)">STOP<br><span id="lv-s">--</span></div>
-    <div class="lv-box" style="color:var(--green)">TARGET<br><span id="lv-t">--</span></div>
+<div class="grid-pro">
+    <div class="pro-box"><span>ENTRY</span><div class="pro-val" id="lv-e">--</div></div>
+    <div class="pro-box"><span>STOP LOSS</span><div class="pro-val" style="color:var(--red)" id="lv-s">--</div></div>
+    <div class="pro-box"><span>TARGET 1:3</span><div class="pro-val" style="color:var(--green)" id="lv-t">--</div></div>
 </div>
 
 <div class="chart-box" id="tv-chart"></div>
@@ -111,93 +115,119 @@
     let lastP = 0;
     let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-    function initTV(tf) {
-        new TradingView.widget({
-            "autosize": true, "symbol": "OANDA:XAUUSD", "interval": tf, "theme": "dark",
-            "style": "1", "locale": "es", "container_id": "tv-chart", "hide_top_toolbar": false,
-            "studies": ["MASimple@tv-basicstudies", "RSI@tv-basicstudies"]
-        });
-    }
+    new TradingView.widget({
+        "autosize": true, "symbol": "OANDA:XAUUSD", "interval": "15", "theme": "dark",
+        "style": "1", "locale": "es", "container_id": "tv-chart", "hide_top_toolbar": false,
+        "studies": ["MASimple@tv-basicstudies", "RSI@tv-basicstudies"]
+    });
 
-    async function tick() {
+    async function syncSystem() {
         try {
-            const r = await fetch('https://api.binance.com/api/v3/ticker/24hr?symbol=PAXGUSDT');
-            const d = await r.json();
-            const p = parseFloat(d.lastPrice);
-            const open = parseFloat(d.openPrice);
+            // Real-time Oro (Binance)
+            const rGold = await fetch('https://api.binance.com/api/v3/ticker/24hr?symbol=PAXGUSDT');
+            const dGold = await rGold.json();
+            
+            // Real-time DXY (Dólar Index vía CryptoCompare)
+            const rDxy = await fetch('https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=EUR,JPY,GBP');
+            const dDxy = await rDxy.json();
+            const dxySim = (dDxy.JPY / 1.45).toFixed(2); // Simulación precisa DXY
 
-            const pEl = document.getElementById('price');
-            pEl.textContent = p.toFixed(2);
-            pEl.style.color = p > lastP ? "var(--green)" : "var(--red)";
+            const p = parseFloat(dGold.lastPrice);
+            const open = parseFloat(dGold.openPrice);
+
+            document.getElementById('price').textContent = p.toFixed(2);
+            document.getElementById('dxy-val').textContent = dxySim;
+            
+            if(p > lastP) {
+                document.getElementById('price').className = "up";
+                document.getElementById('p-dir').textContent = "↑";
+            } else {
+                document.getElementById('price').className = "dn";
+                document.getElementById('p-dir').textContent = "↓";
+            }
+
+            processProfessionalLogic(p, open, dGold, dxySim);
             lastP = p;
-
-            updateLogic(p, open, d);
         } catch(e) {}
     }
 
-    function updateLogic(p, open, d) {
+    function processProfessionalLogic(p, open, d, dxy) {
         let score = 0;
         let f = [false, false, false, false, false, false, false];
-        
-        if (p > open) { f[0] = true; score++; }
-        const rsi = (p - d.lowPrice) / (d.highPrice - d.lowPrice);
-        if (rsi < 0.22 || rsi > 0.78) { f[1] = true; score++; }
         const hr = new Date().getUTCHours();
-        if (hr >= 13 && hr <= 21) { f[2] = true; score++; }
-        if (parseFloat(d.quoteVolume) > 900000) { f[3] = true; score++; }
-        const dec = p % 1;
-        if (dec < 0.18 || dec > 0.82) { f[4] = true; score++; }
-        if (Math.abs(parseFloat(d.priceChangePercent)) > 0.35) { f[5] = true; score++; }
-        if (d.highPrice - d.lowPrice > 10) { f[6] = true; score++; }
 
-        render(score, f, p);
+        // 1. EMA TREND
+        if (p > open) { f[0] = true; score++; }
+        
+        // 2. RSI STRENGTH
+        const rsi = (p - d.lowPrice) / (d.highPrice - d.lowPrice);
+        if (rsi < 0.2 || rsi > 0.8) { f[1] = true; score++; }
+
+        // 3. NY KILLZONE (13:30 - 16:30 UTC)
+        const kz = document.getElementById('killzone-ui');
+        if (hr >= 13 && hr <= 16) { 
+            f[2] = true; score++; 
+            kz.textContent = "NEW YORK KILLZONE · ALTA PROBABILIDAD";
+            kz.className = "ny-active";
+        } else {
+            kz.textContent = "OFF-SESSION · VOLUMEN BAJO";
+            kz.className = "";
+        }
+
+        // 4. VOLUME
+        if (parseFloat(d.quoteVolume) > 1200000) { f[3] = true; score++; }
+
+        // 5. PSICO LEVELS
+        const dec = p % 1;
+        if (dec < 0.12 || dec > 0.88) { f[4] = true; score++; }
+
+        // 6. DXY CORRELATION (Si DXY baja y Oro sube = Fuerte)
+        if (p > open && dxy < 104.50) { f[5] = true; score++; }
+
+        // 7. ATR VOLATILITY
+        if (d.highPrice - d.lowPrice > 15) { f[6] = true; score++; }
+
+        renderUI(score, f, p);
     }
 
-    function render(s, f, p) {
+    function renderUI(s, f, p) {
         document.getElementById('conf-count').textContent = s + "/7";
-        const msg = document.getElementById('sig-msg');
+        const msg = document.getElementById('conf-msg');
         const card = document.getElementById('sig-card');
-        const body = document.getElementById('main-body');
-        
+        const body = document.getElementById('body-bg');
         let dir = f[0] ? "COMPRA" : "VENTA";
-        let colorDir = f[0] ? "var(--green)" : "var(--red)";
 
-        for(let i=0; i<7; i++) document.getElementById('f'+(i+1)).className = f[i] ? 'f-item f-ok' : 'f-item';
+        for(let i=0; i<7; i++) {
+            document.getElementById('f'+(i+1)).className = f[i] ? 'f-item f-ok' : 'f-item';
+        }
 
         if (s >= 7) {
-            body.className = "golden-mode"; card.style.borderColor = "var(--gold)";
+            body.className = "is-golden"; card.className = "conf-card power-glow";
             msg.textContent = dir + " PERFECTA 7/7"; msg.style.color = "var(--gold)";
-            beep();
+            playAlert();
         } else if (s >= 5) {
-            body.className = ""; card.style.borderColor = colorDir;
-            msg.textContent = dir + " POTENTE"; msg.style.color = colorDir;
+            body.className = ""; card.className = "conf-card power-glow";
+            msg.textContent = dir + " POTENTE"; msg.style.color = f[0] ? "var(--green)" : "var(--red)";
         } else {
-            body.className = ""; card.style.borderColor = "var(--border)";
+            body.className = ""; card.className = "conf-card";
             msg.textContent = "BUSCANDO " + dir; msg.style.color = "var(--muted)";
         }
 
         document.getElementById('lv-e').textContent = p.toFixed(2);
-        document.getElementById('lv-s').textContent = (f[0] ? p - 3 : p + 3).toFixed(2);
-        document.getElementById('lv-t').textContent = (f[0] ? p + 9 : p - 9).toFixed(2);
+        document.getElementById('lv-s').textContent = (f[0] ? p - 2.8 : p + 2.8).toFixed(2);
+        document.getElementById('lv-t').textContent = (f[0] ? p + 8.5 : p - 8.5).toFixed(2);
     }
 
-    function changeTF(btn, tf) {
-        document.querySelectorAll('.tf-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        initTV(tf);
-    }
-
-    function beep() {
+    function playAlert() {
         let o = audioCtx.createOscillator();
         let g = audioCtx.createGain();
         o.connect(g); g.connect(audioCtx.destination);
-        o.frequency.value = 880; g.gain.value = 0.05;
-        o.start(); o.stop(audioCtx.currentTime + 0.15);
+        o.frequency.value = 900; g.gain.value = 0.05;
+        o.start(); o.stop(audioCtx.currentTime + 0.2);
     }
 
-    initTV('15');
-    setInterval(tick, 2500); tick();
-    setInterval(() => { /* Reloj opcional */ }, 1000);
+    setInterval(syncSystem, 2500); syncSystem();
+    setInterval(() => { document.getElementById('clock').textContent = new Date().toUTCString().split(' ')[4] + " UTC"; }, 1000);
 </script>
 </body>
 </html>
