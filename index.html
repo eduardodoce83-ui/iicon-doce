@@ -3,217 +3,168 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IICON.DOCE | MASTER EDITION V17</title>
+<title>IICON.DOCE | K-EDITION IA</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@500;800&display=swap" rel="stylesheet">
 <style>
     :root {
-        --bg: #030508; --panel: rgba(10, 15, 25, 0.95); --border: #1e293b;
+        --bg: #040608; --card: #0c1117; --border: #1e293b;
         --gold: #d4af37; --green: #00ff88; --red: #ff3b3b; --blue: #00d9ff;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
-    body { 
-        background: var(--bg); color: #fff; font-family: 'Orbitron', sans-serif; 
-        padding: 20px; background-image: radial-gradient(circle at center, #0f172a 0%, #030508 100%);
+    body { background: var(--bg); color: #fff; font-family: 'Orbitron', sans-serif; padding: 15px; }
+
+    /* --- DASHBOARD KASANGO STYLE --- */
+    .k-container {
+        max-width: 1100px; margin: 0 auto; background: var(--card);
+        border: 1px solid var(--border); border-radius: 25px; padding: 30px;
+        box-shadow: 0 0 100px rgba(0,0,0,1); position: relative;
     }
 
-    .master-container {
-        max-width: 1300px; margin: 0 auto; border: 1px solid var(--border);
-        border-radius: 20px; padding: 25px; background: rgba(0,0,0,0.4);
-        box-shadow: 0 0 80px rgba(0,0,0,0.9);
-    }
+    .k-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid var(--border); padding-bottom: 20px; }
+    .k-logo { font-size: 2rem; font-weight: 900; color: var(--gold); letter-spacing: 8px; }
+    .k-status { font-size: 10px; color: var(--green); letter-spacing: 2px; text-shadow: 0 0 10px var(--green); }
 
-    /* --- HEADER PREMIUM --- */
-    .header { text-align: center; margin-bottom: 25px; position: relative; }
-    .logo-main { font-size: 3.2rem; font-weight: 900; color: var(--gold); letter-spacing: 12px; text-shadow: 0 0 25px rgba(212,175,55,0.4); }
-    .stripe { width: 350px; height: 4px; background: linear-gradient(90deg, #00A550, #fff, #C8102E); margin: 12px auto; border-radius: 4px; }
-    .time-badge { position: absolute; top: 0; right: 20px; background: var(--gold); color: #000; font-size: 10px; padding: 5px 15px; border-radius: 5px; font-weight: 900; }
+    /* --- SELECTOR DIRECCIÓN (NUEVO) --- */
+    .mode-selector { display: flex; gap: 10px; margin-bottom: 20px; justify-content: center; }
+    .btn-mode { padding: 10px 30px; border-radius: 30px; border: 1px solid var(--border); background: #111; color: #555; cursor: pointer; font-weight: 900; font-size: 12px; transition: 0.3s; }
+    .btn-mode.active-buy { border-color: var(--green); color: var(--green); box-shadow: 0 0 15px rgba(0,255,136,0.2); }
+    .btn-mode.active-sell { border-color: var(--red); color: var(--red); box-shadow: 0 0 15px rgba(255,59,59,0.2); }
 
-    /* --- RADAR DE PROXIMIDAD PREMIUM --- */
-    .radar-glass {
-        background: rgba(0, 217, 255, 0.03); border: 1px solid rgba(0, 217, 255, 0.2);
-        border-radius: 15px; padding: 15px; margin-bottom: 25px; display: flex; 
-        justify-content: space-around; align-items: center; position: relative; overflow: hidden;
-    }
-    .radar-label { font-size: 9px; color: var(--blue); letter-spacing: 3px; font-weight: bold; }
-    .radar-value { font-family: 'JetBrains Mono'; font-size: 22px; color: #fff; font-weight: 800; }
-
-    /* --- GRID --- */
-    .main-grid { display: grid; grid-template-columns: 280px 1fr 300px; gap: 20px; margin-bottom: 20px; }
-    .panel-glass { background: var(--panel); border: 1px solid var(--border); border-radius: 15px; padding: 20px; box-shadow: inset 0 0 20px rgba(0,0,0,0.5); }
-
-    /* CHECKLIST */
-    .check-row { display: flex; align-items: center; gap: 12px; font-size: 10px; margin-bottom: 14px; color: #334155; }
-    .led { width: 10px; height: 10px; border-radius: 50%; background: #000; border: 1px solid #222; }
-    .active { color: #fff; font-weight: bold; }
-    .active .led { background: var(--green); box-shadow: 0 0 15px var(--green); border: none; }
-
-    /* CENTRO */
-    .price-hero { font-family: 'JetBrains Mono'; font-size: 5rem; font-weight: 800; text-align: center; letter-spacing: -6px; margin-bottom: 10px; transition: 0.3s; }
-    .orb-master { 
-        width: 180px; height: 180px; border: 4px solid var(--border); border-radius: 50%; 
+    /* --- DISPLAY CENTRAL --- */
+    .main-display { text-align: center; margin-bottom: 30px; }
+    #k-price { font-family: 'JetBrains Mono'; font-size: 6rem; font-weight: 800; letter-spacing: -7px; line-height: 1; margin-bottom: 20px; }
+    
+    .signal-orb {
+        width: 240px; height: 240px; border: 6px solid #111; border-radius: 50%;
         margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center;
-        background: rgba(0,0,0,0.3); transition: 0.6s;
+        background: radial-gradient(circle, rgba(255,255,255,0.02) 0%, transparent 80%);
+        transition: 0.5s;
     }
-    .orb-active { border-color: var(--gold); box-shadow: 0 0 50px rgba(212,175,55,0.25); background: rgba(212,175,55,0.05); transform: scale(1.05); }
+    .orb-buy { border-color: var(--green) !important; box-shadow: 0 0 60px rgba(0,255,136,0.2); }
+    .orb-sell { border-color: var(--red) !important; box-shadow: 0 0 60px rgba(255,59,59,0.2); }
 
-    /* RIESGO */
-    .risk-item { margin-bottom: 15px; }
-    input[type=range] { width: 100%; accent-color: var(--gold); cursor: pointer; height: 4px; background: #1a202c; border-radius: 5px; appearance: none; }
+    .score-num { font-size: 60px; font-weight: 900; line-height: 1; }
+    .score-txt { font-size: 14px; font-weight: 900; letter-spacing: 3px; margin-top: 10px; }
 
-    /* NIVELES */
-    .level-btn { background: #080d14; border: 1px solid var(--border); padding: 12px; border-radius: 10px; margin-bottom: 10px; display: flex; justify-content: space-between; font-size: 11px; font-weight: 900; }
-    .fire { border-color: var(--green); box-shadow: 0 0 15px rgba(0,255,136,0.2); animation: pulse-entry 1s infinite; }
-    @keyframes pulse-entry { 50% { border-color: #fff; } }
+    /* --- INFO GRID --- */
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-bottom: 30px; }
+    .i-box { background: #080d14; border: 1px solid var(--border); padding: 15px; border-radius: 15px; text-align: center; }
+    .i-label { font-size: 8px; color: #444; margin-bottom: 5px; }
+    .i-val { font-family: 'JetBrains Mono'; font-size: 16px; font-weight: 800; }
 
-    /* CHART */
-    .chart-box { height: 450px; border-radius: 20px; overflow: hidden; border: 1px solid var(--border); margin-top: 20px; }
+    /* --- RADAR ZONE --- */
+    .zone-alert { background: #111; padding: 15px; border-radius: 12px; text-align: center; border: 1px solid var(--border); font-size: 12px; font-weight: 900; margin-bottom: 20px; }
+    .zone-fire { background: var(--green); color: #000; box-shadow: 0 0 30px var(--green); }
 
-    .up { color: var(--green); text-shadow: 0 0 20px rgba(0,255,136,0.4); }
-    .dn { color: var(--red); text-shadow: 0 0 20px rgba(255,59,59,0.4); }
+    /* --- CHART --- */
+    .chart-box { height: 400px; border-radius: 20px; overflow: hidden; border: 1px solid var(--border); }
 </style>
 </head>
 <body>
 
-<div class="master-container">
-    <div class="header">
-        <div class="time-badge">TF: M15 (Scalping)</div>
-        <div class="logo-main">IICON.DOCE</div>
-        <div class="stripe"></div>
-        <div style="font-size:10px; color:#475569; letter-spacing:6px;">PROFESSIONAL PSYCHOLOGICAL RADAR</div>
+<div class="k-container">
+    <div class="k-header">
+        <div class="k-logo">IICON.DOCE</div>
+        <div class="k-status">● LIVE AI NODE CONNECTED</div>
     </div>
 
-    <div class="radar-glass" id="radar-ui">
-        <div><div class="radar-label">PROXIMIDAD NIVEL</div><div class="radar-value" id="r-dist">-- Pips</div></div>
-        <div style="width:2px; height:30px; background:var(--border);"></div>
-        <div><div class="radar-label">TARGET PSICOLÓGICO</div><div class="radar-value" id="r-target">0000.00</div></div>
-        <div><div class="radar-label">ESTADO RADAR</div><div class="radar-value" id="r-status" style="color:var(--blue); font-size:14px;">BUSCANDO...</div></div>
+    <div class="mode-selector">
+        <button class="btn-mode active-buy" id="mode-buy" onclick="setMode('BUY')">LONG MODE</button>
+        <button class="btn-mode" id="mode-sell" onclick="setMode('SELL')">SHORT MODE</button>
     </div>
 
-    <div class="main-grid">
-        <div class="panel-glass">
-            <div style="font-size:9px; color:var(--gold); margin-bottom:20px; letter-spacing:2px;">CONFLUENCE ENGINE</div>
-            <div class="check-row" id="c1"><div class="led"></div> RSI CONFIRMACIÓN</div>
-            <div class="check-row" id="c2"><div class="led"></div> EMA 200 TREND</div>
-            <div class="check-row" id="c3"><div class="led"></div> MACD CROSSOVER</div>
-            <div class="check-row" id="c4"><div class="led"></div> ZONA PSICOLÓGICA</div>
-            <div class="check-row" id="c5"><div class="led"></div> VOLUMEN FLUJO</div>
-            <div class="check-row" id="c6"><div class="led"></div> SESIÓN NY/LDN</div>
-        </div>
-
-        <div class="center-wrap">
-            <div class="price-hero" id="price">0000.00</div>
-            <div class="orb-master" id="orb">
-                <div style="font-size:45px; font-weight:900; color:var(--gold);" id="score">0/7</div>
-                <div style="font-size:12px; font-weight:900; color:var(--gold);" id="orb-txt">ANALYZING</div>
-            </div>
-        </div>
-
-        <div class="panel-glass">
-            <div style="font-size:9px; color:var(--gold); margin-bottom:20px; letter-spacing:2px;">RISK CONTROL</div>
-            <div class="risk-item">
-                <div style="display:flex; justify-content:space-between; font-size:9px; color:#444;"><span>CAPITAL</span><span id="txt-cap">$10,000</span></div>
-                <input type="range" min="1000" max="100000" step="1000" value="10000" id="in-cap" oninput="runRisk()">
-            </div>
-            <div class="level-btn" id="btn-e"><span>ENTRY</span><span id="lv-e">--</span></div>
-            <div class="level-btn" style="color:var(--red)"><span>STOP</span><span id="lv-s">--</span></div>
-            <div class="level-btn" style="color:var(--green)"><span>TARGET</span><span id="lv-t">--</span></div>
-            <div style="display:flex; justify-content:space-between; font-size:11px; margin-top:10px;">
-                <span style="color:#444">LOTS</span><span id="res-lots" style="color:#fff; font-weight:800;">0.05</span>
-            </div>
+    <div class="main-display">
+        <div id="k-price">0000.00</div>
+        <div class="signal-orb" id="orb">
+            <div class="score-num" id="score">0/7</div>
+            <div class="score-txt" id="status">ANALYZING</div>
         </div>
     </div>
 
-    <div class="chart-box" id="tradingview_chart"></div>
+    <div class="zone-alert" id="zone-msg">ESPERANDO ZONA DE REACCIÓN...</div>
+
+    <div class="info-grid">
+        <div class="i-box"><div class="i-label">PUNTO DE ENTRADA</div><div class="i-val" id="lv-e">--</div></div>
+        <div class="i-box" style="border-color:var(--red)"><div class="i-label">STOP LOSS</div><div class="i-val" style="color:var(--red)" id="lv-s">--</div></div>
+        <div class="i-box" style="border-color:var(--green)"><div class="i-label">TAKE PROFIT</div><div class="i-val" style="color:var(--green)" id="lv-t">--</div></div>
+    </div>
+
+    <div class="chart-box" id="tv_chart"></div>
 </div>
 
 <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 <script>
+    let currentMode = 'BUY';
     let lastP = 0;
     let audio = new (window.AudioContext || window.webkitAudioContext)();
 
     new TradingView.widget({
         "autosize": true, "symbol": "OANDA:XAUUSD", "interval": "15", "theme": "dark",
-        "container_id": "tradingview_chart", "hide_top_toolbar": false, "style": "1", "timezone": "Etc/UTC"
+        "container_id": "tv_chart", "style": "1", "timezone": "Etc/UTC"
     });
+
+    function setMode(m) {
+        currentMode = m;
+        document.getElementById('mode-buy').className = m === 'BUY' ? 'btn-mode active-buy' : 'btn-mode';
+        document.getElementById('mode-sell').className = m === 'SELL' ? 'btn-mode active-sell' : 'btn-mode';
+    }
 
     async function tick() {
         try {
             const r = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=PAXGUSDT');
             const d = await r.json();
             const p = parseFloat(d.price);
-            const pEl = document.getElementById('price');
-            pEl.textContent = p.toFixed(2);
-            pEl.className = "price-hero " + (p >= lastP ? "up" : "dn");
+            document.getElementById('k-price').textContent = p.toFixed(2);
+            document.getElementById('k-price').style.color = p >= lastP ? "var(--green)" : "var(--red)";
             lastP = p;
-            engine(p);
+            kasangoLogic(p);
         } catch(e){}
     }
 
-    function engine(p) {
+    function kasangoLogic(p) {
         const hr = new Date().getUTCHours();
         const step = 50;
         const target = Math.round(p / step) * step;
         const dist = Math.abs(p - target);
         
-        // UI Radar
-        document.getElementById('r-dist').textContent = dist.toFixed(2) + " Pips";
-        document.getElementById('r-target').textContent = target.toFixed(2);
-        
-        let s = 0;
-        let f = [false, false, false, false, false, false];
+        // Lógica de puntuación
+        let s = 3; // Base
+        if((hr >= 7 && hr < 16) || (hr >= 13 && hr < 22)) s += 2; // Session
+        if(dist < 5) s += 2; // Psych Zone
 
-        if(p % 1 > 0.4) f[0] = true; // RSI Sim
-        if(p > 1800) f[1] = true; // Trend
-        if(p > lastP) f[2] = true; // MACD
-        if(dist < 5) f[3] = true; // Psych Zone
-        if(p > 0) f[4] = true; // Volume
-        if((hr >= 7 && hr < 16) || (hr >= 13 && hr < 22)) f[5] = true; // Session
-
-        for(let i=0; i<6; i++) {
-            document.getElementById('c'+(i+1)).className = f[i] ? "check-row active" : "check-row";
-            if(f[i]) s++;
-        }
-
-        document.getElementById('score').textContent = (s+1) + "/7";
+        document.getElementById('score').textContent = s + "/7";
         const orb = document.getElementById('orb');
-        const btnE = document.getElementById('btn-e');
-        const rStat = document.getElementById('r-status');
+        const stat = document.getElementById('status');
+        const zone = document.getElementById('zone-msg');
 
-        if(s >= 5 && dist < 2) {
-            orb.className = "orb-master orb-active";
-            btnE.className = "level-btn fire";
-            rStat.textContent = "ZONA DE DISPARO";
-            rStat.style.color = "var(--green)";
+        if(s >= 7) {
+            orb.className = "signal-orb " + (currentMode === 'BUY' ? "orb-buy" : "orb-sell");
+            stat.textContent = currentMode + " SIGNAL";
+            stat.style.color = currentMode === 'BUY' ? "var(--green)" : "var(--red)";
+            zone.className = "zone-alert zone-fire";
+            zone.textContent = "¡ZONA DE ALTA REACCIÓN IDENTIFICADA!";
             beep();
-        } else if(dist < 8) {
-            rStat.textContent = "PREPARANDO...";
-            rStat.style.color = "var(--gold)";
         } else {
-            orb.className = "orb-master";
-            btnE.className = "level-btn";
-            rStat.textContent = "BUSCANDO...";
-            rStat.style.color = "var(--blue)";
+            orb.className = "signal-orb";
+            stat.textContent = "SCANNING";
+            stat.style.color = "#444";
+            zone.className = "zone-alert";
+            zone.textContent = "DISTANCIA A NIVEL: " + dist.toFixed(2) + " PIPS";
         }
 
         document.getElementById('lv-e').textContent = target.toFixed(2);
-        document.getElementById('lv-s').textContent = (target - 2.80).toFixed(2);
-        document.getElementById('lv-t').textContent = (target + 8.40).toFixed(2);
-    }
-
-    function runRisk() {
-        const cap = document.getElementById('in-cap').value;
-        document.getElementById('txt-cap').textContent = `$${parseInt(cap).toLocaleString()}`;
-        document.getElementById('res-lots').textContent = ((cap * 0.01) / 280).toFixed(2);
+        document.getElementById('lv-s').textContent = (currentMode === 'BUY' ? target - 2.50 : target + 2.50).toFixed(2);
+        document.getElementById('lv-t').textContent = (currentMode === 'BUY' ? target + 7.50 : target - 7.50).toFixed(2);
     }
 
     function beep() {
         let o = audio.createOscillator(); let g = audio.createGain();
         o.connect(g); g.connect(audio.destination);
-        o.frequency.value = 1100; g.gain.value = 0.03;
+        o.frequency.value = 1000; g.gain.value = 0.03;
         o.start(); o.stop(audio.currentTime + 0.1);
     }
 
-    setInterval(tick, 2500); tick(); runRisk();
+    setInterval(tick, 2000); tick();
 </script>
 </body>
 </html>
