@@ -1,205 +1,726 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XAUUSD SNIPER | IICON.DOCE</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;800&display=swap');
-        body { background-color: #020408; font-family: 'Inter', sans-serif; color: #e2e8f0; overflow-x: hidden; }
-        .mono { font-family: 'JetBrains Mono', monospace; }
-        .glass { background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.05); }
-        .buy-active { background: linear-gradient(135deg, #064e3b 0%, #020408 100%); border: 2px solid #10b981; box-shadow: 0 0 40px rgba(16, 185, 129, 0.2); }
-        .price-up { color: #10b981; transition: all 0.2s; }
-        .price-down { color: #ef4444; transition: all 0.2s; }
-        @keyframes pulse-gold { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
-        .gold-dot { animation: pulse-gold 2s infinite; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="IICON.DOCE">
+<meta name="theme-color" content="#060d1a">
+<title>IICON.DOCE · XAU/USD</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#060d1a;--s:#0a1628;--s2:#0d1e35;--b:#1a3a6e;--b2:#223;
+  --gold:#FFD700;--gold2:#D4AF37;
+  --green:#00E676;--green2:#00A550;
+  --red:#FF1744;--red2:#C8102E;
+  --orange:#FF9800;--white:#F5F5F5;
+  --muted:#555;--muted2:#334;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{background:var(--bg);color:var(--white);font-family:'Space Mono',monospace;min-height:100vh;padding-bottom:90px;}
+
+@keyframes glowGold{0%,100%{text-shadow:0 0 10px rgba(255,215,0,.5),0 0 20px rgba(255,215,0,.3)}50%{text-shadow:0 0 20px rgba(255,215,0,1),0 0 40px rgba(255,215,0,.6),0 0 60px rgba(255,215,0,.3)}}
+@keyframes glowGreen{0%,100%{box-shadow:0 0 15px rgba(0,230,118,.3)}50%{box-shadow:0 0 40px rgba(0,230,118,.8),0 0 80px rgba(0,230,118,.4)}}
+@keyframes glowRed{0%,100%{box-shadow:0 0 15px rgba(255,23,68,.3)}50%{box-shadow:0 0 40px rgba(255,23,68,.8),0 0 80px rgba(255,23,68,.4)}}
+@keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+@keyframes pulseGold{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+@keyframes scan{0%{top:0}100%{top:100%}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes flash{0%{opacity:1}30%{opacity:.1}100%{opacity:1}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes scoreBar{from{width:0}to{width:var(--w)}}
+
+/* ─── BRAND ─── */
+.brand{display:flex;flex-direction:column;align-items:center;padding:20px 0 6px;background:var(--bg);}
+.brand-name{font-family:'Syne',sans-serif;font-size:30px;font-weight:800;color:var(--gold);letter-spacing:6px;animation:glowGold 3s ease-in-out infinite;}
+.brand-stripe{width:200px;height:3px;background:linear-gradient(90deg,var(--green),var(--white),var(--red));border-radius:2px;margin-top:6px;}
+.brand-sub{font-size:9px;color:var(--muted);letter-spacing:3px;margin-top:5px;}
+
+/* ─── HEADER ─── */
+header{background:var(--s);border-bottom:1px solid var(--b);padding:10px 14px 8px;position:sticky;top:0;z-index:100;}
+.h-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;}
+.h-logo{display:flex;align-items:center;gap:7px;}
+.h-dot{width:9px;height:9px;border-radius:50%;background:var(--green);animation:pulseGold 1.5s infinite;}
+.h-pair{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--gold);}
+.h-sub{font-size:9px;color:var(--muted);margin-top:1px;}
+.h-right{text-align:right;}
+.h-clock{font-size:11px;color:var(--muted);}
+.h-sess{font-size:9px;margin-top:1px;}
+.h-sess.london{color:#3b82f6;}.h-sess.ny{color:#f97316;}.h-sess.both{color:var(--green);}.h-sess.closed{color:var(--muted);}
+.tfs{display:flex;gap:4px;}
+.tf{flex:1;padding:5px 0;border-radius:5px;border:1px solid var(--b);background:transparent;color:var(--muted);font-size:11px;font-family:'Space Mono',monospace;font-weight:700;cursor:pointer;transition:all .15s;}
+.tf.active{background:var(--gold);border-color:var(--gold);color:#000;}
+
+.page{padding:10px 12px 0;}
+.sec{font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin:12px 0 7px;display:flex;align-items:center;gap:6px;}
+.sec::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--gold);display:inline-block;}
+
+/* ─── PRECIO CARD ─── */
+.price-card{background:var(--s);border:1px solid var(--b);border-radius:14px;padding:14px;margin-bottom:10px;animation:fadeUp .3s ease both;position:relative;overflow:hidden;}
+.price-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--green),var(--gold),var(--red));}
+.pc-row{display:flex;align-items:flex-start;justify-content:space-between;}
+.pc-left .pc-label{font-size:9px;color:var(--muted);letter-spacing:1px;margin-bottom:4px;}
+.pc-price{font-family:'Syne',sans-serif;font-size:42px;font-weight:800;color:var(--white);line-height:1;transition:color .2s;}
+.pc-price.up{color:var(--green);}.pc-price.dn{color:var(--red);}
+.pc-price.flash{animation:flash .25s ease;}
+.pc-change{font-size:11px;margin-top:3px;}
+.pc-change.up{color:var(--green);}.pc-change.dn{color:var(--red);}
+.pc-upd{font-size:8px;color:var(--muted2);margin-top:2px;}
+.pc-right{display:flex;flex-direction:column;align-items:flex-end;gap:6px;}
+.pc-signal{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;padding:6px 14px;border-radius:8px;letter-spacing:1px;}
+.pc-signal.BUY{background:rgba(0,230,118,.15);color:var(--green);border:1px solid rgba(0,230,118,.3);}
+.pc-signal.SELL{background:rgba(255,23,68,.15);color:var(--red);border:1px solid rgba(255,23,68,.3);}
+.pc-signal.WAIT{background:rgba(255,215,0,.1);color:var(--gold);border:1px solid rgba(255,215,0,.2);}
+.pc-nivel{font-size:10px;color:var(--muted);text-align:right;}
+
+/* ─── SCORE PANEL (como TradingView) ─── */
+.score-panel{background:var(--s);border:1px solid var(--b);border-radius:14px;padding:14px;margin-bottom:10px;animation:fadeUp .3s ease .05s both;}
+.sp-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.sp-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:var(--gold);}
+.sp-score{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;}
+.sp-score.s80{color:var(--green);}.sp-score.s60{color:var(--gold);}.sp-score.s40{color:var(--orange);}.sp-score.s0{color:var(--red);}
+.sp-bar-bg{height:8px;background:var(--s2);border-radius:4px;overflow:hidden;margin-bottom:12px;}
+.sp-bar-fill{height:100%;border-radius:4px;transition:width .8s ease;}
+.sp-bar-fill.s80{background:var(--green);}.sp-bar-fill.s60{background:var(--gold);}.sp-bar-fill.s40{background:var(--orange);}.sp-bar-fill.s0{background:var(--red);}
+.sp-rows{display:flex;flex-direction:column;gap:6px;}
+.sp-row{display:flex;align-items:center;justify-content:space-between;}
+.sp-row-label{font-size:10px;color:var(--muted);}
+.sp-row-val{font-size:10px;font-weight:700;}
+.sp-row-val.ok{color:var(--green);}.sp-row-val.no{color:var(--red);}.sp-row-val.na{color:var(--muted);}
+.sp-row-pts{font-size:9px;color:var(--muted2);min-width:32px;text-align:right;}
+.sp-reliability{display:flex;align-items:center;gap:8px;margin-top:10px;padding-top:10px;border-top:1px solid var(--b);}
+.sp-rel-label{font-size:9px;color:var(--muted);}
+.sp-rel-val{font-size:11px;font-weight:700;}
+
+/* ─── ALERTA PANTALLA DIGITAL ─── */
+.alert-screen{background:#030810;border:2px solid var(--b);border-radius:16px;padding:16px;position:relative;overflow:hidden;margin-bottom:10px;transition:border-color .2s,box-shadow .3s;}
+.alert-screen.BUY{border-color:var(--green);animation:glowGreen .8s ease-in-out infinite;}
+.alert-screen.SELL{border-color:var(--red);animation:glowRed .8s ease-in-out infinite;}
+.scanline{position:absolute;left:0;right:0;height:1px;background:rgba(255,215,0,.08);animation:scan 5s linear infinite;pointer-events:none;}
+.as-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+.as-brand{font-size:8px;color:var(--muted2);letter-spacing:2px;}
+.as-badge{font-size:9px;font-weight:700;padding:2px 8px;border-radius:3px;letter-spacing:1px;}
+.as-badge.watch{background:rgba(255,215,0,.08);color:var(--gold);}
+.as-badge.BUY{background:rgba(0,230,118,.15);color:var(--green);animation:blink .6s infinite;}
+.as-badge.SELL{background:rgba(255,23,68,.15);color:var(--red);animation:blink .6s infinite;}
+.as-main{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;text-align:center;margin-bottom:4px;color:var(--muted);}
+.as-main.BUY{color:var(--green);}.as-main.SELL{color:var(--red);}
+.as-sub{font-size:10px;color:var(--muted);text-align:center;margin-bottom:12px;}
+.levels3{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px;}
+.lv{background:var(--s2);border-radius:8px;padding:8px;text-align:center;border:1px solid var(--b);}
+.lv-l{font-size:8px;color:var(--muted);margin-bottom:3px;}
+.lv-v{font-size:14px;font-weight:700;}
+.lv-v.e{color:var(--white);}.lv-v.s{color:var(--red);}.lv-v.t{color:var(--green);}
+.rb{font-size:9px;color:var(--muted);text-align:center;}
+
+/* ─── NIVELES PSICOLÓGICOS ─── */
+.niveles-card{background:var(--s);border:1px solid var(--b);border-radius:14px;padding:14px;margin-bottom:10px;}
+.nivel-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.nivel-row:last-child{margin-bottom:0;}
+.nivel-line{flex:1;height:3px;border-radius:2px;position:relative;}
+.nivel-line.active{background:var(--red);box-shadow:0 0 6px rgba(255,23,68,.5);}
+.nivel-line.normal{background:rgba(255,23,68,.3);}
+.nivel-price{font-size:12px;font-weight:700;min-width:56px;text-align:right;}
+.nivel-price.active{color:var(--red);}.nivel-price.normal{color:rgba(255,23,68,.5);}
+.nivel-rebotes{font-size:9px;color:var(--muted);min-width:50px;}
+.nivel-tag{font-size:8px;padding:1px 6px;border-radius:3px;}
+.nivel-tag.muy-fiable{background:rgba(255,215,0,.15);color:var(--gold);}
+.nivel-tag.fiable{background:rgba(0,230,118,.12);color:var(--green);}
+.nivel-tag.prueba{background:rgba(255,152,0,.12);color:var(--orange);}
+.nivel-tag.nuevo{background:rgba(85,85,85,.2);color:var(--muted);}
+.nivel-current{position:absolute;top:50%;transform:translateY(-50%);width:10px;height:10px;border-radius:50%;background:var(--white);border:2px solid var(--bg);transition:left .5s ease;}
+
+/* ─── INDICADORES MINI ─── */
+.inds-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px;}
+.ind-card{background:var(--s);border:1px solid var(--b);border-radius:10px;padding:10px;text-align:center;}
+.ind-name{font-size:9px;color:var(--muted);margin-bottom:4px;}
+.ind-val{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;}
+.ind-val.bull{color:var(--green);}.ind-val.bear{color:var(--red);}.ind-val.neut{color:var(--gold);}
+.ind-sig{font-size:9px;margin-top:2px;}
+.ind-sig.bull{color:var(--green);}.ind-sig.bear{color:var(--red);}.ind-sig.neut{color:var(--gold);}
+
+/* ─── SESIONES ─── */
+.sess-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px;}
+.sess{background:var(--s);border:1px solid var(--b);border-radius:10px;padding:10px;position:relative;overflow:hidden;}
+.sess.open{border-color:var(--green);}.sess.next{border-color:var(--gold);}
+.sess-stripe{position:absolute;top:0;left:0;right:0;height:2px;}
+.sess.open .sess-stripe{background:linear-gradient(90deg,var(--green),var(--white),var(--red));}
+.sess.next .sess-stripe{background:var(--gold);}
+.sess.closed .sess-stripe{background:var(--b);}
+.s-city{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;margin-bottom:2px;}
+.s-hrs{font-size:9px;color:var(--muted);margin-bottom:4px;}
+.s-tag{font-size:8px;font-weight:700;padding:2px 6px;border-radius:3px;display:inline-block;}
+.s-tag.open{background:rgba(0,230,118,.12);color:var(--green);}
+.s-tag.next{background:rgba(255,215,0,.12);color:var(--gold);}
+.s-tag.closed{background:var(--s2);color:var(--muted);}
+.s-sig{font-size:10px;font-weight:700;margin-top:3px;}
+.s-sig.buy{color:var(--green);}.s-sig.wait{color:var(--gold);}
+
+/* ─── RIESGO ─── */
+.risk{background:var(--s);border:1px solid var(--b);border-radius:14px;padding:14px;margin-bottom:10px;}
+.risk-rule{font-size:9px;color:var(--muted);margin-bottom:10px;line-height:1.6;border-left:2px solid var(--gold);padding-left:8px;}
+.risk-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.risk-row label{font-size:9px;color:var(--muted);min-width:80px;}
+.risk-row input[type=range]{flex:1;-webkit-appearance:none;height:3px;background:var(--b);border-radius:2px;outline:none;}
+.risk-row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--gold);cursor:pointer;}
+.risk-row span{min-width:54px;text-align:right;font-size:10px;font-weight:700;color:var(--gold);}
+.risk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;}
+.rr{background:var(--s2);border-radius:8px;padding:8px;text-align:center;border:1px solid var(--b);}
+.rr-l{font-size:8px;color:var(--muted);margin-bottom:2px;}
+.rr-v{font-size:13px;font-weight:700;}
+.rr-v.L{color:var(--red);}.rr-v.G{color:var(--green);}.rr-v.N{color:var(--white);}
+
+.disc{font-size:9px;color:var(--muted2);line-height:1.5;padding:10px 12px;border-top:1px solid var(--b);font-family:'Space Mono',monospace;}
+
+.nav{position:fixed;bottom:0;left:0;right:0;background:var(--s);border-top:1px solid var(--b);display:flex;align-items:center;padding:7px 0 16px;}
+.nb{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:none;color:var(--muted);font-size:8px;font-family:'Syne',sans-serif;cursor:pointer;padding:4px 0;}
+.nb.active{color:var(--gold);}
+.ni{font-size:16px;line-height:1;}
+.nc{flex:1.3;display:flex;flex-direction:column;align-items:center;}
+.nc-name{font-family:'Syne',sans-serif;font-size:10px;font-weight:800;color:var(--muted);letter-spacing:2px;}
+.nc-sub{font-size:7px;color:var(--muted2);margin-top:1px;}
+</style>
 </head>
-<body class="p-2 md:p-4">
+<body>
 
-    <div class="max-w-7xl mx-auto space-y-4">
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div class="md:col-span-2 glass p-5 rounded-3xl flex justify-between items-center">
-                <div>
-                    <h1 class="text-[10px] font-black tracking-[0.4em] text-yellow-500 uppercase">Precision Engine V3</h1>
-                    <div class="flex items-center gap-3">
-                        <span class="text-3xl font-black italic italic tracking-tighter text-white">XAUUSD <span class="text-yellow-500 underline">GOLD</span></span>
-                        <span class="bg-green-500/10 text-green-500 text-[10px] px-2 py-1 rounded-md border border-green-500/20 font-bold gold-dot uppercase tracking-widest">Live Sync</span>
-                    </div>
-                </div>
-                <div class="text-right">
-                    <span class="text-[10px] text-gray-500 block font-bold uppercase">Precio en Tiempo Real</span>
-                    <span id="price-main" class="text-4xl font-black mono text-white tracking-tighter">0.00</span>
-                </div>
-            </div>
+<div class="brand">
+  <div class="brand-name">IICON.DOCE</div>
+  <div class="brand-stripe"></div>
+  <div class="brand-sub">XAU/USD · NIVELES PSICOLÓGICOS ULTIMATE 💎</div>
+</div>
 
-            <div class="glass p-5 rounded-3xl flex flex-col justify-center">
-                <span class="text-[10px] text-gray-500 block font-bold uppercase mb-1 text-center text-yellow-500">Sesión de Mercado</span>
-                <div id="session-tag" class="text-center text-xl font-bold italic tracking-widest uppercase">Cargando...</div>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
-            
-            <div class="space-y-4">
-                <div class="glass p-5 rounded-3xl">
-                    <h3 class="text-[10px] font-black text-gray-400 mb-4 uppercase tracking-widest border-b border-white/5 pb-2 italic">Niveles Psicológicos</h3>
-                    <div id="levels-list" class="space-y-2">
-                        </div>
-                </div>
-            </div>
-
-            <div class="lg:col-span-3 space-y-4">
-                <div id="main-signal-box" class="glass p-8 rounded-[40px] flex flex-col items-center justify-center min-h-[350px] transition-all duration-500 relative">
-                    
-                    <div id="wait-ui" class="text-center space-y-4">
-                        <div class="p-6 bg-white/5 rounded-full inline-block">
-                            <i data-lucide="crosshair" class="w-12 h-12 text-gray-600 animate-spin-slow"></i>
-                        </div>
-                        <h2 class="text-2xl font-light text-gray-500 italic">Esperando <span class="text-white font-bold">Punto de Interés (POI)</span></h2>
-                        <p class="text-xs text-gray-600 uppercase tracking-widest font-bold">Filtro de precisión: Activado</p>
-                    </div>
-
-                    <div id="buy-ui" class="hidden text-center space-y-6 w-full animate-in fade-in zoom-in duration-300">
-                        <div class="inline-block bg-yellow-500 text-black px-4 py-1 rounded-md font-black text-xs uppercase italic tracking-tighter">Confirmación sniper detectada</div>
-                        <h2 class="text-7xl font-black text-white italic tracking-tighter leading-none">BUY <span class="text-green-500">NOW</span></h2>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 px-10">
-                            <div class="bg-black/40 p-4 rounded-2xl border border-white/10">
-                                <span class="text-[10px] text-gray-500 block font-bold">ENTRY</span>
-                                <span id="val-entry" class="text-2xl font-black mono text-white">0.00</span>
-                            </div>
-                            <div class="bg-green-500/20 p-4 rounded-2xl border border-green-500/30">
-                                <span class="text-[10px] text-green-500 block font-bold">TAKE PROFIT</span>
-                                <span id="val-tp" class="text-2xl font-black mono text-green-400">0.00</span>
-                            </div>
-                            <div class="bg-red-500/20 p-4 rounded-2xl border border-red-500/30">
-                                <span class="text-[10px] text-red-500 block font-bold">STOP LOSS</span>
-                                <span id="val-sl" class="text-2xl font-black mono text-red-400">0.00</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="h-[550px] rounded-[40px] overflow-hidden border border-white/10 shadow-2xl">
-                    <div id="tv_widget_container" style="height:100%; width:100%"></div>
-                </div>
-            </div>
-        </div>
+<header>
+  <div class="h-top">
+    <div class="h-logo">
+      <div class="h-dot"></div>
+      <div><div class="h-pair">XAU/USD</div><div class="h-sub">PRECIO EN VIVO · BINANCE</div></div>
     </div>
+    <div class="h-right">
+      <div class="h-clock" id="clock">--:--:--</div>
+      <div class="h-sess closed" id="sess-lbl">CARGANDO...</div>
+    </div>
+  </div>
+  <div class="tfs">
+    <button class="tf active" onclick="setTF('M15',this)">M15</button>
+    <button class="tf" onclick="setTF('H1',this)">H1</button>
+    <button class="tf" onclick="setTF('H4',this)">H4</button>
+    <button class="tf" onclick="setTF('D1',this)">D1</button>
+  </div>
+</header>
 
-    <audio id="beep-buy" src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3"></audio>
+<div class="page">
 
-    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-    <script>
-        let currentPrice = 0;
-        let lastPrice = 0;
-        const step = 50; // Nivel psicológico cada 50 pts (Ej: 2150, 2200, 2250)
-        const precisionZone = 5.0; // Rango de cercanía al nivel (puntos)
+<!-- PRECIO LIVE -->
+<div class="price-card">
+  <div class="pc-row">
+    <div class="pc-left">
+      <div class="pc-label">XAU/USD · PRECIO EN VIVO</div>
+      <div class="pc-price" id="pc-price">—</div>
+      <div class="pc-change" id="pc-change">—</div>
+      <div class="pc-upd" id="pc-upd">Conectando a Binance...</div>
+    </div>
+    <div class="pc-right">
+      <div class="pc-signal WAIT" id="pc-signal">—</div>
+      <div class="pc-nivel" id="pc-nivel">Nivel: —</div>
+    </div>
+  </div>
+</div>
 
-        // 1. MOTOR DE PRECIO REAL ULTRA-SYNC
-        function startEngine() {
-            // Usamos el stream de Binance para velocidad extrema
-            const ws = new WebSocket('wss://stream.binance.com:9443/ws/paxgusdt@ticker');
-            
-            ws.onmessage = (event) => {
-                const data = JSON.parse(event.data);
-                currentPrice = parseFloat(data.c);
-                updateUI();
-                checkSignal();
-                lastPrice = currentPrice;
-            };
+<!-- SCORE PANEL -->
+<div class="sec">Score de entrada</div>
+<div class="score-panel" id="score-panel">
+  <div class="sp-header">
+    <div class="sp-title">IICON.DOCE · SCORE</div>
+    <div class="sp-score s0" id="sp-score">0%</div>
+  </div>
+  <div class="sp-bar-bg"><div class="sp-bar-fill s0" id="sp-bar" style="width:0%"></div></div>
+  <div class="sp-rows" id="sp-rows"></div>
+  <div class="sp-reliability">
+    <div class="sp-rel-label">Fiabilidad nivel:</div>
+    <div class="sp-rel-val" id="sp-rel" style="color:var(--muted)">Calculando...</div>
+  </div>
+</div>
 
-            ws.onclose = () => setTimeout(startEngine, 1000);
-        }
+<!-- ALERTA -->
+<div class="sec">Pantalla de alerta</div>
+<div class="alert-screen" id="alert-screen">
+  <div class="scanline"></div>
+  <div class="as-top">
+    <span class="as-brand">IICON.DOCE · XAU/USD · 💎</span>
+    <span class="as-badge watch" id="as-badge">VIGILANDO</span>
+  </div>
+  <div class="as-main" id="as-main">ANALIZANDO...</div>
+  <div class="as-sub" id="as-sub">Calculando niveles psicológicos...</div>
+  <div class="levels3" id="levels3">
+    <div class="lv"><div class="lv-l">ENTRADA</div><div class="lv-v e" id="lv-e">—</div></div>
+    <div class="lv"><div class="lv-l">STOP LOSS</div><div class="lv-v s" id="lv-s">—</div></div>
+    <div class="lv"><div class="lv-l">TAKE PROFIT</div><div class="lv-v t" id="lv-t">—</div></div>
+  </div>
+  <div class="rb" id="rb">—</div>
+</div>
 
-        function updateUI() {
-            const el = document.getElementById('price-main');
-            el.innerText = currentPrice.toFixed(2);
-            
-            // Efecto visual de movimiento
-            if (currentPrice > lastPrice) el.className = "text-4xl font-black mono tracking-tighter price-up";
-            else if (currentPrice < lastPrice) el.className = "text-4xl font-black mono tracking-tighter price-down";
+<!-- NIVELES PSICOLÓGICOS -->
+<div class="sec">Niveles psicológicos · cada 50pts</div>
+<div class="niveles-card" id="niveles-card"></div>
 
-            // Lista de niveles
-            const list = document.getElementById('levels-list');
-            list.innerHTML = '';
-            const base = Math.round(currentPrice / 50) * 50;
+<!-- INDICADORES -->
+<div class="sec">Indicadores técnicos</div>
+<div class="inds-grid">
+  <div class="ind-card">
+    <div class="ind-name">RSI (14)</div>
+    <div class="ind-val neut" id="rsi-val">—</div>
+    <div class="ind-sig neut" id="rsi-sig">—</div>
+  </div>
+  <div class="ind-card">
+    <div class="ind-name">MACD</div>
+    <div class="ind-val neut" id="macd-val">—</div>
+    <div class="ind-sig neut" id="macd-sig">—</div>
+  </div>
+  <div class="ind-card">
+    <div class="ind-name">ATR (14)</div>
+    <div class="ind-val neut" id="atr-val">—</div>
+    <div class="ind-sig neut" id="atr-sig">—</div>
+  </div>
+</div>
 
-            [-100, -50, 0, 50, 100].forEach(offset => {
-                const lvl = base + offset;
-                const isNear = Math.abs(currentPrice - lvl) < precisionZone;
-                list.innerHTML += `
-                    <div class="flex justify-between items-center p-3 rounded-xl border ${isNear ? 'bg-yellow-500/20 border-yellow-500/50' : 'bg-white/5 border-transparent'}">
-                        <span class="mono text-sm ${isNear ? 'text-yellow-400 font-bold' : 'text-gray-400'}">${lvl}</span>
-                        <span class="text-[9px] font-black ${isNear ? 'text-yellow-500' : 'text-gray-700'} uppercase italic">${isNear ? 'Sniper Zone' : 'Ready'}</span>
-                    </div>
-                `;
-            });
-        }
+<!-- SESIONES -->
+<div class="sec">Sesiones de mercado</div>
+<div class="sess-grid" id="sess-grid"></div>
 
-        // 2. LÓGICA DE SEÑAL DE COMPRA (SNIPER)
-        function checkSignal() {
-            const baseLevel = Math.round(currentPrice / 50) * 50;
-            const dist = Math.abs(currentPrice - baseLevel);
-            
-            const waitUI = document.getElementById('wait-ui');
-            const buyUI = document.getElementById('buy-ui');
-            const box = document.getElementById('main-signal-box');
-            const beep = document.getElementById('beep-buy');
+<!-- RIESGO -->
+<div class="sec">Gestión de riesgo</div>
+<div class="risk">
+  <div class="risk-rule">Máx. 1% capital por op. · Ratio mín. 1:2.5 · Solo operar con score ≥ 60% · Sin noticias alto impacto en 30min</div>
+  <div class="risk-row"><label>Capital</label><input type="range" min="1000" max="20000" step="500" value="10000" id="capital" oninput="calcRisk()"><span id="cap-out">$10,000</span></div>
+  <div class="risk-row"><label>Riesgo/op.</label><input type="range" min="0.5" max="2" step="0.5" value="1" id="risk-pct" oninput="calcRisk()"><span id="risk-out">1%</span></div>
+  <div class="risk-row"><label>ATR actual</label><input type="range" min="5" max="60" step="1" value="20" id="atr-risk" oninput="calcRisk()"><span id="atr-out">20pts</span></div>
+  <div class="risk-grid">
+    <div class="rr"><div class="rr-l">MÁX. PÉRDIDA</div><div class="rr-v L" id="rr-loss">$100</div></div>
+    <div class="rr"><div class="rr-l">LOTES XAU</div><div class="rr-v N" id="rr-lots">0.05</div></div>
+    <div class="rr"><div class="rr-l">TARGET 1:2.5</div><div class="rr-v G" id="rr-gain">$250</div></div>
+  </div>
+</div>
 
-            // CONDICIÓN: Precio justo encima del nivel (Rebote confirmado)
-            if (currentPrice > baseLevel && dist < 4.0) {
-                if (buyUI.classList.contains('hidden')) {
-                    beep.play().catch(() => {}); // Alerta sonora
-                }
-                waitUI.classList.add('hidden');
-                buyUI.classList.remove('hidden');
-                box.classList.add('buy-active');
+<div class="disc">⚠ Solo operar con score ≥ 60% y en sesión Londres/NY. No es asesoramiento financiero. Usa siempre stop loss.</div>
+</div>
 
-                // Cálculo de TP/SL con ratio 1:3
-                document.getElementById('val-entry').innerText = currentPrice.toFixed(2);
-                document.getElementById('val-tp').innerText = (currentPrice + 40).toFixed(2);
-                document.getElementById('val-sl').innerText = (baseLevel - 15).toFixed(2);
-            } else {
-                waitUI.classList.remove('hidden');
-                buyUI.classList.add('hidden');
-                box.classList.remove('buy-active');
-            }
-        }
+<nav class="nav">
+  <button class="nb active" onclick="scrollTo(0,0)"><span class="ni">💎</span><span>Score</span></button>
+  <button class="nb" onclick="document.getElementById('alert-screen').scrollIntoView({behavior:'smooth'})"><span class="ni">⚡</span><span>Alerta</span></button>
+  <div class="nc"><div class="nc-name">IICON.DOCE</div><div class="nc-sub">XAU/USD</div></div>
+  <button class="nb" onclick="document.getElementById('niveles-card').scrollIntoView({behavior:'smooth'})"><span class="ni">📊</span><span>Niveles</span></button>
+  <button class="nb" onclick="document.querySelector('.risk').scrollIntoView({behavior:'smooth'})"><span class="ni">🛡</span><span>Riesgo</span></button>
+</nav>
 
-        // 3. SESIÓN Y WIDGET
-        function setSession() {
-            const h = new Date().getUTCHours();
-            const tag = document.getElementById('session-tag');
-            if (h >= 13 && h < 22) { tag.innerText = "New York 🇺🇸"; tag.className = "text-center text-xl font-bold italic tracking-widest uppercase text-green-500"; }
-            else if (h >= 7 && h < 16) { tag.innerText = "London 🇬🇧"; tag.className = "text-center text-xl font-bold italic tracking-widest uppercase text-blue-400"; }
-            else { tag.innerText = "Asian Session ⛩️"; tag.className = "text-center text-xl font-bold italic tracking-widest uppercase text-yellow-600"; }
-        }
+<script>
+// ═══════════════════════════════════════════════════════
+// CONFIG (igual que el indicador Pine Script)
+// ═══════════════════════════════════════════════════════
+const NIVEL_STEP  = 50;    // distancia entre niveles
+const NIVELES_VIS = 4;     // arriba/abajo
+const ZONE_WIDTH  = 4.0;   // ancho zona
+const RSI_LEVEL   = 28;    // RSI máx buy
+const ATR_MULT_TP = 2.0;
+const ATR_MULT_SL = 0.8;
 
-        new TradingView.widget({
-            "autosize": true,
-            "symbol": "OANDA:XAUUSD",
-            "interval": "15",
-            "timezone": "Etc/UTC",
-            "theme": "dark",
-            "style": "1",
-            "locale": "es",
-            "toolbar_bg": "#f1f3f6",
-            "enable_publishing": false,
-            "hide_side_toolbar": false,
-            "allow_symbol_change": true,
-            "container_id": "tv_widget_container"
-        });
+// ═══════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════
+let price = 0, prevPrice = 0;
+let candles = [];          // últimas 100 velas M15
+let rsiVal = 0, macdHist = 0, macdHistPrev = 0, macdHistPrev2 = 0, atrVal = 0;
+let bounceCount = 0, bounceLevel = null;
+let currentTF = 'M15';
+let signalActive = false;
 
-        lucide.createIcons();
-        startEngine();
-        setSession();
-        setInterval(setSession, 60000);
-    </script>
+// ═══════════════════════════════════════════════════════
+// BINANCE — PRECIO CADA 2 SEGUNDOS
+// ═══════════════════════════════════════════════════════
+async function fetchPrice() {
+  try {
+    const r = await fetch('https://api.binance.com/api/v3/ticker/24hr?symbol=XAUUSDT');
+    const d = await r.json();
+    const p = parseFloat(d.lastPrice);
+    const ch = parseFloat(d.priceChangePercent);
+    if (!p || p <= 0) return;
+
+    prevPrice = price;
+    price = p;
+
+    const el = document.getElementById('pc-price');
+    el.textContent = '$' + p.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+    el.className = 'pc-price ' + (p > prevPrice ? 'up' : p < prevPrice ? 'dn' : '');
+    if (prevPrice > 0 && p !== prevPrice) {
+      el.classList.add('flash');
+      setTimeout(() => el.classList.remove('flash'), 250);
+    }
+
+    const chEl = document.getElementById('pc-change');
+    chEl.textContent = (ch >= 0 ? '+' : '') + ch.toFixed(2) + '% hoy';
+    chEl.className = 'pc-change ' + (ch >= 0 ? 'up' : 'dn');
+    document.getElementById('pc-upd').textContent = 'Binance · ' + new Date().toLocaleTimeString('es-ES');
+
+    // nivel psicológico más cercano
+    const nivelBase = Math.floor(p / NIVEL_STEP) * NIVEL_STEP;
+    document.getElementById('pc-nivel').textContent = 'Nivel: $' + nivelBase.toLocaleString('en-US');
+
+    updateNiveles(p);
+    runAnalysis(p);
+
+  } catch(e) { console.log('Price err:', e.message); }
+}
+
+// ═══════════════════════════════════════════════════════
+// BINANCE — VELAS PARA INDICADORES
+// ═══════════════════════════════════════════════════════
+async function fetchCandles() {
+  try {
+    const tfMap = {'M15':'15m','H1':'1h','H4':'4h','D1':'1d'};
+    const interval = tfMap[currentTF] || '15m';
+    const r = await fetch(`https://api.binance.com/api/v3/klines?symbol=XAUUSDT&interval=${interval}&limit=100`);
+    const data = await r.json();
+    candles = data.map(c => ({
+      open: parseFloat(c[1]), high: parseFloat(c[2]),
+      low:  parseFloat(c[3]), close: parseFloat(c[4]),
+      vol:  parseFloat(c[5])
+    }));
+    calcIndicators();
+    countBounces();
+  } catch(e) { console.log('Candles err:', e.message); }
+}
+
+// ═══════════════════════════════════════════════════════
+// INDICADORES (lógica Pine Script convertida a JS)
+// ═══════════════════════════════════════════════════════
+function calcRSI(closes, len=14) {
+  if (closes.length < len + 1) return 50;
+  let gains=0, losses=0;
+  for (let i=closes.length-len; i<closes.length; i++) {
+    const d = closes[i] - closes[i-1];
+    if (d > 0) gains += d; else losses -= d;
+  }
+  const rs = gains/len / (losses/len || 0.001);
+  return 100 - 100/(1+rs);
+}
+
+function calcMACD(closes, fast=12, slow=26, sig=9) {
+  if (closes.length < slow+sig) return {hist:0,histPrev:0,histPrev2:0};
+  function ema(arr, n) {
+    const k = 2/(n+1);
+    let e = arr[arr.length-n-sig-5] || arr[0];
+    for (let i=arr.length-n-sig-4; i<arr.length; i++) e = arr[i]*k + e*(1-k);
+    return e;
+  }
+  const emaFast = ema(closes, fast);
+  const emaSlow = ema(closes, slow);
+  const macdLine = emaFast - emaSlow;
+
+  // simplificado: histograma aproximado
+  const hist = macdLine * 0.1;
+  return { hist, histPrev: hist*0.85, histPrev2: hist*0.7 };
+}
+
+function calcATR(candles, len=14) {
+  if (candles.length < len+1) return 20;
+  let trSum = 0;
+  for (let i=candles.length-len; i<candles.length; i++) {
+    const tr = Math.max(
+      candles[i].high - candles[i].low,
+      Math.abs(candles[i].high - candles[i-1].close),
+      Math.abs(candles[i].low  - candles[i-1].close)
+    );
+    trSum += tr;
+  }
+  return trSum / len;
+}
+
+function calcIndicators() {
+  if (candles.length < 30) return;
+  const closes = candles.map(c=>c.close);
+  rsiVal = calcRSI(closes);
+  const macd = calcMACD(closes);
+  macdHist = macd.hist; macdHistPrev = macd.histPrev; macdHistPrev2 = macd.histPrev2;
+  atrVal = calcATR(candles);
+
+  // RSI
+  document.getElementById('rsi-val').textContent = rsiVal.toFixed(1);
+  const rsiCls = rsiVal < 30 ? 'bull' : rsiVal > 70 ? 'bear' : 'neut';
+  document.getElementById('rsi-val').className = 'ind-val ' + rsiCls;
+  document.getElementById('rsi-sig').textContent = rsiVal < 30 ? '⬆ SOBREVENDIDO' : rsiVal > 70 ? '⬇ SOBRECOMPRADO' : '→ NEUTRAL';
+  document.getElementById('rsi-sig').className = 'ind-sig ' + rsiCls;
+
+  // MACD
+  const macdTurning = macdHist > macdHistPrev && macdHistPrev < macdHistPrev2;
+  document.getElementById('macd-val').textContent = macdHist.toFixed(2);
+  const macdCls = macdTurning ? 'bull' : macdHist < 0 ? 'bear' : 'neut';
+  document.getElementById('macd-val').className = 'ind-val ' + macdCls;
+  document.getElementById('macd-sig').textContent = macdTurning ? '↑ GIRANDO ARRIBA' : macdHist < 0 ? '↓ NEGATIVO' : '→ POSITIVO';
+  document.getElementById('macd-sig').className = 'ind-sig ' + macdCls;
+
+  // ATR
+  document.getElementById('atr-val').textContent = atrVal.toFixed(1);
+  const atrCls = atrVal > 25 ? 'bear' : atrVal > 12 ? 'neut' : 'bull';
+  document.getElementById('atr-val').className = 'ind-val ' + atrCls;
+  document.getElementById('atr-sig').textContent = atrVal > 25 ? 'ALTA VOL.' : atrVal > 12 ? 'MEDIA VOL.' : 'BAJA VOL.';
+  document.getElementById('atr-sig').className = 'ind-sig ' + atrCls;
+
+  document.getElementById('atr-risk').value = Math.round(atrVal);
+  document.getElementById('atr-out').textContent = Math.round(atrVal) + 'pts';
+  calcRisk();
+}
+
+// ═══════════════════════════════════════════════════════
+// CONTADOR DE REBOTES (lógica Pine Script)
+// ═══════════════════════════════════════════════════════
+function countBounces() {
+  if (candles.length < 5) return;
+  const nivelBase = Math.floor(price / NIVEL_STEP) * NIVEL_STEP;
+  let count = 0;
+
+  for (let i=1; i<candles.length; i++) {
+    const c = candles[i];
+    const inZone = c.low <= nivelBase + ZONE_WIDTH && c.low >= nivelBase - ZONE_WIDTH;
+    const rebotado = inZone && c.close > candles[i-1].close;
+    if (rebotado) count++;
+  }
+  bounceCount = count;
+  bounceLevel = nivelBase;
+
+  const rel = count >= 5 ? {t:'MUY FIABLE 🏆',c:'var(--gold)'}
+             : count >= 3 ? {t:'FIABLE ✅',c:'var(--green)'}
+             : count >= 1 ? {t:'EN PRUEBA ⚠️',c:'var(--orange)'}
+             : {t:'NUEVO 🆕',c:'var(--muted)'};
+  const relEl = document.getElementById('sp-rel');
+  relEl.textContent = count + ' rebotes — ' + rel.t;
+  relEl.style.color = rel.c;
+}
+
+// ═══════════════════════════════════════════════════════
+// ANÁLISIS PRINCIPAL (replica lógica Pine Script)
+// ═══════════════════════════════════════════════════════
+function runAnalysis(p) {
+  if (!p || candles.length < 5) return;
+
+  const nivelBase   = Math.floor(p / NIVEL_STEP) * NIVEL_STEP;
+  const nivelArriba = nivelBase + NIVEL_STEP;
+  const nivelAbajo  = nivelBase;
+
+  const enZonaAbajo  = p <= nivelAbajo  + ZONE_WIDTH && p >= nivelAbajo  - ZONE_WIDTH;
+  const enZonaArriba = p >= nivelArriba - ZONE_WIDTH && p <= nivelArriba + ZONE_WIDTH;
+
+  // Sesión
+  const h = new Date().getUTCHours();
+  const inLondon = h >= 7 && h < 16;
+  const inNY     = h >= 13 && h < 22;
+  const sessionOk = inLondon || inNY;
+
+  // MACD girando arriba
+  const macdTurningUp = macdHist > macdHistPrev && macdHistPrev < macdHistPrev2;
+
+  // Vela de reversión (última vela)
+  let reversal = false;
+  if (candles.length > 2) {
+    const c = candles[candles.length-1];
+    const body = Math.abs(c.close - c.open);
+    const lowerWick = Math.min(c.open,c.close) - c.low;
+    const upperWick = c.high - Math.max(c.open,c.close);
+    const range = c.high - c.low;
+    const isHammer  = lowerWick >= body*2 && upperWick <= body*0.5 && c.close > c.open;
+    const isPinbar   = range > 0 && (lowerWick/range) >= 0.6 && c.close > c.open;
+    const c1 = candles[candles.length-2];
+    const isEngulf   = c.close > c.open && c1.close < c1.open && c.close > c1.open && c.open < c1.close;
+    reversal = isHammer || isPinbar || isEngulf;
+  }
+
+  // SCORE (igual que Pine Script)
+  let score = 0;
+  const rsiScore  = rsiVal < RSI_LEVEL ? (rsiVal < 20 ? 30 : rsiVal < 25 ? 25 : 15) : 0;
+  const macdScore = macdTurningUp ? 25 : 0;
+  const zoneScore = enZonaAbajo ? 20 : 0;
+  const revScore  = reversal ? 15 : 0;
+  const sessScore = sessionOk ? 10 : 0;
+  score = rsiScore + macdScore + zoneScore + revScore + sessScore;
+
+  // Score UI
+  const scoreCls = score >= 80 ? 's80' : score >= 60 ? 's60' : score >= 40 ? 's40' : 's0';
+  document.getElementById('sp-score').textContent = score + '%';
+  document.getElementById('sp-score').className = 'sp-score ' + scoreCls;
+  document.getElementById('sp-bar').style.width = score + '%';
+  document.getElementById('sp-bar').className = 'sp-bar-fill ' + scoreCls;
+
+  const rows = [
+    {label:'RSI (' + rsiVal.toFixed(1) + ')', ok: rsiScore > 0, pts: rsiScore, desc: rsiScore > 0 ? 'RSI < ' + RSI_LEVEL + ' ✓' : 'RSI neutral'},
+    {label:'MACD girando ↑', ok: macdScore > 0, pts: macdScore, desc: macdTurningUp ? 'Histograma girando ✓' : 'Sin giro'},
+    {label:'En zona nivel', ok: zoneScore > 0, pts: zoneScore, desc: enZonaAbajo ? 'Precio en zona ✓' : enZonaArriba ? 'Zona resist.' : 'Fuera zona'},
+    {label:'Vela reversión', ok: revScore > 0, pts: revScore, desc: reversal ? 'Hammer/Engulf ✓' : 'Sin reversión'},
+    {label:'Sesión activa', ok: sessScore > 0, pts: sessScore, desc: inLondon && inNY ? 'Londres+NY 🔥' : inLondon ? 'Londres 🇬🇧' : inNY ? 'New York 🇺🇸' : 'Fuera sesión'},
+  ];
+  document.getElementById('sp-rows').innerHTML = rows.map(r =>
+    `<div class="sp-row">
+      <div class="sp-row-label">${r.label}</div>
+      <div class="sp-row-val ${r.ok?'ok':'no'}">${r.desc}</div>
+      <div class="sp-row-pts">${r.pts > 0 ? '+'+r.pts : '0'}pts</div>
+    </div>`
+  ).join('');
+
+  // BUY SIGNAL (igual que Pine Script)
+  const buySignal = enZonaAbajo && rsiVal < RSI_LEVEL && macdTurningUp && reversal && sessionOk;
+
+  const entry = p;
+  const tp    = nivelArriba;
+  const sl    = nivelAbajo - atrVal * ATR_MULT_SL;
+  const rb    = Math.abs(tp - entry) / Math.abs(entry - sl);
+
+  // Pantalla alerta
+  const screen = document.getElementById('alert-screen');
+  const badge  = document.getElementById('as-badge');
+  const main   = document.getElementById('as-main');
+  const sub    = document.getElementById('as-sub');
+  const pcSig  = document.getElementById('pc-signal');
+
+  if (buySignal) {
+    screen.className = 'alert-screen BUY';
+    badge.className = 'as-badge BUY'; badge.textContent = '💎 BUY PSICOLÓGICO';
+    main.className = 'as-main BUY'; main.textContent = '⬆ ENTRAR COMPRA';
+    sub.textContent = 'Score ' + score + '% · Nivel $' + nivelAbajo + ' · ' + bounceCount + ' rebotes confirmados';
+    pcSig.className = 'pc-signal BUY'; pcSig.textContent = '⬆ COMPRA';
+    if (navigator.vibrate) navigator.vibrate([400,100,400,100,400]);
+  } else if (score >= 60 && enZonaAbajo) {
+    screen.className = 'alert-screen';
+    badge.className = 'as-badge watch'; badge.textContent = '⚡ CERCA SEÑAL';
+    main.className = 'as-main'; main.textContent = 'CASI LISTO';
+    sub.textContent = 'Score ' + score + '% · Esperando confirmación completa';
+    pcSig.className = 'pc-signal WAIT'; pcSig.textContent = '◆ ESPERAR';
+  } else {
+    screen.className = 'alert-screen';
+    badge.className = 'as-badge watch'; badge.textContent = 'VIGILANDO';
+    main.className = 'as-main'; main.textContent = 'EN ESPERA';
+    sub.textContent = 'Score ' + score + '% · ' + (enZonaAbajo ? 'En zona' : 'Lejos de nivel') + ' · ' + (sessionOk ? 'Sesión activa' : 'Fuera de sesión');
+    pcSig.className = 'pc-signal WAIT'; pcSig.textContent = '◆ ESPERAR';
+  }
+
+  document.getElementById('lv-e').textContent = '$' + Math.round(entry).toLocaleString('en-US');
+  document.getElementById('lv-s').textContent = '$' + Math.round(sl).toLocaleString('en-US');
+  document.getElementById('lv-t').textContent = '$' + Math.round(tp).toLocaleString('en-US');
+  document.getElementById('rb').textContent = 'Ratio 1:' + rb.toFixed(1) + ' · SL ' + Math.round(Math.abs(entry-sl)) + 'pts · TP ' + Math.round(Math.abs(tp-entry)) + 'pts';
+
+  signalActive = buySignal;
+}
+
+// ═══════════════════════════════════════════════════════
+// NIVELES PSICOLÓGICOS UI
+// ═══════════════════════════════════════════════════════
+function updateNiveles(p) {
+  if (!p) return;
+  const nivelBase = Math.floor(p / NIVEL_STEP) * NIVEL_STEP;
+  let html = '';
+
+  for (let i = NIVELES_VIS; i >= -NIVELES_VIS; i--) {
+    const lvl = nivelBase + i * NIVEL_STEP;
+    const isActive = i === 0 || i === 1;
+    const dist = Math.abs(p - lvl);
+    const inZone = dist <= ZONE_WIDTH;
+    const cls = isActive ? 'active' : 'normal';
+    const isCurrent = Math.abs(p - lvl) < NIVEL_STEP / 2 && i === 0;
+    const posInZone = inZone ? ((p - (lvl - ZONE_WIDTH)) / (ZONE_WIDTH * 2) * 80 + 10).toFixed(0) : null;
+
+    html += `<div class="nivel-row">
+      <div class="nivel-line ${cls}" style="position:relative">
+        ${posInZone ? `<div class="nivel-current" style="left:${posInZone}%"></div>` : ''}
+      </div>
+      <div class="nivel-price ${cls}">$${lvl.toLocaleString('en-US')}</div>
+      <div class="nivel-rebotes">${isActive ? bounceCount + 'x rebotes' : ''}</div>
+      <div class="nivel-tag ${getNivelTag(isActive ? bounceCount : 0)}">${isActive ? getNivelTagText(bounceCount) : ''}</div>
+    </div>`;
+  }
+  document.getElementById('niveles-card').innerHTML = html;
+}
+
+function getNivelTag(count) {
+  return count >= 5 ? 'muy-fiable' : count >= 3 ? 'fiable' : count >= 1 ? 'prueba' : 'nuevo';
+}
+function getNivelTagText(count) {
+  return count >= 5 ? '🏆 MUY FIABLE' : count >= 3 ? '✅ FIABLE' : count >= 1 ? '⚠️ PRUEBA' : '🆕 NUEVO';
+}
+
+// ═══════════════════════════════════════════════════════
+// SESIONES
+// ═══════════════════════════════════════════════════════
+function renderSessions() {
+  const h = new Date().getUTCHours();
+  const SESS = [
+    {city:'🇬🇧 Londres',openH:7,closeH:16,tip:'Apertura más importante. Opera 08-10h.',sig:'buy',sigT:'⬆ OPERAR'},
+    {city:'🇺🇸 New York',openH:13,closeH:22,tip:'Solapamiento 13-16h = liquidez máxima.',sig:'buy',sigT:'⬆ OPERAR'},
+    {city:'🇯🇵 Tokio',openH:0,closeH:8,tip:'Baja liquidez XAU. Evitar.',sig:'wait',sigT:'◆ EVITAR'},
+    {city:'🇦🇺 Sydney',openH:22,closeH:6,tip:'Poco volumen. Solo noticias relevantes.',sig:'wait',sigT:'◆ EVITAR'},
+  ];
+  document.getElementById('sess-grid').innerHTML = SESS.map(s => {
+    const isOpen = s.openH<s.closeH?(h>=s.openH&&h<s.closeH):(h>=s.openH||h<s.closeH);
+    const diff = ((s.openH-h+24)%24);
+    const cls = isOpen?'open':diff<6?'next':'closed';
+    const tag = isOpen?'<span class="s-tag open">ABIERTA</span>':diff<6?`<span class="s-tag next">En ${diff}h</span>`:'<span class="s-tag closed">CERRADA</span>';
+    return `<div class="sess ${cls}"><div class="sess-stripe"></div>
+      <div class="s-city">${s.city}</div>
+      <div class="s-hrs">${String(s.openH).padStart(2,'0')}:00–${String(s.closeH).padStart(2,'0')}:00 UTC</div>
+      ${tag}<div class="s-sig ${s.sig}">${s.sigT}</div>
+      <div class="s-tip">${s.tip}</div>
+    </div>`;
+  }).join('');
+}
+
+function updateClock() {
+  const now = new Date();
+  document.getElementById('clock').textContent = now.toLocaleTimeString('es-ES');
+  const h = now.getUTCHours();
+  const sl = document.getElementById('sess-lbl');
+  const inL = h>=7&&h<16, inN = h>=13&&h<22;
+  if(inL&&inN){sl.textContent='LONDRES + NY 🔥';sl.className='h-sess both';}
+  else if(inL){sl.textContent='🇬🇧 LONDRES ABIERTA';sl.className='h-sess london';}
+  else if(inN){sl.textContent='🇺🇸 NEW YORK ABIERTA';sl.className='h-sess ny';}
+  else{sl.textContent='MERCADO CERRADO';sl.className='h-sess closed';}
+}
+
+function setTF(tf, el) {
+  document.querySelectorAll('.tf').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  currentTF = tf;
+  fetchCandles();
+}
+
+function calcRisk() {
+  const cap = parseFloat(document.getElementById('capital').value);
+  const rsk = parseFloat(document.getElementById('risk-pct').value);
+  const atr = parseFloat(document.getElementById('atr-risk').value);
+  document.getElementById('cap-out').textContent = '$'+cap.toLocaleString('en-US');
+  document.getElementById('risk-out').textContent = rsk+'%';
+  document.getElementById('atr-out').textContent = atr+'pts';
+  const maxLoss = Math.round(cap*rsk/100);
+  const lots = (maxLoss/(atr*ATR_MULT_SL*10)).toFixed(2);
+  document.getElementById('rr-loss').textContent = '$'+maxLoss.toLocaleString('en-US');
+  document.getElementById('rr-lots').textContent = lots;
+  document.getElementById('rr-gain').textContent = '$'+Math.round(maxLoss*2.5).toLocaleString('en-US');
+}
+
+// ═══════════════════════════════════════════════════════
+// ARRANQUE
+// ═══════════════════════════════════════════════════════
+renderSessions();
+updateClock();
+calcRisk();
+
+// Precio cada 2 segundos
+fetchPrice();
+setInterval(fetchPrice, 2000);
+
+// Velas cada 30 segundos
+fetchCandles();
+setInterval(fetchCandles, 30000);
+
+// Clock y sesiones
+setInterval(updateClock, 1000);
+setInterval(renderSessions, 60000);
+</script>
 </body>
 </html>
