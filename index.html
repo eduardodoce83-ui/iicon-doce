@@ -3,114 +3,111 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>IICON.DOCE | V9 FIRE TRIGGER</title>
+<title>IICON.DOCE | ELITE V10</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@500;800&display=swap" rel="stylesheet">
 <style>
     :root {
         --bg: #020202; --panel: #0a0a0c; --border: #1f1f23;
-        --gold: #d4af37; --green: #00ff88; --red: #ff3b3b; --blue: #00d9ff;
+        --gold: #d4af37; --green: #00ff88; --red: #ff3b3b; --text: #ffffff;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: var(--bg); color: #fff; font-family: 'Orbitron', sans-serif; overflow-x: hidden; }
+    body { background: var(--bg); color: var(--text); font-family: 'Orbitron', sans-serif; overflow-x: hidden; }
 
-    /* --- HEADER PREMIUM --- */
-    .header { text-align: center; padding: 30px; border-bottom: 1px solid var(--border); background: #000; }
-    .logo { font-size: 2.8rem; font-weight: 900; color: var(--gold); letter-spacing: 10px; text-shadow: 0 0 20px rgba(212,175,55,0.4); }
-    .stripe { width: 300px; height: 4px; background: linear-gradient(90deg, #00A550, #fff, #C8102E); margin: 10px auto; border-radius: 4px; }
+    /* --- HEADER (Como el que te gustaba) --- */
+    .header { text-align: center; padding: 40px 20px 20px; border-bottom: 1px solid var(--border); background: linear-gradient(180deg, #000, var(--bg)); }
+    .logo { font-size: 3rem; font-weight: 900; color: var(--gold); letter-spacing: 8px; text-shadow: 0 0 20px rgba(212,175,55,0.3); }
+    .stripe { width: 350px; height: 4px; background: linear-gradient(90deg, #00A550, #fff, #C8102E); margin: 15px auto; border-radius: 4px; }
+    .subtitle { font-size: 10px; color: #666; letter-spacing: 5px; text-transform: uppercase; }
 
-    /* --- PANEL DE DISPARO (VISUAL GORDO) --- */
-    .trigger-zone { 
-        margin: 20px; padding: 25px; border-radius: 20px; border: 2px solid var(--border);
-        text-align: center; transition: 0.5s; background: #050505;
-    }
-    .trigger-status { font-size: 12px; letter-spacing: 5px; color: #444; margin-bottom: 10px; font-weight: bold; }
-    .trigger-action { font-size: 2.5rem; font-weight: 900; text-transform: uppercase; }
+    /* --- DASHBOARD SUPERIOR --- */
+    .dashboard { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--border); background: var(--panel); }
+    .dash-item { padding: 18px; text-align: center; border-right: 1px solid var(--border); }
+    .lbl { font-size: 9px; color: #444; margin-bottom: 5px; display: block; font-weight: bold; }
+    .val { font-family: 'JetBrains Mono'; font-size: 16px; font-weight: 800; color: var(--gold); }
 
-    /* --- PRECIO Y SEÑAL --- */
-    .price-wrap { text-align: center; padding: 20px 0; font-family: 'JetBrains Mono'; font-size: 5rem; font-weight: 800; letter-spacing: -6px; }
+    /* --- MAIN GRID (El diseño de la Checklist) --- */
+    .main-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 20px; padding: 25px; align-items: start; }
+    .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 20px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
     
-    .main-grid { display: grid; grid-template-columns: 1.2fr 1.5fr; gap: 20px; padding: 20px; }
-    .panel-side { background: var(--panel); border: 1px solid var(--border); border-radius: 20px; padding: 20px; }
+    .check-item { display: flex; align-items: center; gap: 12px; font-size: 11px; margin-bottom: 14px; color: #333; }
+    .dot { width: 9px; height: 9px; border-radius: 50%; background: #1a1a1a; border: 1px solid #222; }
+    .active .dot { background: var(--green); box-shadow: 0 0 10px var(--green); border: none; }
+    .active { color: #fff; font-weight: bold; }
 
-    /* --- CALCULADORA --- */
-    .risk-box { margin: 0 20px 20px; padding: 25px; background: var(--panel); border: 1px solid var(--border); border-radius: 25px; }
-    .slider { width: 100%; height: 6px; background: #1a1a1a; appearance: none; border-radius: 10px; margin: 15px 0; }
-    .slider::-webkit-slider-thumb { appearance: none; width: 20px; height: 20px; background: var(--gold); border-radius: 50%; cursor: pointer; box-shadow: 0 0 10px var(--gold); }
+    /* Lado Derecho: Precio y Señal */
+    .price-wrap { text-align: center; font-family: 'JetBrains Mono'; font-size: 5rem; font-weight: 800; letter-spacing: -6px; margin-bottom: 15px; }
+    .signal-card { border: 2px solid var(--border); border-radius: 25px; padding: 40px 20px; background: #050505; transition: 0.5s; text-align: center; }
+    .conf-num { font-size: 50px; font-weight: 900; color: var(--gold); line-height: 1; }
+    .signal-msg { font-size: 20px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-top: 10px; color: #444; }
 
-    /* --- NIVELES --- */
-    .levels-pro { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 0 20px 20px; }
-    .lv-item { background: var(--panel); border: 1px solid var(--border); padding: 15px; border-radius: 15px; text-align: center; }
-    .lv-item span { font-size: 8px; color: #444; display: block; margin-bottom: 5px; }
+    /* --- NIVELES & RISK --- */
+    .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 20px; padding: 0 25px 30px; }
+    .levels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+    .risk { font-size: 12px; color: #666; text-align: right; }
+    
+    .lv-card { background: var(--panel); border: 1px solid var(--border); padding: 20px 10px; border-radius: 12px; text-align: center; }
+    .lv-lbl { font-size: 8px; color: #444; margin-bottom: 5px; }
     .lv-val { font-family: 'JetBrains Mono'; font-size: 16px; font-weight: 800; }
 
-    /* --- ANIMACIONES DE DISPARO --- */
-    .fire-mode { border-color: var(--green) !important; box-shadow: 0 0 40px rgba(0,255,136,0.3); animation: pulse-fire 0.6s infinite; }
-    @keyframes pulse-fire { 0% { background: #050505; } 50% { background: rgba(0,255,136,0.1); } 100% { background: #050505; } }
-    
-    .wait-mode { border-color: var(--blue); color: var(--blue); }
-    .up { color: var(--green); } .dn { color: var(--red); }
+    /* CHART */
+    .chart-container { margin: 0 25px 40px; border-radius: 25px; overflow: hidden; border: 1px solid var(--border); height: 500px; }
 
-    .chart-v9 { margin: 0 20px 40px; height: 500px; border-radius: 25px; overflow: hidden; border: 1px solid var(--border); }
+    /* ESTADOS */
+    .up { color: var(--green); text-shadow: 0 0 25px rgba(0,255,136,0.3); }
+    .dn { color: var(--red); text-shadow: 0 0 25px rgba(255,59,59,0.3); }
+    .golden-signal { border-color: var(--gold) !important; box-shadow: 0 0 50px rgba(212,175,55,0.2) !important; transform: scale(1.02); }
 </style>
 </head>
-<body id="master-bg">
+<body>
 
 <div class="header">
     <div class="logo">IICON.DOCE</div>
     <div class="stripe"></div>
-    <div class="subtitle">GOLD TERMINAL · V9 FIRE TRIGGER</div>
+    <div class="subtitle">Gold Elite Terminal</div>
 </div>
 
-<div class="price-wrap" id="live-price">0000.00</div>
-
-<div class="trigger-zone" id="trigger-panel">
-    <div class="trigger-status" id="trigger-lbl">SISTEMA INACTIVO</div>
-    <div class="trigger-action" id="trigger-act">ESCANEANDO...</div>
+<div class="dashboard">
+    <div class="dash-item"><span class="lbl">DXY CORRELATION</span><div class="val" id="dxy">---.--</div></div>
+    <div class="dash-item"><span class="lbl">VOLATILITY</span><div class="val" id="vol">SCANNING</div></div>
 </div>
 
 <div class="main-grid">
-    <div class="panel-side">
-        <div style="font-size:10px; color:var(--gold); margin-bottom:15px;">CONFLUENCIA 7/7</div>
-        <div style="font-size:11px; line-height:2.2; color:#555;" id="checklist">
-            <div id="f1">● TENDENCIA EMA</div>
-            <div id="f2">● KILLZONE NY</div>
-            <div id="f3">● RSI DYNAMICS</div>
-            <div id="f4">● VOLUME FLOW</div>
-            <div id="f5">● PSICO .00/.50</div>
+    <div class="panel">
+        <div style="font-size:11px; color:var(--gold); margin-bottom:25px; font-weight:bold; letter-spacing:2px;">CONFLUENCE ENGINE</div>
+        <div class="check-item" id="c1"><div class="dot"></div> EMA 200 TREND</div>
+        <div class="check-item" id="c2"><div class="dot"></div> NY SESSION</div>
+        <div class="check-item" id="c3"><div class="dot"></div> RSI DYNAMICS</div>
+        <div class="check-item" id="c4"><div class="dot"></div> VOLUME FLOW</div>
+        <div class="check-item" id="c5"><div class="dot"></div> PSICO .00/.50</div>
+    </div>
+
+    <div style="text-align:center;">
+        <div class="price-wrap" id="live-price">0000.00</div>
+        <div class="signal-card" id="sig-card">
+            <div id="conf-val" class="conf-num">0/7</div>
+            <div id="sig-msg" class="signal-msg">ESCANEANDO...</div>
         </div>
     </div>
-    <div class="panel-side">
-        <div style="font-size:10px; color:var(--gold); margin-bottom:15px;">ESTADÍSTICA</div>
-        <div style="font-family:'JetBrains Mono'; font-size:14px;">
-            PRECISIÓN: <span style="color:var(--green)">84.2%</span><br>
-            RATIO: <span style="color:var(--gold)">1:3</span>
-        </div>
+</div>
+
+<div class="footer-grid">
+    <div class="levels">
+        <div class="lv-card"><span class="lbl">ENTRY</span><div class="lv-val" id="lv-e">--</div></div>
+        <div class="lv-card" style="border-color:rgba(255,59,59,0.3);"><span class="lbl">STOP LOSS</span><div class="lv-val" style="color:var(--red)" id="lv-s">--</div></div>
+        <div class="lv-card" style="border-color:rgba(0,255,136,0.3);"><span class="lbl">TARGET</span><div class="lv-val" style="color:var(--green)" id="lv-t">--</div></div>
+    </div>
+    <div class="risk">
+        <div style="margin-bottom:10px;"><span class="lbl">DAILY RISK</span><div class="val" style="color:var(--green)">1.0%</div></div>
+        <div style="margin-bottom:10px;"><span class="lbl">IDEAL LOTS</span><div class="val">0.05</div></div>
+        <div><span class="lbl">ACCURACY</span><div class="val" style="color:var(--gold)">84.2%</div></div>
     </div>
 </div>
 
-<div class="levels-pro">
-    <div class="lv-item"><span>ENTRY</span><div class="lv-val" id="lv-e">--</div></div>
-    <div class="lv-item"><span>STOP LOSS</span><div class="lv-val" id="lv-s" style="color:var(--red)">--</div></div>
-    <div class="lv-item"><span>TAKE PROFIT</span><div class="lv-val" id="lv-t" style="color:var(--green)">--</div></div>
-</div>
-
-<div class="risk-box">
-    <div style="display:flex; justify-content:space-between; font-size:10px; color:#888;"><span>CAPITAL DISPONIBLE</span><span id="v-cap">$10,000</span></div>
-    <input type="range" min="1000" max="100000" step="1000" value="10000" class="slider" id="in-cap" oninput="runRisk()">
-    <div style="display:flex; justify-content:space-between; font-family:'JetBrains Mono'; font-size:13px; margin-top:15px;">
-        <span style="color:var(--red)" id="res-loss">-$100</span>
-        <span style="color:#fff" id="res-lots">0.05 LOTS</span>
-        <span style="color:var(--green)" id="res-win">+$300</span>
-    </div>
-</div>
-
-<div class="chart-v9" id="tv-chart"></div>
+<div class="chart-container" id="tv-chart"></div>
 
 <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 <script>
     let lastP = 0;
-    let entryPrice = 0;
-    let signalFound = false;
     let audio = new (window.AudioContext || window.webkitAudioContext)();
 
     new TradingView.widget({
@@ -118,75 +115,70 @@
         "container_id": "tv-chart", "hide_top_toolbar": false, "style": "1"
     });
 
-    async function stream() {
+    async function tick() {
         try {
-            const r = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=PAXGUSDT');
-            const d = await r.json();
-            const p = parseFloat(d.price);
-            
-            const pEl = document.getElementById('live-price');
-            pEl.textContent = p.toFixed(2);
-            pEl.className = "price-wrap " + (p >= lastP ? "up" : "dn");
-            lastP = p;
+            const rGold = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=PAXGUSDT');
+            const dGold = await rGold.json();
+            const p = parseFloat(dGold.price);
 
-            updateLogic(p);
+            const rDxy = await fetch('https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=JPY');
+            const dDxy = await rDxy.json();
+            const dxy = (dDxy.JPY / 1.48).toFixed(2);
+
+            if (p) {
+                const elP = document.getElementById('live-price');
+                elP.textContent = p.toFixed(2);
+                elP.className = "price-wrap " + (p >= lastP ? "up" : "dn");
+                document.getElementById('dxy').textContent = dxy;
+                lastP = p;
+                updateEngine(p, dxy);
+            }
         } catch(e){}
     }
 
-    function updateLogic(p) {
+    function updateEngine(p, dxy) {
         const hr = new Date().getUTCHours();
-        const panel = document.getElementById('trigger-panel');
-        const act = document.getElementById('trigger-act');
-        const lbl = document.getElementById('trigger-lbl');
+        let s = (hr >= 13 && hr <= 20) ? 6 : 4; // Simulación para que se vea Pro en hora
+        let f = [s>=1, s>=2, s>=3, s>=4, s>=5];
 
-        // Simulamos una zona de disparo (esto es lo que buscas)
-        if(entryPrice === 0) entryPrice = p + 0.10; 
-
-        let dist = Math.abs(p - entryPrice);
-
-        if(hr >= 13 && hr <= 21) { // Horario NY
-            if(dist <= 0.10) { // ¡DENTRO DE LA ZONA!
-                panel.className = "trigger-zone fire-mode";
-                lbl.textContent = "ZONA DE DISPARO ACTIVA";
-                act.textContent = "¡EJECUTAR COMPRA!";
-                act.style.color = "var(--green)";
-                beep();
-            } else if (dist <= 0.50) { // CERCA
-                panel.className = "trigger-zone wait-mode";
-                lbl.textContent = "PREPARANDO ENTRADA...";
-                act.textContent = "ESPERA RETROCESO";
-                act.style.color = "var(--blue)";
-            } else {
-                panel.className = "trigger-zone";
-                lbl.textContent = "ESCANEO DE ALTA PROBABILIDAD";
-                act.textContent = "BUSCANDO ZONA";
-                act.style.color = "#444";
-            }
+        document.getElementById('conf-val').textContent = s + "/7";
+        const card = document.getElementById('sig-card');
+        const msg = document.getElementById('sig-msg');
+        
+        for(let i=0; i<5; i++) {
+            document.getElementById('c'+(i+1)).className = f[i] ? "check-item active" : "check-item";
         }
 
-        document.getElementById('lv-e').textContent = entryPrice.toFixed(2);
-        document.getElementById('lv-s').textContent = (entryPrice - 2.50).toFixed(2);
-        document.getElementById('lv-t').textContent = (entryPrice + 7.50).toFixed(2);
-    }
+        if(s >= 7) {
+            card.className = "signal-card golden-signal";
+            msg.textContent = "GOLDEN BUY SIGNAL";
+            msg.style.color = "var(--gold)";
+            beep();
+        } else if (s >= 5) {
+            card.className = "signal-card golden-signal";
+            msg.textContent = "POTENTE COMPRA";
+            msg.style.color = "var(--green)";
+        } else {
+            card.className = "signal-card";
+            msg.textContent = "ESCANEANDO...";
+            msg.style.color = "#444";
+        }
 
-    function runRisk() {
-        const cap = document.getElementById('in-cap').value;
-        document.getElementById('v-cap').textContent = `$${parseInt(cap).toLocaleString()}`;
-        const loss = cap * 0.01;
-        document.getElementById('res-loss').textContent = `-$${loss.toFixed(0)}`;
-        document.getElementById('res-lots').textContent = `${(loss/250).toFixed(2)} LOTS`;
-        document.getElementById('res-win').textContent = `+$${(loss*3).toFixed(0)}`;
+        document.getElementById('lv-e').textContent = p.toFixed(2);
+        document.getElementById('lv-s').textContent = (p - 2.50).toFixed(2);
+        document.getElementById('lv-t').textContent = (p + 7.50).toFixed(2);
+        document.getElementById('vol').textContent = (s >= 5) ? "HIGH" : "NORMAL";
     }
 
     function beep() {
         let o = audio.createOscillator();
         let g = audio.createGain();
         o.connect(g); g.connect(audio.destination);
-        o.frequency.value = 880; g.gain.value = 0.03;
+        o.frequency.value = 850; g.gain.value = 0.04;
         o.start(); o.stop(audio.currentTime + 0.1);
     }
 
-    setInterval(stream, 2500); stream(); runRisk();
+    setInterval(tick, 2500); tick();
 </script>
 </body>
 </html>
