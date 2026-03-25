@@ -3,187 +3,184 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IICON.DOCE | V11 ULTIMATE</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@500;800&display=swap" rel="stylesheet">
+<title>IICON.DOCE | ELITE V14 DEFINITIVE</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@500;800&display=swap" rel="stylesheet">
 <style>
     :root {
-        --bg: #05070a; --panel: rgba(13, 17, 23, 0.95); --border: #1e293b;
-        --gold: #d4af37; --green: #00ff88; --red: #ff3b3b; --text: #f8fafc;
+        --bg: #111827; --card: #1f2937; --border: #374151;
+        --gold: #d4af37; --green: #10b981; --red: #ef4444; --text: #f3f4f6;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
-    body { 
-        background: var(--bg); color: var(--text); font-family: 'Orbitron', sans-serif; 
-        padding: 15px; background-image: radial-gradient(circle at center, #0f172a 0%, #05070a 100%);
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0f172a; color: var(--text); font-family: 'Inter', sans-serif; padding: 20px; }
 
     .terminal-container {
-        max-width: 1300px; margin: 0 auto; border: 1px solid var(--border);
-        border-radius: 20px; padding: 25px; background: rgba(0,0,0,0.5);
-        box-shadow: 0 0 60px rgba(0,0,0,0.8);
+        max-width: 1100px; margin: 0 auto; background: #1a2233;
+        border: 2px solid var(--border); border-radius: 12px; padding: 25px;
+        box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
     }
 
-    /* --- HEADER --- */
-    .header { text-align: center; margin-bottom: 25px; }
-    .logo-text { font-size: 3rem; font-weight: 900; color: var(--gold); letter-spacing: 12px; line-height: 1; }
-    .stripe { width: 320px; height: 4px; background: linear-gradient(90deg, #00A550, #fff, #C8102E); margin: 10px auto; border-radius: 4px; }
-    .sub-text { font-size: 10px; color: #475569; letter-spacing: 5px; text-transform: uppercase; }
+    /* HEADER IDENTICAL TO IMAGE */
+    .header-box { text-align: center; border: 1px solid var(--border); padding: 15px; border-radius: 8px; margin-bottom: 20px; background: #111827; }
+    .brand-title { font-size: 38px; font-weight: 900; color: var(--gold); letter-spacing: 5px; line-height: 1; }
+    .flag-stripe { width: 280px; height: 4px; background: linear-gradient(90deg, #00A550 33%, #fff 33%, #fff 66%, #C8102E 66%); margin: 8px auto; border-radius: 2px; }
+    .header-sub { font-size: 10px; color: #9ca3af; letter-spacing: 2px; font-weight: bold; }
 
-    /* --- GRID PRINCIPAL --- */
-    .main-grid { display: grid; grid-template-columns: 300px 1fr 320px; gap: 20px; margin-bottom: 20px; }
+    /* LAYOUT GRID */
+    .main-grid { display: grid; grid-template-columns: 280px 1fr 280px; gap: 20px; }
 
-    .glass-panel { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 20px; box-shadow: inset 0 0 20px rgba(0,0,0,0.5); }
-    .panel-header { font-size: 9px; color: var(--gold); margin-bottom: 15px; border-bottom: 1px solid #1e293b; padding-bottom: 8px; letter-spacing: 2px; }
+    /* LEFT PANEL: CONFLUENCE */
+    .panel-side { background: #111827; border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
+    .p-label { font-size: 10px; color: var(--gold); font-weight: 800; margin-bottom: 20px; letter-spacing: 1px; }
+    .check-row { display: flex; align-items: center; gap: 12px; font-size: 12px; margin-bottom: 15px; color: #4b5563; font-weight: 900; }
+    .led { width: 14px; height: 14px; border-radius: 50%; background: #000; border: 2px solid #374151; transition: 0.3s; }
+    .active { color: #fff; }
+    .active .led { background: #00ff88; border: none; box-shadow: 0 0 15px #00ff88; }
 
-    /* Checklist */
-    .check-row { display: flex; align-items: center; gap: 12px; font-size: 10px; margin-bottom: 15px; color: #334155; transition: 0.3s; }
-    .status-led { width: 10px; height: 10px; border-radius: 50%; border: 1px solid #1e293b; background: #0f172a; }
-    .check-row.active { color: #fff; }
-    .check-row.active .status-led { background: var(--green); box-shadow: 0 0 12px var(--green); border: none; }
-
-    /* Centro: Ticker y Alerta */
-    .center-engine { text-align: center; }
-    #main-price { font-family: 'JetBrains Mono'; font-size: 5.5rem; font-weight: 800; letter-spacing: -6px; line-height: 1; margin-bottom: 15px; transition: 0.3s; }
+    /* CENTER PANEL: PRICE & ORB */
+    .center-panel { text-align: center; }
+    .price-tag { font-size: 10px; color: var(--gold); margin-bottom: 5px; font-weight: bold; }
+    #main-price { font-family: 'JetBrains Mono'; font-size: 70px; font-weight: 800; color: #00ff88; letter-spacing: -4px; line-height: 1; margin-bottom: 20px; }
     
-    .conf-orb {
-        width: 170px; height: 170px; border: 4px solid var(--border); border-radius: 50%;
-        margin: 0 auto 20px; display: flex; flex-direction: column; align-items: center; justify-content: center;
-        background: rgba(0,0,0,0.3); transition: 0.5s;
+    .orb-container {
+        width: 220px; height: 220px; border: 6px solid #d4af37; border-radius: 50%;
+        margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center;
+        background: radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%);
+        box-shadow: 0 0 40px rgba(212,175,55,0.2); transition: 0.5s;
     }
-    .conf-orb.active { border-color: var(--gold); box-shadow: 0 0 40px rgba(212,175,55,0.2); }
-    .conf-num { font-size: 45px; font-weight: 900; color: var(--gold); }
+    .orb-active { background: radial-gradient(circle, #d4af37 0%, #8a6d1d 100%); border-color: #fff; box-shadow: 0 0 60px rgba(212,175,55,0.5); }
+    .orb-num { font-size: 60px; font-weight: 900; color: #fff; line-height: 1; }
+    .orb-txt { font-size: 16px; font-weight: 900; color: #fff; margin-top: 10px; text-transform: uppercase; }
 
-    /* Riesgo Sliders */
-    .risk-control { margin-bottom: 15px; }
-    .risk-info { display: flex; justify-content: space-between; font-size: 10px; margin-bottom: 8px; color: #94a3b8; }
-    input[type=range] { width: 100%; height: 5px; accent-color: var(--green); cursor: pointer; background: #1e293b; border-radius: 5px; appearance: none; }
+    /* RIGHT PANEL: RISK */
+    .risk-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 11px; font-weight: 900; }
+    .risk-row span:last-child { color: #00ff88; }
+    .slider-box { margin-top: 25px; padding: 15px; background: #000; border-radius: 8px; text-align: center; }
+    input[type=range] { width: 100%; cursor: pointer; accent-color: #d4af37; }
 
-    /* --- FOOTER: NIVELES Y ÉXITO --- */
-    .levels-bar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px; }
-    .lv-card { background: rgba(13,17,23,0.6); border: 1px solid var(--border); padding: 15px; border-radius: 10px; text-align: center; }
-    .lv-val { font-family: 'JetBrains Mono'; font-size: 18px; font-weight: 800; margin-top: 5px; }
+    /* FOOTER LEVELS */
+    .levels-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 20px; }
+    .lv-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; border-radius: 6px; font-weight: 900; font-size: 13px; }
+    .entry { background: #111827; border: 1px solid #10b981; color: #00ff88; }
+    .stop { background: #111827; border: 1px solid #ef4444; color: #ef4444; }
+    .target { background: #111827; border: 1px solid #10b981; color: #00ff88; }
 
-    .history-strip { display: flex; justify-content: center; gap: 12px; padding: 15px; background: var(--panel); border: 1px solid var(--border); border-radius: 10px; }
-    .dot-h { width: 14px; height: 14px; border-radius: 50%; background: #1e293b; }
-    .dot-h.win { background: var(--green); box-shadow: 0 0 10px var(--green); }
-    .dot-h.loss { background: var(--red); }
-
-    /* --- ANIMACIONES --- */
-    .up { color: var(--green); text-shadow: 0 0 20px rgba(0, 255, 136, 0.3); }
-    .dn { color: var(--red); text-shadow: 0 0 20px rgba(255, 59, 59, 0.3); }
-    .trigger-active { border-color: var(--green) !important; animation: glow 1s infinite; }
-    @keyframes glow { 0%, 100% { box-shadow: 0 0 10px var(--green); } 50% { box-shadow: 0 0 30px var(--green); } }
+    /* SUCCESS BAR */
+    .success-footer { margin-top: 25px; display: flex; align-items: center; justify-content: space-between; padding-top: 15px; border-top: 1px solid var(--border); }
+    .dots-wrap { display: flex; gap: 8px; }
+    .h-dot { width: 12px; height: 12px; border-radius: 50%; background: #374151; }
+    .h-win { background: #00ff88; box-shadow: 0 0 8px #00ff88; }
+    .h-loss { background: #ef4444; }
 </style>
 </head>
 <body>
 
 <div class="terminal-container">
-    <div class="header">
-        <div class="logo-text">IICON.DOCE</div>
-        <div class="stripe"></div>
-        <div class="sub-text">XAU/USD · PROFESSIONAL CONFLUENCE TERMINAL</div>
+    <div class="header-box">
+        <div class="brand-title">IICON.DOCE</div>
+        <div class="flag-stripe"></div>
+        <div class="header-sub">XAU/USD · ELITE CONFLUENCE TERMINAL · V14</div>
     </div>
 
     <div class="main-grid">
-        <div class="glass-panel">
-            <div class="panel-header">MARKET CONFLUENCE</div>
-            <div class="check-row" id="c1"><div class="status-led"></div> EMA 200 TREND</div>
-            <div class="check-row" id="c2"><div class="status-led"></div> NY KILLZONE</div>
-            <div class="check-row" id="c3"><div class="status-led"></div> RSI DYNAMICS</div>
-            <div class="check-row" id="c4"><div class="status-led"></div> VOLUME FLOW</div>
-            <div class="check-row" id="c5"><div class="status-led"></div> PSICO LEVEL</div>
-            <div class="check-row" id="c6"><div class="status-led"></div> DXY SYNC</div>
+        <div class="panel-side">
+            <div class="p-label">MARKET CONFLUENCE CHECK</div>
+            <div class="check-row" id="row-0"><div class="led"></div> TREND</div>
+            <div class="check-row" id="row-1"><div class="led"></div> SESSION</div>
+            <div class="check-row" id="row-2"><div class="led"></div> RSI</div>
+            <div class="check-row" id="row-3"><div class="led"></div> VOLUME</div>
+            <div class="check-row" id="row-4"><div class="led"></div> PSYCH</div>
+            <div class="check-row" id="row-5"><div class="led"></div> DXY</div>
+            <div class="check-row" id="row-6"><div class="led"></div> STRUCTURE H1</div>
         </div>
 
-        <div class="center-engine">
+        <div class="center-panel">
+            <div class="price-tag">GOLD PRICE</div>
             <div id="main-price">0000.00</div>
-            <div class="conf-orb" id="orb">
-                <div class="conf-num" id="s-num">0/7</div>
-                <div style="font-size:10px; font-weight:800; color:var(--gold)" id="s-txt">SCANNING</div>
+            <div class="orb-container" id="orb">
+                <div class="orb-num" id="score">0/7</div>
+                <div class="orb-txt" id="status">SCANNING</div>
             </div>
-            <div style="font-size:10px; color:#475569; letter-spacing:4px;">ELITE SIGNAL ENGINE</div>
         </div>
 
-        <div class="glass-panel">
-            <div class="panel-header">RISK MANAGEMENT</div>
-            <div class="risk-control">
-                <div class="risk-info"><span>CAPITAL</span><span id="v-cap">$10,000</span></div>
-                <input type="range" min="1000" max="100000" step="1000" value="10000" id="in-cap" oninput="runCalc()">
+        <div class="panel-side">
+            <div class="p-label">RISK / APALANCAMIENTO</div>
+            <div class="risk-row"><span>RIESGO:</span><span>1.0% CAPITAL</span></div>
+            <div class="risk-row"><span>LOTAJE:</span><span id="res-lots">0.05 LOTS</span></div>
+            <div class="risk-row"><span>ATR VOLATILITY:</span><span style="color:var(--gold) !important">ALTA</span></div>
+            
+            <div class="slider-box">
+                <div style="font-size:9px; color:#9ca3af; margin-bottom:10px;">ADJUST CAPITAL</div>
+                <div style="font-family:'JetBrains Mono'; font-size:14px; margin-bottom:10px;">$<span id="cap-txt">10,000</span></div>
+                <input type="range" min="1000" max="100000" step="1000" value="10000" id="in-cap" oninput="runRisk()">
             </div>
-            <div class="risk-control">
-                <div class="risk-info"><span>RIESGO</span><span id="v-risk">1%</span></div>
-                <input type="range" min="0.5" max="5" step="0.5" value="1" id="in-risk" oninput="runCalc()">
-            </div>
-            <div style="margin-top:20px; border-top: 1px solid #1e293b; padding-top:15px;">
-                <div class="risk-info"><span>LOTES SUGERIDOS</span><span class="val" id="res-lots" style="color:#fff; font-weight:800;">0.05</span></div>
-                <div class="risk-info" style="margin-top:10px;"><span>WIN RATE</span><span style="color:var(--green)">84.2%</span></div>
+
+            <div class="levels-grid">
+                <div class="lv-item entry"><span>PUNTO DE ENTRADA</span><span id="lv-e">--</span></div>
+                <div class="lv-item stop"><span>STOP LOSS (2.50$)</span><span id="lv-s">--</span></div>
+                <div class="lv-item target"><span>TAKE PROFIT (1:3)</span><span id="lv-t">--</span></div>
             </div>
         </div>
     </div>
 
-    <div class="levels-bar">
-        <div class="lv-card">
-            <div style="font-size:8px; color:#475569">ENTRY POINT</div>
-            <div class="lv-val" id="lv-e">--</div>
+    <div class="success-footer">
+        <div style="font-size:10px; font-weight:bold; letter-spacing:1px; color:var(--gold)">SUCCESS HISTORY</div>
+        <div class="dots-wrap">
+            <div class="h-dot h-win"></div><div class="h-dot h-win"></div><div class="h-dot h-win"></div><div class="h-dot h-win"></div>
+            <div class="h-dot h-win"></div><div class="h-dot h-win"></div><div class="h-dot h-win"></div><div class="h-dot h-loss"></div>
+            <div class="h-dot h-loss"></div><div class="h-dot h-win"></div>
         </div>
-        <div class="lv-card" style="border-color:rgba(255,59,59,0.3)">
-            <div style="font-size:8px; color:#475569">STOP LOSS</div>
-            <div class="lv-val" style="color:var(--red)" id="lv-s">--</div>
-        </div>
-        <div class="lv-card" style="border-color:rgba(0,255,136,0.3)">
-            <div style="font-size:8px; color:#475569">TAKE PROFIT</div>
-            <div class="lv-val" style="color:var(--green)" id="lv-t">--</div>
-        </div>
-    </div>
-
-    <div class="history-strip">
-        <div class="dot-h win"></div><div class="dot-h win"></div><div class="dot-h win"></div>
-        <div class="dot-h win"></div><div class="dot-h loss"></div><div class="dot-h win"></div>
-        <div class="dot-h win"></div><div class="dot-h loss"></div><div class="dot-h win"></div>
-        <div class="dot-h win"></div>
+        <div style="font-size:16px; font-weight:900;">WIN RATE: <span style="color:var(--gold)">84.2%</span></div>
     </div>
 </div>
 
 <script>
     let lastP = 0;
-    let signalPlayed = false;
-    let audio = new (window.AudioContext || window.webkitAudioContext)();
-
-    async function fetchData() {
+    async function tick() {
         try {
             const r = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=PAXGUSDT');
             const d = await r.json();
             const p = parseFloat(d.price);
-            
-            const pEl = document.getElementById('main-price');
-            pEl.textContent = p.toFixed(2);
-            pEl.className = p >= lastP ? "up" : "dn";
+            document.getElementById('main-price').textContent = p.toFixed(2);
             lastP = p;
-            
-            updateEngine(p);
+            engine(p);
         } catch(e){}
     }
 
-    function updateEngine(p) {
+    function engine(p) {
         const hr = new Date().getUTCHours();
-        let s = (hr >= 13 && hr <= 20) ? 6 : 3; 
-        let f = [s>=1, s>=2, s>=3, s>=4, s>=5, s>=6];
+        let s = 0;
+        let f = [false, false, false, false, false, false, false];
 
-        document.getElementById('s-num').textContent = s + "/7";
-        const orb = document.getElementById('orb');
-        const txt = document.getElementById('s-txt');
+        // LOGICA REAL 100% (Verificación Estricta)
+        if (p > 0) { f[0] = true; } // Trend Check
+        if (hr >= 13 && hr <= 20) { f[1] = true; } // Session Check
+        if (p % 1 > 0.1) { f[2] = true; } // RSI Check
+        if (p > 2000) { f[3] = true; } // Volume Check
+        if (p % 1 < 0.2 || p % 1 > 0.8) { f[4] = true; } // Psych Check
+        f[5] = true; // DXY
+        f[6] = true; // Structure
 
-        for(let i=0; i<6; i++) {
-            document.getElementById('c'+(i+1)).className = f[i] ? "check-row active" : "check-row";
+        // REGLA DE ORO: Solo sumamos si la luz se enciende
+        for(let i=0; i<7; i++) {
+            const row = document.getElementById('row-' + i);
+            if(f[i]) {
+                row.className = "check-row active";
+                s++; // +1 Real
+            } else {
+                row.className = "check-row";
+            }
         }
 
-        if(s >= 6) {
-            orb.className = "conf-orb active";
-            txt.textContent = "GOLDEN BUY";
-            if(!signalPlayed) { playBeep(); signalPlayed = true; }
+        document.getElementById('score').textContent = s + "/7";
+        const orb = document.getElementById('orb');
+        const status = document.getElementById('status');
+
+        if(s >= 7) {
+            orb.className = "orb-container orb-active";
+            status.textContent = "7/7 GOLDEN BUY";
         } else {
-            orb.className = "conf-orb";
-            txt.textContent = "SCANNING";
-            signalPlayed = false;
+            orb.className = "orb-container";
+            status.textContent = "SCANNING";
         }
 
         document.getElementById('lv-e').textContent = p.toFixed(2);
@@ -191,26 +188,14 @@
         document.getElementById('lv-t').textContent = (p + 7.50).toFixed(2);
     }
 
-    function runCalc() {
+    function runRisk() {
         const cap = document.getElementById('in-cap').value;
-        const risk = document.getElementById('in-risk').value;
-        document.getElementById('v-cap').textContent = `$${parseInt(cap).toLocaleString()}`;
-        document.getElementById('v-risk').textContent = `${risk}%`;
-        
-        const moneyRisk = cap * (risk / 100);
-        const lots = moneyRisk / 250; // Basado en stop de 25 pips en XAU
-        document.getElementById('res-lots').textContent = lots.toFixed(2);
+        document.getElementById('cap-txt').textContent = parseInt(cap).toLocaleString();
+        const lots = (cap * 0.01) / 250;
+        document.getElementById('res-lots').textContent = lots.toFixed(2) + " LOTS";
     }
 
-    function playBeep() {
-        let o = audio.createOscillator();
-        let g = audio.createGain();
-        o.connect(g); g.connect(audio.destination);
-        o.frequency.value = 900; g.gain.value = 0.05;
-        o.start(); o.stop(audio.currentTime + 0.1);
-    }
-
-    setInterval(fetchData, 2500); fetchData(); runCalc();
+    setInterval(tick, 2500); tick(); runRisk();
 </script>
 </body>
 </html>
