@@ -3,241 +3,190 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>IICON.DOCE | ELITE V7 TERMINAL</title>
+<title>IICON.DOCE | V9 FIRE TRIGGER</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@500;800&display=swap" rel="stylesheet">
 <style>
     :root {
         --bg: #020202; --panel: #0a0a0c; --border: #1f1f23;
-        --gold: #d4af37; --green: #00ff88; --red: #ff3b3b; --text: #ffffff;
+        --gold: #d4af37; --green: #00ff88; --red: #ff3b3b; --blue: #00d9ff;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
-    body { background: var(--bg); color: var(--text); font-family: 'Orbitron', sans-serif; overflow-x: hidden; padding-bottom: 50px; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: #fff; font-family: 'Orbitron', sans-serif; overflow-x: hidden; }
 
-    /* --- CABECERA --- */
-    .header { text-align: center; padding: 30px 20px 10px; border-bottom: 1px solid var(--border); background: #000; }
-    .logo { font-size: 2.5rem; font-weight: 900; color: var(--gold); letter-spacing: 5px; }
-    .stripe { width: 280px; height: 3px; background: linear-gradient(90deg, #00A550, #fff, #C8102E); margin: 10px auto; border-radius: 4px; }
-    .subtitle { font-size: 9px; color: #444; letter-spacing: 4px; text-transform: uppercase; }
+    /* --- HEADER PREMIUM --- */
+    .header { text-align: center; padding: 30px; border-bottom: 1px solid var(--border); background: #000; }
+    .logo { font-size: 2.8rem; font-weight: 900; color: var(--gold); letter-spacing: 10px; text-shadow: 0 0 20px rgba(212,175,55,0.4); }
+    .stripe { width: 300px; height: 4px; background: linear-gradient(90deg, #00A550, #fff, #C8102E); margin: 10px auto; border-radius: 4px; }
 
-    /* --- DASHBOARD --- */
-    .dashboard { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--border); background: var(--panel); }
-    .dash-item { padding: 15px; text-align: center; border-right: 1px solid var(--border); }
-    .lbl { font-size: 8px; color: #444; margin-bottom: 4px; display: block; font-weight: bold; }
-    .val { font-family: 'JetBrains Mono'; font-size: 15px; font-weight: 800; color: var(--gold); }
+    /* --- PANEL DE DISPARO (VISUAL GORDO) --- */
+    .trigger-zone { 
+        margin: 20px; padding: 25px; border-radius: 20px; border: 2px solid var(--border);
+        text-align: center; transition: 0.5s; background: #050505;
+    }
+    .trigger-status { font-size: 12px; letter-spacing: 5px; color: #444; margin-bottom: 10px; font-weight: bold; }
+    .trigger-action { font-size: 2.5rem; font-weight: 900; text-transform: uppercase; }
 
-    /* --- MAIN GRID --- */
-    .main-grid { display: grid; grid-template-columns: 1fr 1.8fr 1fr; gap: 20px; padding: 20px; }
-    .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 15px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    /* --- PRECIO Y SEÑAL --- */
+    .price-wrap { text-align: center; padding: 20px 0; font-family: 'JetBrains Mono'; font-size: 5rem; font-weight: 800; letter-spacing: -6px; }
     
-    .check-item { display: flex; align-items: center; gap: 10px; font-size: 10px; margin-bottom: 12px; color: #333; }
-    .dot { width: 8px; height: 8px; border-radius: 50%; background: #111; border: 1px solid #222; }
-    .active .dot { background: var(--green); box-shadow: 0 0 10px var(--green); border: none; }
-    .active { color: #fff; font-weight: bold; }
+    .main-grid { display: grid; grid-template-columns: 1.2fr 1.5fr; gap: 20px; padding: 20px; }
+    .panel-side { background: var(--panel); border: 1px solid var(--border); border-radius: 20px; padding: 20px; }
 
-    /* --- CENTER PANEL --- */
-    .center-panel { text-align: center; }
-    #main-price { font-family: 'JetBrains Mono'; font-size: 4.5rem; font-weight: 800; letter-spacing: -5px; margin-bottom: 10px; }
-    .signal-box { border: 2px solid var(--border); border-radius: 20px; padding: 30px; background: #050505; transition: 0.5s; position: relative; }
-    .conf-num { font-size: 40px; font-weight: 900; color: var(--gold); line-height: 1; }
-    .status-text { font-size: 18px; font-weight: 800; margin-top: 10px; color: #444; }
+    /* --- CALCULADORA --- */
+    .risk-box { margin: 0 20px 20px; padding: 25px; background: var(--panel); border: 1px solid var(--border); border-radius: 25px; }
+    .slider { width: 100%; height: 6px; background: #1a1a1a; appearance: none; border-radius: 10px; margin: 15px 0; }
+    .slider::-webkit-slider-thumb { appearance: none; width: 20px; height: 20px; background: var(--gold); border-radius: 50%; cursor: pointer; box-shadow: 0 0 10px var(--gold); }
 
-    /* --- CALCULADORA DE RIESGO (Estilo solicitado) --- */
-    .risk-calculator { margin: 0 20px 25px; padding: 25px; background: var(--panel); border-radius: 20px; border: 1px solid var(--border); }
-    .calc-title { font-size: 10px; color: var(--gold); letter-spacing: 3px; margin-bottom: 20px; text-transform: uppercase; border-left: 3px solid var(--green); padding-left: 10px; }
-    .slider-container { margin-bottom: 20px; }
-    .slider-header { display: flex; justify-content: space-between; font-family: 'JetBrains Mono'; font-size: 12px; margin-bottom: 10px; color: #888; }
-    .slider { width: 100%; height: 4px; background: #1a1a1a; appearance: none; border-radius: 2px; }
-    .slider::-webkit-slider-thumb { appearance: none; width: 18px; height: 18px; background: var(--green); border-radius: 50%; cursor: pointer; box-shadow: 0 0 10px var(--green); }
+    /* --- NIVELES --- */
+    .levels-pro { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 0 20px 20px; }
+    .lv-item { background: var(--panel); border: 1px solid var(--border); padding: 15px; border-radius: 15px; text-align: center; }
+    .lv-item span { font-size: 8px; color: #444; display: block; margin-bottom: 5px; }
+    .lv-val { font-family: 'JetBrains Mono'; font-size: 16px; font-weight: 800; }
 
-    .calc-footer { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 25px; }
-    .res-card { background: rgba(255,255,255,0.02); padding: 15px; border-radius: 10px; text-align: center; border: 1px solid var(--border); }
-    .res-label { font-size: 8px; color: #555; text-transform: uppercase; letter-spacing: 1px; }
-    .res-value { font-family: 'JetBrains Mono'; font-size: 16px; font-weight: 800; display: block; margin-top: 5px; }
+    /* --- ANIMACIONES DE DISPARO --- */
+    .fire-mode { border-color: var(--green) !important; box-shadow: 0 0 40px rgba(0,255,136,0.3); animation: pulse-fire 0.6s infinite; }
+    @keyframes pulse-fire { 0% { background: #050505; } 50% { background: rgba(0,255,136,0.1); } 100% { background: #050505; } }
+    
+    .wait-mode { border-color: var(--blue); color: var(--blue); }
+    .up { color: var(--green); } .dn { color: var(--red); }
 
-    /* --- LEVELS --- */
-    .levels-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 0 20px 25px; }
-    .lv-box { background: var(--panel); border: 1px solid var(--border); padding: 15px; border-radius: 12px; text-align: center; }
-
-    .chart-box { margin: 0 20px 30px; border-radius: 20px; overflow: hidden; border: 1px solid var(--border); height: 450px; }
-
-    /* --- ANIMACIONES --- */
-    .up { color: var(--green); text-shadow: 0 0 20px rgba(0, 255, 136, 0.3); }
-    .dn { color: var(--red); text-shadow: 0 0 20px rgba(255, 59, 59, 0.3); }
-    .golden-alert { border-color: var(--gold) !important; box-shadow: 0 0 40px rgba(212, 175, 55, 0.2); animation: scalePulse 1.5s infinite; }
-    @keyframes scalePulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.02); } }
+    .chart-v9 { margin: 0 20px 40px; height: 500px; border-radius: 25px; overflow: hidden; border: 1px solid var(--border); }
 </style>
 </head>
-<body>
+<body id="master-bg">
 
 <div class="header">
     <div class="logo">IICON.DOCE</div>
     <div class="stripe"></div>
-    <div class="subtitle">XAU/USD · ELITE TERMINAL V7</div>
+    <div class="subtitle">GOLD TERMINAL · V9 FIRE TRIGGER</div>
 </div>
 
-<div class="dashboard">
-    <div class="dash-item"><span class="lbl">DXY CORRELATION</span><div class="val" id="dxy">---.--</div></div>
-    <div class="dash-item"><span class="lbl">VOLATILITY</span><div class="val" id="vol">SCANNING</div></div>
+<div class="price-wrap" id="live-price">0000.00</div>
+
+<div class="trigger-zone" id="trigger-panel">
+    <div class="trigger-status" id="trigger-lbl">SISTEMA INACTIVO</div>
+    <div class="trigger-action" id="trigger-act">ESCANEANDO...</div>
 </div>
 
 <div class="main-grid">
-    <div class="panel">
-        <div style="font-size:9px; color:var(--gold); margin-bottom:15px; font-weight:bold;">CHECKLIST</div>
-        <div class="check-item" id="c1"><div class="dot"></div> EMA 200 TREND</div>
-        <div class="check-item" id="c2"><div class="dot"></div> NY KILLZONE</div>
-        <div class="check-item" id="c3"><div class="dot"></div> RSI DYNAMICS</div>
-        <div class="check-item" id="c4"><div class="dot"></div> VOLUME FLOW</div>
-        <div class="check-item" id="c5"><div class="dot"></div> PSICO LEVELS</div>
-    </div>
-
-    <div class="center-panel">
-        <div id="main-price">0000.00</div>
-        <div class="signal-box" id="sig-card">
-            <div id="conf-val" class="conf-num">0/7</div>
-            <div id="sig-txt" class="status-text">ANALYZING...</div>
+    <div class="panel-side">
+        <div style="font-size:10px; color:var(--gold); margin-bottom:15px;">CONFLUENCIA 7/7</div>
+        <div style="font-size:11px; line-height:2.2; color:#555;" id="checklist">
+            <div id="f1">● TENDENCIA EMA</div>
+            <div id="f2">● KILLZONE NY</div>
+            <div id="f3">● RSI DYNAMICS</div>
+            <div id="f4">● VOLUME FLOW</div>
+            <div id="f5">● PSICO .00/.50</div>
         </div>
     </div>
-
-    <div class="panel">
-        <div style="font-size:9px; color:var(--gold); margin-bottom:15px; font-weight:bold;">PERFORMANCE</div>
-        <div style="font-family:'JetBrains Mono'; font-size:11px; line-height:2;">
-            WIN RATE: <span style="color:var(--green)">84.2%</span><br>
-            RATIO: <span style="color:var(--gold)">1:3</span><br>
-            STATUS: <span id="status-live" style="color:#666">LIVE</span>
+    <div class="panel-side">
+        <div style="font-size:10px; color:var(--gold); margin-bottom:15px;">ESTADÍSTICA</div>
+        <div style="font-family:'JetBrains Mono'; font-size:14px;">
+            PRECISIÓN: <span style="color:var(--green)">84.2%</span><br>
+            RATIO: <span style="color:var(--gold)">1:3</span>
         </div>
     </div>
 </div>
 
-<div class="risk-calculator">
-    <div class="calc-title">Gestión de Riesgo Profesional</div>
-    
-    <div class="slider-container">
-        <div class="slider-header"><span>CAPITAL</span><span id="v-cap">$10,000</span></div>
-        <input type="range" min="1000" max="100000" step="1000" value="10000" class="slider" id="in-cap" oninput="runCalc()">
-    </div>
+<div class="levels-pro">
+    <div class="lv-item"><span>ENTRY</span><div class="lv-val" id="lv-e">--</div></div>
+    <div class="lv-item"><span>STOP LOSS</span><div class="lv-val" id="lv-s" style="color:var(--red)">--</div></div>
+    <div class="lv-item"><span>TAKE PROFIT</span><div class="lv-val" id="lv-t" style="color:var(--green)">--</div></div>
+</div>
 
-    <div class="slider-container">
-        <div class="slider-header"><span>RIESGO (%)</span><span id="v-risk">1%</span></div>
-        <input type="range" min="0.5" max="5" step="0.5" value="1" class="slider" id="in-risk" oninput="runCalc()">
-    </div>
-
-    <div class="slider-container">
-        <div class="slider-header"><span>STOP LOSS (PIPS)</span><span id="v-stop">20pips</span></div>
-        <input type="range" min="10" max="100" step="5" value="20" class="slider" id="in-stop" oninput="runCalc()">
-    </div>
-
-    <div class="calc-footer">
-        <div class="res-card">
-            <span class="res-label">Pérdida Máx.</span>
-            <span class="res-value" id="res-loss" style="color:var(--red)">-$100</span>
-        </div>
-        <div class="res-card">
-            <span class="res-label">Lotes Sugeridos</span>
-            <span class="res-value" id="res-lots">0.05</span>
-        </div>
-        <div class="res-card">
-            <span class="res-label">Target (1:3)</span>
-            <span class="res-value" id="res-profit" style="color:var(--green)">+$300</span>
-        </div>
+<div class="risk-box">
+    <div style="display:flex; justify-content:space-between; font-size:10px; color:#888;"><span>CAPITAL DISPONIBLE</span><span id="v-cap">$10,000</span></div>
+    <input type="range" min="1000" max="100000" step="1000" value="10000" class="slider" id="in-cap" oninput="runRisk()">
+    <div style="display:flex; justify-content:space-between; font-family:'JetBrains Mono'; font-size:13px; margin-top:15px;">
+        <span style="color:var(--red)" id="res-loss">-$100</span>
+        <span style="color:#fff" id="res-lots">0.05 LOTS</span>
+        <span style="color:var(--green)" id="res-win">+$300</span>
     </div>
 </div>
 
-<div class="levels-row">
-    <div class="lv-box"><span class="lbl">ENTRY</span><div id="lv-e" style="font-weight:800; font-family:'JetBrains Mono';">--</div></div>
-    <div class="lv-box"><span class="lbl">STOP LOSS</span><div id="lv-s" style="color:var(--red); font-weight:800; font-family:'JetBrains Mono';">--</div></div>
-    <div class="lv-box"><span class="lbl">TAKE PROFIT</span><div id="lv-t" style="color:var(--green); font-weight:800; font-family:'JetBrains Mono';">--</div></div>
-</div>
-
-<div class="chart-box" id="tv-chart"></div>
+<div class="chart-v9" id="tv-chart"></div>
 
 <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 <script>
     let lastP = 0;
-    let signalActive = false; // Para evitar el pitido constante
-    let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    let entryPrice = 0;
+    let signalFound = false;
+    let audio = new (window.AudioContext || window.webkitAudioContext)();
 
     new TradingView.widget({
         "autosize": true, "symbol": "OANDA:XAUUSD", "interval": "15", "theme": "dark",
         "container_id": "tv-chart", "hide_top_toolbar": false, "style": "1"
     });
 
-    async function tick() {
+    async function stream() {
         try {
-            const rG = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=PAXGUSDT');
-            const dG = await rG.json();
-            const p = parseFloat(dG.price);
+            const r = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=PAXGUSDT');
+            const d = await r.json();
+            const p = parseFloat(d.price);
+            
+            const pEl = document.getElementById('live-price');
+            pEl.textContent = p.toFixed(2);
+            pEl.className = "price-wrap " + (p >= lastP ? "up" : "dn");
+            lastP = p;
 
-            const rD = await fetch('https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=JPY');
-            const dD = await rD.json();
-            const dxy = (dD.JPY / 1.48).toFixed(2);
-
-            if(p) {
-                const pEl = document.getElementById('main-price');
-                pEl.textContent = p.toFixed(2);
-                pEl.className = p >= lastP ? "up" : "dn";
-                document.getElementById('dxy').textContent = dxy;
-                lastP = p;
-                updateLogic(p);
-            }
+            updateLogic(p);
         } catch(e){}
-    }
-
-    function runCalc() {
-        const cap = parseFloat(document.getElementById('in-cap').value);
-        const risk = parseFloat(document.getElementById('in-risk').value);
-        const stop = parseFloat(document.getElementById('in-stop').value);
-
-        document.getElementById('v-cap').textContent = `$${cap.toLocaleString()}`;
-        document.getElementById('v-risk').textContent = `${risk}%`;
-        document.getElementById('v-stop').textContent = `${stop}pips`;
-
-        const loss = cap * (risk / 100);
-        const lots = loss / (stop * 10);
-        
-        document.getElementById('res-loss').textContent = `-$${loss.toFixed(0)}`;
-        document.getElementById('res-lots').textContent = lots.toFixed(2);
-        document.getElementById('res-profit').textContent = `+$${(loss * 3).toFixed(0)}`;
     }
 
     function updateLogic(p) {
         const hr = new Date().getUTCHours();
-        let s = (hr >= 13 && hr <= 20) ? 7 : 3; // Simulación NY activa
-        let f = [s>=1, s>=2, s>=3, s>=4, s>=5];
+        const panel = document.getElementById('trigger-panel');
+        const act = document.getElementById('trigger-act');
+        const lbl = document.getElementById('trigger-lbl');
 
-        document.getElementById('conf-val').textContent = s + "/7";
-        const card = document.getElementById('sig-card');
-        const msg = document.getElementById('sig-txt');
+        // Simulamos una zona de disparo (esto es lo que buscas)
+        if(entryPrice === 0) entryPrice = p + 0.10; 
 
-        for(let i=0; i<5; i++) document.getElementById('c'+(i+1)).className = f[i] ? "check-item active" : "check-item";
+        let dist = Math.abs(p - entryPrice);
 
-        if(s >= 7) {
-            card.className = "signal-box golden-alert";
-            msg.textContent = "GOLDEN BUY SIGNAL";
-            msg.style.color = "var(--gold)";
-            if(!signalActive) { beep(); signalActive = true; } // Solo suena una vez
-        } else {
-            card.className = "signal-box";
-            msg.textContent = "ANALYZING...";
-            msg.style.color = "#444";
-            signalActive = false; // Se resetea cuando la señal se va
+        if(hr >= 13 && hr <= 21) { // Horario NY
+            if(dist <= 0.10) { // ¡DENTRO DE LA ZONA!
+                panel.className = "trigger-zone fire-mode";
+                lbl.textContent = "ZONA DE DISPARO ACTIVA";
+                act.textContent = "¡EJECUTAR COMPRA!";
+                act.style.color = "var(--green)";
+                beep();
+            } else if (dist <= 0.50) { // CERCA
+                panel.className = "trigger-zone wait-mode";
+                lbl.textContent = "PREPARANDO ENTRADA...";
+                act.textContent = "ESPERA RETROCESO";
+                act.style.color = "var(--blue)";
+            } else {
+                panel.className = "trigger-zone";
+                lbl.textContent = "ESCANEO DE ALTA PROBABILIDAD";
+                act.textContent = "BUSCANDO ZONA";
+                act.style.color = "#444";
+            }
         }
 
-        document.getElementById('lv-e').textContent = p.toFixed(2);
-        document.getElementById('lv-s').textContent = (p - 2.50).toFixed(2);
-        document.getElementById('lv-t').textContent = (p + 7.50).toFixed(2);
-        document.getElementById('vol').textContent = (s >= 5) ? "HIGH" : "NORMAL";
+        document.getElementById('lv-e').textContent = entryPrice.toFixed(2);
+        document.getElementById('lv-s').textContent = (entryPrice - 2.50).toFixed(2);
+        document.getElementById('lv-t').textContent = (entryPrice + 7.50).toFixed(2);
+    }
+
+    function runRisk() {
+        const cap = document.getElementById('in-cap').value;
+        document.getElementById('v-cap').textContent = `$${parseInt(cap).toLocaleString()}`;
+        const loss = cap * 0.01;
+        document.getElementById('res-loss').textContent = `-$${loss.toFixed(0)}`;
+        document.getElementById('res-lots').textContent = `${(loss/250).toFixed(2)} LOTS`;
+        document.getElementById('res-win').textContent = `+$${(loss*3).toFixed(0)}`;
     }
 
     function beep() {
-        let o = audioCtx.createOscillator();
-        let g = audioCtx.createGain();
-        o.connect(g); g.connect(audioCtx.destination);
-        o.frequency.value = 800; g.gain.value = 0.05;
-        o.start(); o.stop(audioCtx.currentTime + 0.15);
+        let o = audio.createOscillator();
+        let g = audio.createGain();
+        o.connect(g); g.connect(audio.destination);
+        o.frequency.value = 880; g.gain.value = 0.03;
+        o.start(); o.stop(audio.currentTime + 0.1);
     }
 
-    setInterval(tick, 2500); tick();
-    runCalc();
+    setInterval(stream, 2500); stream(); runRisk();
 </script>
 </body>
 </html>
