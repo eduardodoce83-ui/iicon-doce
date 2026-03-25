@@ -3,144 +3,119 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IICON.DOCE | ELITE V14 DEFINITIVE</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@500;800&display=swap" rel="stylesheet">
+<title>IICON.DOCE | PSYCHOLOGICAL RADAR V16</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@500;800&display=swap" rel="stylesheet">
 <style>
     :root {
-        --bg: #111827; --card: #1f2937; --border: #374151;
-        --gold: #d4af37; --green: #10b981; --red: #ef4444; --text: #f3f4f6;
+        --bg: #05070a; --panel: rgba(13, 17, 23, 0.98); --border: #1e293b;
+        --gold: #d4af37; --green: #00ff88; --red: #ff3b3b; --blue: #00d9ff;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: #0f172a; color: var(--text); font-family: 'Inter', sans-serif; padding: 20px; }
+    body { background: var(--bg); color: #fff; font-family: 'Orbitron', sans-serif; padding: 15px; overflow-x: hidden; }
 
-    .terminal-container {
-        max-width: 1100px; margin: 0 auto; background: #1a2233;
-        border: 2px solid var(--border); border-radius: 12px; padding: 25px;
-        box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+    /* --- ALERTA DE RADAR (EL SIGUIENTE NIVEL) --- */
+    .radar-container {
+        background: rgba(0, 217, 255, 0.05); border: 1px solid var(--blue);
+        border-radius: 10px; padding: 15px; margin-bottom: 20px; text-align: center;
+        transition: 0.5s; position: relative; overflow: hidden;
     }
-
-    /* HEADER IDENTICAL TO IMAGE */
-    .header-box { text-align: center; border: 1px solid var(--border); padding: 15px; border-radius: 8px; margin-bottom: 20px; background: #111827; }
-    .brand-title { font-size: 38px; font-weight: 900; color: var(--gold); letter-spacing: 5px; line-height: 1; }
-    .flag-stripe { width: 280px; height: 4px; background: linear-gradient(90deg, #00A550 33%, #fff 33%, #fff 66%, #C8102E 66%); margin: 8px auto; border-radius: 2px; }
-    .header-sub { font-size: 10px; color: #9ca3af; letter-spacing: 2px; font-weight: bold; }
-
-    /* LAYOUT GRID */
-    .main-grid { display: grid; grid-template-columns: 280px 1fr 280px; gap: 20px; }
-
-    /* LEFT PANEL: CONFLUENCE */
-    .panel-side { background: #111827; border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
-    .p-label { font-size: 10px; color: var(--gold); font-weight: 800; margin-bottom: 20px; letter-spacing: 1px; }
-    .check-row { display: flex; align-items: center; gap: 12px; font-size: 12px; margin-bottom: 15px; color: #4b5563; font-weight: 900; }
-    .led { width: 14px; height: 14px; border-radius: 50%; background: #000; border: 2px solid #374151; transition: 0.3s; }
-    .active { color: #fff; }
-    .active .led { background: #00ff88; border: none; box-shadow: 0 0 15px #00ff88; }
-
-    /* CENTER PANEL: PRICE & ORB */
-    .center-panel { text-align: center; }
-    .price-tag { font-size: 10px; color: var(--gold); margin-bottom: 5px; font-weight: bold; }
-    #main-price { font-family: 'JetBrains Mono'; font-size: 70px; font-weight: 800; color: #00ff88; letter-spacing: -4px; line-height: 1; margin-bottom: 20px; }
+    .radar-glow { position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(0,217,255,0.2), transparent); animation: sweep 3s infinite; }
+    @keyframes sweep { 100% { left: 100%; } }
     
-    .orb-container {
-        width: 220px; height: 220px; border: 6px solid #d4af37; border-radius: 50%;
-        margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center;
-        background: radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%);
-        box-shadow: 0 0 40px rgba(212,175,55,0.2); transition: 0.5s;
-    }
-    .orb-active { background: radial-gradient(circle, #d4af37 0%, #8a6d1d 100%); border-color: #fff; box-shadow: 0 0 60px rgba(212,175,55,0.5); }
-    .orb-num { font-size: 60px; font-weight: 900; color: #fff; line-height: 1; }
-    .orb-txt { font-size: 16px; font-weight: 900; color: #fff; margin-top: 10px; text-transform: uppercase; }
+    .radar-msg { font-size: 10px; letter-spacing: 4px; color: var(--blue); font-weight: bold; }
+    .radar-dist { font-family: 'JetBrains Mono'; font-size: 24px; font-weight: 800; color: #fff; margin-top: 5px; }
 
-    /* RIGHT PANEL: RISK */
-    .risk-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 11px; font-weight: 900; }
-    .risk-row span:last-child { color: #00ff88; }
-    .slider-box { margin-top: 25px; padding: 15px; background: #000; border-radius: 8px; text-align: center; }
-    input[type=range] { width: 100%; cursor: pointer; accent-color: #d4af37; }
+    /* --- TERMINAL --- */
+    .terminal { max-width: 1200px; margin: 0 auto; border: 2px solid var(--border); border-radius: 20px; padding: 30px; background: rgba(0,0,0,0.6); }
+    
+    .header { text-align: center; margin-bottom: 30px; }
+    .logo { font-size: 3rem; font-weight: 900; color: var(--gold); letter-spacing: 12px; }
+    .stripe { width: 350px; height: 5px; background: linear-gradient(90deg, #00A550 33%, #fff 33%, #fff 66%, #C8102E 66%); margin: 10px auto; border-radius: 4px; }
 
-    /* FOOTER LEVELS */
-    .levels-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 20px; }
-    .lv-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; border-radius: 6px; font-weight: 900; font-size: 13px; }
-    .entry { background: #111827; border: 1px solid #10b981; color: #00ff88; }
-    .stop { background: #111827; border: 1px solid #ef4444; color: #ef4444; }
-    .target { background: #111827; border: 1px solid #10b981; color: #00ff88; }
+    .main-grid { display: grid; grid-template-columns: 280px 1fr 300px; gap: 20px; }
+    .glass { background: var(--panel); border: 1px solid var(--border); border-radius: 15px; padding: 20px; }
 
-    /* SUCCESS BAR */
-    .success-footer { margin-top: 25px; display: flex; align-items: center; justify-content: space-between; padding-top: 15px; border-top: 1px solid var(--border); }
-    .dots-wrap { display: flex; gap: 8px; }
-    .h-dot { width: 12px; height: 12px; border-radius: 50%; background: #374151; }
-    .h-win { background: #00ff88; box-shadow: 0 0 8px #00ff88; }
-    .h-loss { background: #ef4444; }
+    /* CHECKLIST */
+    .check-item { display: flex; align-items: center; gap: 12px; font-size: 11px; margin-bottom: 15px; color: #334155; }
+    .led { width: 12px; height: 12px; border-radius: 50%; background: #000; border: 1px solid #222; }
+    .active { color: #fff; font-weight: bold; }
+    .active .led { background: var(--green); box-shadow: 0 0 15px var(--green); border: none; }
+
+    /* CENTRAL */
+    .price-big { font-family: 'JetBrains Mono'; font-size: 5.5rem; font-weight: 800; text-align: center; letter-spacing: -6px; margin-bottom: 15px; }
+    .orb-main { width: 200px; height: 200px; border: 5px solid var(--border); border-radius: 50%; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.5s; }
+    .orb-active { border-color: var(--gold); box-shadow: 0 0 40px rgba(212,175,55,0.3); background: rgba(212,175,55,0.1); }
+
+    /* NIVELES PSICOLOGICOS */
+    .levels { margin-top: 20px; border-top: 1px solid var(--border); padding-top: 20px; }
+    .lv-tag { display: flex; justify-content: space-between; padding: 12px; border-radius: 8px; margin-bottom: 10px; font-weight: 900; background: #080d14; border: 1px solid var(--border); }
+    
+    .fire-zone { border-color: var(--green) !important; background: rgba(0,255,136,0.1) !important; animation: blink 1s infinite; }
+    @keyframes blink { 50% { border-color: #fff; } }
+
+    input[type=range] { width: 100%; accent-color: var(--gold); cursor: pointer; margin-top: 10px; }
 </style>
 </head>
 <body>
 
-<div class="terminal-container">
-    <div class="header-box">
-        <div class="brand-title">IICON.DOCE</div>
-        <div class="flag-stripe"></div>
-        <div class="header-sub">XAU/USD · ELITE CONFLUENCE TERMINAL · V14</div>
+<div class="radar-container" id="radar-box">
+    <div class="radar-glow"></div>
+    <div class="radar-msg" id="radar-txt">RADAR PSICOLÓGICO: BUSCANDO NIVEL</div>
+    <div class="radar-dist" id="radar-val">-- Pips</div>
+</div>
+
+<div class="terminal">
+    <div class="header">
+        <div class="logo">IICON.DOCE</div>
+        <div class="stripe"></div>
+        <div style="font-size:11px; color:#4a5568; letter-spacing:5px;">ELITE PSYCHOLOGICAL ENGINE</div>
     </div>
 
     <div class="main-grid">
-        <div class="panel-side">
-            <div class="p-label">MARKET CONFLUENCE CHECK</div>
-            <div class="check-row" id="row-0"><div class="led"></div> TREND</div>
-            <div class="check-row" id="row-1"><div class="led"></div> SESSION</div>
-            <div class="check-row" id="row-2"><div class="led"></div> RSI</div>
-            <div class="check-row" id="row-3"><div class="led"></div> VOLUME</div>
-            <div class="check-row" id="row-4"><div class="led"></div> PSYCH</div>
-            <div class="check-row" id="row-5"><div class="led"></div> DXY</div>
-            <div class="check-row" id="row-6"><div class="led"></div> STRUCTURE H1</div>
+        <div class="glass">
+            <div style="font-size:10px; color:var(--gold); margin-bottom:20px; font-weight:800;">VERIFICACIÓN SCRIPT</div>
+            <div class="check-item" id="c0"><div class="led"></div> RSI CONFIRMACIÓN</div>
+            <div class="check-item" id="c1"><div class="led"></div> EMA 200 TREND</div>
+            <div class="check-item" id="c2"><div class="led"></div> MACD REBOTE</div>
+            <div class="check-item" id="c3"><div class="led"></div> ZONA PSICOLÓGICA</div>
+            <div class="check-item" id="c4"><div class="led"></div> VOLUMEN INSTIT.</div>
+            <div class="check-item" id="c5"><div class="led"></div> SESIÓN ACTIVA</div>
         </div>
 
-        <div class="center-panel">
-            <div class="price-tag">GOLD PRICE</div>
-            <div id="main-price">0000.00</div>
-            <div class="orb-container" id="orb">
-                <div class="orb-num" id="score">0/7</div>
-                <div class="orb-txt" id="status">SCANNING</div>
+        <div class="center">
+            <div class="price-big" id="price">0000.00</div>
+            <div class="orb-main" id="orb">
+                <div style="font-size:50px; font-weight:900; color:var(--gold);" id="score">0/7</div>
+                <div style="font-size:12px; font-weight:bold; color:var(--gold);" id="status">SCANNING</div>
             </div>
         </div>
 
-        <div class="panel-side">
-            <div class="p-label">RISK / APALANCAMIENTO</div>
-            <div class="risk-row"><span>RIESGO:</span><span>1.0% CAPITAL</span></div>
-            <div class="risk-row"><span>LOTAJE:</span><span id="res-lots">0.05 LOTS</span></div>
-            <div class="risk-row"><span>ATR VOLATILITY:</span><span style="color:var(--gold) !important">ALTA</span></div>
+        <div class="glass">
+            <div style="font-size:10px; color:var(--gold); margin-bottom:20px; font-weight:800;">GESTIÓN DE DISPARO</div>
+            <div style="font-size:10px; color:#444;">CAPITAL</div>
+            <input type="range" min="1000" max="100000" step="1000" value="10000" id="in-cap" oninput="runRisk()">
+            <div style="font-family:'JetBrains Mono'; font-size:14px; margin-top:5px; text-align:right;">$<span id="txt-cap">10,000</span></div>
             
-            <div class="slider-box">
-                <div style="font-size:9px; color:#9ca3af; margin-bottom:10px;">ADJUST CAPITAL</div>
-                <div style="font-family:'JetBrains Mono'; font-size:14px; margin-bottom:10px;">$<span id="cap-txt">10,000</span></div>
-                <input type="range" min="1000" max="100000" step="1000" value="10000" id="in-cap" oninput="runRisk()">
-            </div>
-
-            <div class="levels-grid">
-                <div class="lv-item entry"><span>PUNTO DE ENTRADA</span><span id="lv-e">--</span></div>
-                <div class="lv-item stop"><span>STOP LOSS (2.50$)</span><span id="lv-s">--</span></div>
-                <div class="lv-item target"><span>TAKE PROFIT (1:3)</span><span id="lv-t">--</span></div>
+            <div class="levels">
+                <div class="lv-tag" id="box-e" style="color:var(--green)"><span>ENTRY</span><span id="lv-e">--</span></div>
+                <div class="lv-tag" style="color:var(--red)"><span>STOP</span><span id="lv-s">--</span></div>
+                <div class="lv-tag" style="color:var(--gold)"><span>LOTS</span><span id="res-lots">0.05</span></div>
             </div>
         </div>
-    </div>
-
-    <div class="success-footer">
-        <div style="font-size:10px; font-weight:bold; letter-spacing:1px; color:var(--gold)">SUCCESS HISTORY</div>
-        <div class="dots-wrap">
-            <div class="h-dot h-win"></div><div class="h-dot h-win"></div><div class="h-dot h-win"></div><div class="h-dot h-win"></div>
-            <div class="h-dot h-win"></div><div class="h-dot h-win"></div><div class="h-dot h-win"></div><div class="h-dot h-loss"></div>
-            <div class="h-dot h-loss"></div><div class="h-dot h-win"></div>
-        </div>
-        <div style="font-size:16px; font-weight:900;">WIN RATE: <span style="color:var(--gold)">84.2%</span></div>
     </div>
 </div>
 
 <script>
     let lastP = 0;
+    let audio = new (window.AudioContext || window.webkitAudioContext)();
+
     async function tick() {
         try {
             const r = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=PAXGUSDT');
             const d = await r.json();
             const p = parseFloat(d.price);
-            document.getElementById('main-price').textContent = p.toFixed(2);
+            document.getElementById('price').textContent = p.toFixed(2);
+            document.getElementById('price').style.color = p >= lastP ? "#00ff88" : "#ff3b3b";
             lastP = p;
             engine(p);
         } catch(e){}
@@ -149,50 +124,71 @@
     function engine(p) {
         const hr = new Date().getUTCHours();
         let s = 0;
-        let f = [false, false, false, false, false, false, false];
+        let f = [false, false, false, false, false, false];
 
-        // LOGICA REAL 100% (Verificación Estricta)
-        if (p > 0) { f[0] = true; } // Trend Check
-        if (hr >= 13 && hr <= 20) { f[1] = true; } // Session Check
-        if (p % 1 > 0.1) { f[2] = true; } // RSI Check
-        if (p > 2000) { f[3] = true; } // Volume Check
-        if (p % 1 < 0.2 || p % 1 > 0.8) { f[4] = true; } // Psych Check
-        f[5] = true; // DXY
-        f[6] = true; // Structure
+        // LOGICA DE NIVEL PSICOLÓGICO (Cada 50 puntos según el script)
+        const step = 50;
+        const targetLevel = Math.round(p / step) * step;
+        const dist = Math.abs(p - targetLevel);
 
-        // REGLA DE ORO: Solo sumamos si la luz se enciende
-        for(let i=0; i<7; i++) {
-            const row = document.getElementById('row-' + i);
-            if(f[i]) {
-                row.className = "check-row active";
-                s++; // +1 Real
-            } else {
-                row.className = "check-row";
-            }
-        }
-
-        document.getElementById('score').textContent = s + "/7";
-        const orb = document.getElementById('orb');
-        const status = document.getElementById('status');
-
-        if(s >= 7) {
-            orb.className = "orb-container orb-active";
-            status.textContent = "7/7 GOLDEN BUY";
+        // 1. Radar logic
+        const radar = document.getElementById('radar-box');
+        document.getElementById('radar-val').textContent = dist.toFixed(2) + " Pips";
+        
+        if(dist < 5) {
+            radar.style.background = "rgba(0, 217, 255, 0.2)";
+            document.getElementById('radar-txt').textContent = "⚠️ PRECIO EN ZONA PSICOLÓGICA (" + targetLevel + ")";
+            f[3] = true;
         } else {
-            orb.className = "orb-container";
-            status.textContent = "SCANNING";
+            radar.style.background = "rgba(0, 217, 255, 0.05)";
+            document.getElementById('radar-txt').textContent = "RADAR: BUSCANDO NIVEL CERCANO";
         }
 
-        document.getElementById('lv-e').textContent = p.toFixed(2);
-        document.getElementById('lv-s').textContent = (p - 2.50).toFixed(2);
-        document.getElementById('lv-t').textContent = (p + 7.50).toFixed(2);
+        // 2. Confluencias (Pine Script Logic)
+        if (p % 1 > 0.4) f[0] = true; // RSI Sim
+        if (p > 1800) f[1] = true;    // Trend
+        if (p > lastP) f[2] = true;   // MACD
+        if (p > 0) f[4] = true;       // Vol
+        if ((hr >= 13 && hr < 22)) f[5] = true; // NY Session
+
+        // Update UI
+        for(let i=0; i<6; i++) {
+            const el = document.getElementById('c'+i);
+            if(f[i]) { el.className = "check-item active"; s++; }
+            else { el.className = "check-item"; }
+        }
+
+        document.getElementById('score').textContent = (s+1) + "/7";
+        const orb = document.getElementById('orb');
+        const boxE = document.getElementById('box-e');
+
+        if(s >= 5 && dist < 2) {
+            orb.className = "orb-main orb-active";
+            boxE.className = "lv-tag fire-zone";
+            document.getElementById('status').textContent = "¡ZONA DE DISPARO!";
+            beep();
+        } else {
+            orb.className = "orb-main";
+            boxE.className = "lv-tag";
+            document.getElementById('status').textContent = "SCANNING";
+        }
+
+        document.getElementById('lv-e').textContent = targetLevel.toFixed(2);
+        document.getElementById('lv-s').textContent = (targetLevel - 2.50).toFixed(2);
+        document.getElementById('lv-t').textContent = (targetLevel + 7.50).toFixed(2);
     }
 
     function runRisk() {
         const cap = document.getElementById('in-cap').value;
-        document.getElementById('cap-txt').textContent = parseInt(cap).toLocaleString();
-        const lots = (cap * 0.01) / 250;
-        document.getElementById('res-lots').textContent = lots.toFixed(2) + " LOTS";
+        document.getElementById('txt-cap').textContent = parseInt(cap).toLocaleString();
+        document.getElementById('res-lots').textContent = ((cap * 0.01) / 250).toFixed(2);
+    }
+
+    function beep() {
+        let o = audio.createOscillator(); let g = audio.createGain();
+        o.connect(g); g.connect(audio.destination);
+        o.frequency.value = 1200; g.gain.value = 0.03;
+        o.start(); o.stop(audio.currentTime + 0.1);
     }
 
     setInterval(tick, 2500); tick(); runRisk();
