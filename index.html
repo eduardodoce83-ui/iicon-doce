@@ -8,215 +8,180 @@
 <title>IICON.DOCE · BLACK GOLD</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 <style>
-:root { --bg: #000; --s: #0a0a0a; --b: #1a1a1a; --gold: #FFD700; --green: #00E676; --red: #FF1744; --white: #fff; --muted: #444; }
+:root {
+  --bg: #000000; --s: #0a0a0a; --b: #1a1a1a;
+  --gold: #FFD700; --green: #00E676; --red: #FF1744;
+  --white: #ffffff; --muted: #444444;
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-body { background: var(--bg); color: var(--white); font-family: 'Space Mono', monospace; min-height: 100vh; padding-bottom: 50px; }
+body { background: var(--bg); color: var(--white); font-family: 'Space Mono', monospace; min-height: 100vh; overflow-x: hidden; }
 
-.brand { display: flex; flex-direction: column; align-items: center; padding: 30px 0 10px; }
-.brand-name { font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 800; color: var(--gold); letter-spacing: 8px; text-shadow: 0 0 20px rgba(255, 215, 0, 0.2); }
-.brand-stripe { width: 150px; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin-top: 8px; }
+/* ─── BRAND ─── */
+.brand { display: flex; flex-direction: column; align-items: center; padding: 20px 0 10px; background: var(--bg); }
+.brand-name { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; color: var(--gold); letter-spacing: 6px; }
+.brand-stripe { width: 100px; height: 1px; background: var(--gold); margin-top: 5px; opacity: 0.3; }
 
-header { background: var(--bg); border-bottom: 1px solid var(--b); padding: 15px; position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; }
-.h-pair { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; color: var(--gold); }
-.h-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 10px var(--green); display: inline-block; margin-right: 8px; }
+/* ─── HEADER ─── */
+header { background: var(--bg); border-bottom: 1px solid var(--b); padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+.h-pair { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 800; color: var(--gold); }
+.h-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 10px var(--green); display: inline-block; margin-right: 6px; }
 
-.page { padding: 15px; }
-.card { background: var(--s); border: 1px solid var(--b); border-radius: 12px; padding: 20px; margin-bottom: 15px; }
-.sec-title { font-size: 10px; color: var(--muted); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 10px; border-left: 2px solid var(--gold); padding-left: 8px; }
+.page { padding: 12px; max-width: 1200px; margin: 0 auto; }
+.card { background: var(--s); border: 1px solid var(--b); border-radius: 12px; padding: 15px; margin-bottom: 12px; }
+.sec-title { font-size: 9px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; border-left: 2px solid var(--gold); padding-left: 8px; }
 
-.price-display { font-family: 'Syne', sans-serif; font-size: 48px; font-weight: 800; line-height: 1; letter-spacing: -2px; }
-.up { color: var(--green); } .dn { color: var(--red); }
-.flash { animation: flashEffect 0.3s ease; }
-@keyframes flashEffect { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+/* ─── PRECIO & MONITOR ─── */
+.grid-top { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.price-display { font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 800; letter-spacing: -1px; }
+.mon-main { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; color: var(--muted); text-align: center; }
+.buy-active { border: 1px solid var(--green); background: rgba(0, 230, 118, 0.05); color: var(--green) !important; }
 
-/* STOCHASTIC RSI */
-.stoch-wrap { display: flex; align-items: center; gap: 15px; margin-top: 10px; }
-.stoch-bar-bg { flex: 1; height: 6px; background: var(--b); border-radius: 3px; overflow: hidden; }
-.stoch-bar-fill { height: 100%; width: 0%; background: var(--gold); transition: width 0.5s ease; }
-.stoch-val { font-size: 14px; font-weight: 800; min-width: 35px; text-align: right; }
+/* ─── CHART (TRADINGVIEW) ─── */
+.chart-container { height: 500px; border-radius: 12px; overflow: hidden; border: 1px solid var(--b); margin-bottom: 15px; }
 
-/* MONITOR */
-.monitor { text-align: center; padding: 30px 10px; border: 1px dashed var(--b); border-radius: 20px; transition: 0.5s; }
-.monitor.buy-active { border: 1px solid var(--green); background: rgba(0, 230, 118, 0.05); box-shadow: 0 0 30px rgba(0, 230, 118, 0.2); }
-.mon-main { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; color: var(--muted); }
-.mon-buy { color: var(--green); text-shadow: 0 0 20px var(--green); }
-
-/* NIVELES */
-.nivel-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+/* ─── NIVELES ─── */
+.nivel-row { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
 .nivel-line { flex: 1; height: 1px; background: var(--b); }
-.nivel-line.active { background: var(--gold); box-shadow: 0 0 10px var(--gold); height: 2px; }
-.nivel-val { font-size: 13px; font-weight: 700; width: 70px; text-align: right; color: var(--muted); }
+.nivel-line.active { background: var(--gold); height: 2px; }
+.nivel-val { font-size: 11px; font-weight: 700; width: 60px; text-align: right; color: var(--muted); }
 .nivel-val.active { color: var(--gold); }
+
+@media (max-width: 768px) {
+    .grid-top { grid-template-columns: 1fr; }
+    .chart-container { height: 400px; }
+}
 </style>
 </head>
 <body>
 
 <div class="brand">
-    <div class="brand-name">IICON.DOCE</div>
-    <div class="brand-stripe"></div>
+  <div class="brand-name">IICON.DOCE</div>
+  <div class="brand-stripe"></div>
 </div>
 
 <header>
-    <div><div class="h-dot"></div><span class="h-pair">XAU/USD · LIVE</span></div>
-    <div id="clock" style="font-size:12px; color:var(--muted)">00:00:00</div>
+  <div><div class="h-dot"></div><span class="h-pair">XAU/USD · LIVE SNIPER</span></div>
+  <div id="clock" style="font-size:11px; color:var(--muted)">00:00:00</div>
 </header>
 
 <div class="page">
-    <div class="card">
-        <div class="sec-title">GOLD PRICE SNIPER</div>
-        <div class="price-display" id="price">0000.00</div>
-        <div id="change" style="font-size:12px; margin-top:5px; color:var(--muted)">Conectando...</div>
-    </div>
-
-    <div class="card">
-        <div class="sec-title">STOCHASTIC RSI REAL-TIME</div>
-        <div class="stoch-wrap">
-            <div class="stoch-bar-bg"><div class="stoch-bar-fill" id="stoch-fill"></div></div>
-            <div class="stoch-val" id="stoch-num">0</div>
+    
+    <div class="grid-top">
+        <div class="card">
+            <div class="sec-title">PRECIO REAL</div>
+            <div class="price-display" id="price">0000.00</div>
+            <div id="change" style="font-size:10px; margin-top:4px; color:var(--muted)">Conectando...</div>
         </div>
-        <div id="stoch-status" style="font-size:9px; margin-top:8px; text-align:center; font-weight:700;">CALCULANDO...</div>
-    </div>
 
-    <div class="card">
-        <div class="sec-title">SCORE DE COMPRA</div>
-        <div id="score-val" style="font-family:Syne; font-size:36px; font-weight:800;">0%</div>
-        <div style="height:4px; background:var(--b); border-radius:2px; margin-top:10px; overflow:hidden;">
-            <div id="bar-fill" style="height:100%; width:0%; background:var(--gold); transition:0.5s;"></div>
+        <div class="card" id="monitor" style="display:flex; flex-direction:column; justify-content:center; align-items:center;">
+            <div class="mon-main" id="mon-text">SCANNING POI</div>
+            <div id="mon-sub" style="font-size:8px; color:var(--muted); margin-top:5px; text-transform:uppercase;">Esperando Nivel Psicológico</div>
         </div>
     </div>
 
-    <div class="card monitor" id="monitor">
-        <div class="mon-main" id="mon-text">BUSCANDO POI</div>
-        <div id="mon-sub" style="font-size:10px; color:var(--muted); margin-top:10px;">Analizando niveles de 50 pts + Stoch</div>
-        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-top:20px; border-top:1px solid var(--b); padding-top:20px;">
-            <div><div style="font-size:8px; color:var(--muted)">ENTRY</div><div id="val-e">--</div></div>
-            <div><div style="font-size:8px; color:var(--red)">STOP</div><div id="val-s" style="color:var(--red)">--</div></div>
-            <div><div style="font-size:8px; color:var(--green)">TARGET</div><div id="val-t" style="color:var(--green)">--</div></div>
+    <div class="chart-container">
+        <div id="tradingview_widget" style="height: 100%; width: 100%;"></div>
+    </div>
+
+    <div class="grid-top">
+        <div class="card">
+            <div class="sec-title">NIVELES CADA 50 PTS</div>
+            <div id="niveles-box"></div>
+        </div>
+
+        <div class="card">
+            <div class="sec-title">PUNTOS DE ENTRADA</div>
+            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-top:10px; text-align:center;">
+                <div><div style="font-size:7px; color:var(--muted)">ENTRY</div><div id="val-e" style="font-weight:bold; font-size:14px;">--</div></div>
+                <div><div style="font-size:7px; color:var(--red)">STOP</div><div id="val-s" style="font-weight:bold; font-size:14px; color:var(--red)">--</div></div>
+                <div><div style="font-size:7px; color:var(--green)">TARGET</div><div id="val-t" style="font-weight:bold; font-size:14px; color:var(--green)">--</div></div>
+            </div>
         </div>
     </div>
 
-    <div class="card">
-        <div class="sec-title">NIVELES PSICOLÓGICOS</div>
-        <div id="niveles-box"></div>
-    </div>
 </div>
 
+<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 <script>
-let price = 0, lastPrice = 0, stochK = 50;
-let history = []; // Guardará los cierres reales para el RSI
+let price = 0, lastPrice = 0;
 const STEP = 50;
 
-// 1. INICIALIZAR DATOS HISTÓRICOS Y WEBSOCKET
-async function startEngine() {
-    try {
-        // Carga inicial de velas para cálculo real de indicadores
-        const response = await fetch('https://api.binance.com/api/v3/klines?symbol=PAXGUSDT&interval=15m&limit=30');
-        const data = await response.json();
-        history = data.map(d => parseFloat(d[4])); // Obtener cierres
-        calculateStochRSI();
-    } catch(e) { console.error("Error cargando historial"); }
+// 1. INICIALIZAR GRÁFICO TV
+new TradingView.widget({
+  "autosize": true,
+  "symbol": "OANDA:XAUUSD",
+  "interval": "15",
+  "timezone": "Etc/UTC",
+  "theme": "dark",
+  "style": "1",
+  "locale": "es",
+  "toolbar_bg": "#000000",
+  "enable_publishing": false,
+  "hide_top_toolbar": false,
+  "save_image": false,
+  "container_id": "tradingview_widget"
+});
 
+// 2. MOTOR DE PRECIO REAL
+function init() {
     const ws = new WebSocket('wss://stream.binance.com:9443/ws/paxgusdt@ticker');
     ws.onmessage = (e) => {
         const d = JSON.parse(e.data);
         price = parseFloat(d.c);
+        const ch = parseFloat(d.P);
         
         const pEl = document.getElementById('price');
         pEl.textContent = price.toFixed(2);
-        pEl.className = 'price-display ' + (price > lastPrice ? 'up flash' : 'dn flash');
-        setTimeout(() => pEl.classList.remove('flash'), 250);
-
-        document.getElementById('change').textContent = (d.P >= 0 ? '+' : '') + d.P + '% HOY';
-        document.getElementById('change').style.color = d.P >= 0 ? 'var(--green)' : 'var(--red)';
-
+        pEl.style.color = price > lastPrice ? 'var(--green)' : 'var(--red)';
+        
+        document.getElementById('change').textContent = (ch >= 0 ? '+' : '') + ch.toFixed(2) + '% HOY';
+        
         updateLogic();
         lastPrice = price;
     };
-    ws.onclose = () => setTimeout(startEngine, 2000);
+    ws.onclose = () => setTimeout(init, 2000);
 }
 
-// 2. CÁLCULO REAL DEL STOCHASTIC RSI
-function calculateStochRSI() {
-    if (history.length < 14) return;
-    
-    // RSI Simple
-    let gains = 0, losses = 0;
-    for (let i = history.length - 14; i < history.length; i++) {
-        let diff = history[i] - history[i-1];
-        if (diff >= 0) gains += diff; else losses -= diff;
-    }
-    let rsi = 100 - (100 / (1 + (gains / 14) / (losses / 14 || 1)));
-    
-    // Stochastic sobre el RSI (Simulado en tiempo real con micro-oscilación)
-    stochK = (stochK * 0.95) + (rsi * 0.05);
-    
-    const fill = document.getElementById('stoch-fill');
-    const num = document.getElementById('stoch-num');
-    const status = document.getElementById('stoch-status');
-
-    fill.style.width = stochK + '%';
-    num.textContent = Math.round(stochK);
-
-    if (stochK <= 20) {
-        fill.style.background = 'var(--green)';
-        status.textContent = "SOBREVENTA CRÍTICA (BUY ZONE)";
-        status.style.color = "var(--green)";
-    } else if (stochK >= 80) {
-        fill.style.background = 'var(--red)';
-        status.textContent = "SOBRECOMPRA (WAIT)";
-        status.style.color = "var(--red)";
-    } else {
-        fill.style.background = 'var(--gold)';
-        status.textContent = "ZONA NEUTRAL";
-        status.style.color = "var(--muted)";
-    }
-}
-
-// 3. SEÑALES Y NIVELES
+// 3. LÓGICA DE NIVELES Y SEÑALES
 function updateLogic() {
     const base = Math.round(price / STEP) * STEP;
     const dist = Math.abs(price - base);
     const inZone = dist < 4.0;
     
-    calculateStochRSI(); // Recalcular con cada tick
-
-    // UI NIVELES
+    // UI Niveles
     let h = '';
-    for(let i=2; i>=-2; i--) {
+    for(let i=1; i>=-1; i--) {
         const l = base + (i * STEP);
         const act = Math.abs(price - l) < 4.0;
-        h += `<div class="nivel-row"><div class="nivel-line ${act?'active':''}"></div><div class="nivel-val ${act?'active':''}">${l}</div></div>`;
+        h += `<div class="nivel-row">
+            <div class="nivel-line ${act?'active':''}"></div>
+            <div class="nivel-val ${act?'active':''}">${l}</div>
+        </div>`;
     }
     document.getElementById('niveles-box').innerHTML = h;
 
-    // SCORE
-    let score = 0;
-    if (inZone) score += 30;
-    if (stochK <= 25) score += 40;
-    if (price > base && inZone) score += 30;
-
-    document.getElementById('score-val').textContent = score + '%';
-    document.getElementById('bar-fill').style.width = score + '%';
-    document.getElementById('bar-fill').style.background = score >= 70 ? 'var(--green)' : 'var(--gold)';
-
-    // SEÑAL FINAL
+    // Monitor Señal
     const mon = document.getElementById('monitor');
-    if (score >= 70 && stochK <= 30) {
-        mon.className = 'card monitor buy-active';
-        document.getElementById('mon-text').textContent = 'ORDER BUY NOW';
-        document.getElementById('mon-text').className = 'mon-main mon-buy';
+    const monText = document.getElementById('mon-text');
+
+    if (inZone && price > (base - 1)) {
+        mon.className = 'card buy-active';
+        monText.textContent = 'ORDER BUY NOW';
+        monText.style.color = 'var(--green)';
+        
         document.getElementById('val-e').textContent = price.toFixed(1);
         document.getElementById('val-s').textContent = (base - 15).toFixed(1);
         document.getElementById('val-t').textContent = (base + 50).toFixed(1);
     } else {
-        mon.className = 'card monitor';
-        document.getElementById('mon-text').textContent = 'BUSCANDO POI';
-        document.getElementById('mon-text').className = 'mon-main';
+        mon.className = 'card';
+        monText.textContent = 'SCANNING POI';
+        monText.style.color = 'var(--muted)';
     }
 }
 
 setInterval(() => document.getElementById('clock').textContent = new Date().toLocaleTimeString('es-ES'), 1000);
-startEngine();
+init();
 </script>
 </body>
 </html>
